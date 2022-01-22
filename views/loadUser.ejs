@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="/assets/jquery-3.6.0.min.js"></script>
+    <script src="/assets/bootstrap.js"></script>
+    <script defer src="/assets/functions.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <title>Editar Usuario</title>
+  </head>
+
+  <body>
+    <div id="navBar"></div>
+    <h1><%=user[0].userName%></h1>
+    <div class="contentBackground">
+      <h2>Datos personales</h2>
+      <form class="addUserForm" action="/saveUser" method="post">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              name="inputUserName"
+              id="inputUserName"
+              placeholder="Nombre"
+              value="<%=user[0].userName%>"
+              readonly
+            />
+          </div>
+
+          <div class="col-md-4">
+            <label for="">Correo Electronico</label>
+            <input
+              type="email"
+              class="form-control"
+              name="inputUserEmail"
+              id="inputUserEmail"
+              placeholder="Email"
+              value="<%=user[0].userEmail%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Numero Telefonico</label>
+            <input
+              type="tel"
+              class="form-control"
+              name="inputPhone"
+              id="inputPhone"
+              placeholder="Numero Telefonico"
+              value="<%=user[0].userPhone%>"
+              readonly
+            />
+          </div>
+        </div>
+        <button
+          name="editUser"
+          id="editUser"
+          type="button"
+          onclick="editOneUser()"
+          class="btn btn btn-light col-md-12"
+        >
+          Editar Usuario
+        </button>
+      </form>
+    </div>
+    <script>
+      var i = 1;
+      $(document).ready(function () {
+        $("#navBar").load("/assets/navbar.html");
+      });
+    </script>
+  </body>
+</html>

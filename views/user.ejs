@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="/assets/jquery-3.6.0.min.js"></script>
+    <script src="/assets/bootstrap.js"></script>
+    <script defer src="/assets/functions.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.css" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <title>Usuarios</title>
+  </head>
+
+  <body>
+    <div id="navBar"></div>
+    <h1>Usuarios</h1>
+    <input
+      type="text"
+      name="inputSearch"
+      id="inputSearch"
+      placeholder="Buscar"
+      onkeyup="searchTable()"
+    />
+
+    <div class="table-responsive">
+      <table
+        id="userTable"
+        class="table table-light table-striped table-bordered table-hover"
+      >
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Numero de telefono</th>
+            <th scope="col">Correo electronico</th>
+          </tr>
+        </thead>
+        <tbody id="userInfo">
+          <% var i=1; objects.forEach(function(data){%>
+          <tr class="clickable" onclick="loadUser('<%=data.id%>')" onauxclick="loadUser2('<%=data.id%>')";>
+            <td><%=data.userName%></td>
+            <td><%=data.userPhone%></td>
+            <td><%=data.userEmail%></td>
+          </tr>
+          <% i++; }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+  <script>
+    // var loadTableUser = require(path.join(__dirname, "../assets/loadUser.js"));
+    $(document).ready(function () {
+      $("#navBar").load("/assets/navbar.html");
+      // $("#userInfo").load("/assets/loadUserTable.html");
+    });
+  </script>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="/assets/jquery-3.6.0.min.js"></script>
+    <script src="/assets/bootstrap.js"></script>
+    <script defer src="/assets/functions.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <title>Agregar Sociedad</title>
+  </head>
+  <body>
+    <div id="navBar"></div>
+    <h1><%=business[0].businessName%></h1>
+    <div class="contentBackground">
+      <form class="addUserForm" action="/addBusiness" method="post">
+        <h2>Datos Generales</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Nombre de la sociedad</label>
+            <input
+              id="businessName"
+              type="text"
+              class="form-control"
+              name="inputBusinessName"
+              placeholder="Nombre de la sociedad"
+              value="<%=business[0].businessName%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Cedula Juridica</label>
+            <input
+              id="businessID"
+              type="number"
+              class="form-control"
+              name="businessID"
+              placeholder="Cedula Juridica"
+              value="<%=business[0].businessID%>"
+              readonly
+            />
+          </div>
+        </div>
+        <h2>Representante Legal</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Nombre del Representante</label>
+            <input
+              type="text"
+              class="form-control"
+              name="businessOwner"
+              placeholder="Nombre del Representante"
+              readonly
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Cedula del Representante</label>
+            <input
+              type="text"
+              class="form-control"
+              name="businessOwner"
+              placeholder="Cedula del Representante"
+              readonly
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Fecha de expiracion de la Cedula</label>
+            <input
+              type="date"
+              class="form-control"
+              name="businessOwner"
+              placeholder="Fecha de expiracion de la Cedula"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Fecha de nacimiento</label>
+            <input
+              type="date"
+              class="form-control"
+              name="businessOwner"
+              placeholder="Fecha de nacimiento"
+              readonly
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Domicilio</label>
+            <input
+              type="text"
+              class="form-control"
+              name="businessOwner"
+              placeholder="Domicilio"
+              readonly
+            />
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <button
+            class="btn btn-light"
+            type="button"
+            onclick="addRepFields()"
+          >
+            <i class="glyphicon glyphicon-plus"></i> Agregar Representante
+          </button>
+          <button
+            class="btn btn-light"
+            type="button"
+            onclick="removeRepFields()"
+          >
+            <i class="glyphicon glyphicon-plus"></i> Eliminar Representante
+          </button>
+        </div> -->
+        <h2>Datos contables</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario ATV</label>
+            <input
+              type="text"
+              class="form-control"
+              name="atvUser"
+              placeholder="Usuario ATV"
+              value="<%=business[0].atvUser%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña ATV</label>
+            <input
+              type="text"
+              class="form-control"
+              name="atvPassword"
+              placeholder="Contraseña ATV"
+              value="<%=business[0].atvPassword%>"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Sistema de Facturacion</label>
+            <input
+              type="text"
+              class="form-control"
+              name="billSystem"
+              placeholder="Sistema de Facturacion"
+              value="<%=business[0].billSystem%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Usuario del Sistema de Facturacion</label>
+            <input
+              type="text"
+              class="form-control"
+              name="billSystemUser"
+              placeholder="Usuario del Sistema de Facturacion"
+              value="<%=business[0].billSystemUser%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Contraseña del Sistema de Facturacion</label>
+            <input
+              type="text"
+              class="form-control"
+              name="billSystemPassword"
+              placeholder="Contraseña del Sistema de Facturacion"
+              value="<%=business[0].billSystemPassword%>"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Correo para recepcion de Facturas</label>
+            <input
+              type="text"
+              class="form-control"
+              name="billEmail"
+              placeholder="Correo para recepcion de Facturas"
+              value="<%=business[0].billEmail%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-6">
+            <label for=""
+              >Contraseña del Correo para recepcion de Facturas</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="billEmailPassword"
+              placeholder="Contraseña del Correo para recepcion de Facturas"
+              value="<%=business[0].billEmailPassword%>"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario Travi</label>
+            <input
+              type="text"
+              class="form-control"
+              name="traviUser"
+              placeholder="Usuario Travi"
+              value="<%=business[0].traviUser%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña Travi</label>
+            <input
+              type="text"
+              class="form-control"
+              name="traviPassword"
+              placeholder="Contraseña Travi"
+              value="<%=business[0].traviPassword%>"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario CCSS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="ccssUser"
+              placeholder="Usuario CCSS"
+              value="<%=business[0].ccssUser%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña CCSS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="ccssPassword"
+              placeholder="Contraseña CCSS"
+              value="<%=business[0].ccssPassword%>"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario INS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="insUser"
+              placeholder="Usuario INS"
+              value="<%=business[0].insUser%>"
+              readonly
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña INS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="insPassword"
+              placeholder="Contraseña INS"
+              value="<%=business[0].insPassword%>"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Agente encargado*</label>
+            <select
+              name="userCharge"
+              class="form-select"
+              aria-label="Default select example"
+              disabled
+            >
+              <% var i=0; user.forEach(function(data){ %>
+              <option value="<%=data.id%>"><%=data.userName%></option>
+              <% i++; }) %>
+            </select>
+          </div>
+        </div>
+        <h2>Actividad Económica</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Actividad Económica*</label>
+            <select
+              name="activity"
+              class="form-select"
+              aria-label="Default select example"
+              disabled
+            >
+              <% var j=0; activity.forEach(function(datas){ %>
+              <option value="<%=datas.id%>"><%=datas.activityName%></option>
+              <% j++; }) %>
+            </select>
+          </div>
+        </div>
+        <h2>TIV</h2>
+        <div class="table-responsive">
+          <table class="table table-light table-striped table-bordered tiv">
+            <tr>
+              <th scope="col">A</th>
+              <th scope="col">B</th>
+              <th scope="col">C</th>
+              <th scope="col">D</th>
+              <th scope="col">E</th>
+              <th scope="col">F</th>
+              <th scope="col">G</th>
+              <th scope="col">H</th>
+              <th scope="col">I</th>
+              <th scope="col">J</th>
+              <th scope="col">K</th>
+              <th scope="col">L</th>
+              <th scope="col">M</th>
+              <th scope="col">N</th>
+              <th scope="col">O</th>
+            </tr>
+            <tr>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="a"
+                  value="<%=business[0].TIV.charAt(0)%><%=business[0].TIV.charAt(1)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="b"
+                  value="<%=business[0].TIV.charAt(3)%><%=business[0].TIV.charAt(4)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="c"
+                  value="<%=business[0].TIV.charAt(6)%><%=business[0].TIV.charAt(7)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="d"
+                  value="<%=business[0].TIV.charAt(9)%><%=business[0].TIV.charAt(10)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="1"
+                  value="<%=business[0].TIV.charAt(12)%><%=business[0].TIV.charAt(13)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="f"
+                  value="<%=business[0].TIV.charAt(15)%><%=business[0].TIV.charAt(16)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="g"
+                  value="<%=business[0].TIV.charAt(18)%><%=business[0].TIV.charAt(19)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="h"
+                  value="<%=business[0].TIV.charAt(21)%><%=business[0].TIV.charAt(22)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="i"
+                  value="<%=business[0].TIV.charAt(24)%><%=business[0].TIV.charAt(25)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="j"
+                  value="<%=business[0].TIV.charAt(27)%><%=business[0].TIV.charAt(28)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="k"
+                  value="<%=business[0].TIV.charAt(30)%><%=business[0].TIV.charAt(31)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="l"
+                  value="<%=business[0].TIV.charAt(33)%><%=business[0].TIV.charAt(34)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="m"
+                  value="<%=business[0].TIV.charAt(36)%><%=business[0].TIV.charAt(37)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="n"
+                  value="<%=business[0].TIV.charAt(39)%><%=business[0].TIV.charAt(40)%>"
+                  readonly
+                />
+              </th>
+              <th>
+                <input
+                  size="1"
+                  type="text"
+                  name="o"
+                  value="<%=business[0].TIV.charAt(42)%><%=business[0].TIV.charAt(43)%>"
+                  readonly
+                />
+              </th>
+            </tr>
+          </table>
+        </div>
+        <h2>Logo</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <input type="file" class="form-control" name="picture"/>
+          </div>
+        </div>
+
+        <h2>Contacto</h2>
+
+        <div id="addContact">
+          <div class="row">
+            <div class="col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                name="contactName"
+                placeholder="Nombre"
+                readonly
+              />
+            </div>
+            <div class="col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                name="contactPhone"
+                placeholder="Numero Telefonico"
+                readonly
+              />
+            </div>
+            <div class="col-md-4">
+              <input
+                type="text"
+                class="form-control"
+                name="contactEmail"
+                placeholder="Correo electronico"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button
+            class="btn btn-light"
+            type="button"
+            onclick="addContactFields()"
+          >
+            <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
+          </button>
+        </div>
+        <button
+          name="submit"
+          id="submit"
+          type="submit"
+          class="btn btn btn-light col-md-12"
+        >
+          Agregar Sociedad
+        </button>
+      </form>
+    </div>
+  </body>
+  <script type="module">
+    var i = 1;
+    var j = 1;
+
+    window.addEventListener("load", (event) => {
+      $("#navBar").load("/assets/navbar.html");
+    });
+  </script>
+</html>

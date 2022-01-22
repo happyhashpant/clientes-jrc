@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="/assets/jquery-3.6.0.min.js"></script>
+    <script src="/assets/bootstrap.js"></script>
+    <script defer src="/assets/functions.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <title>Agregar Usuario</title>
+  </head>
+
+  <body>
+    <div id="navBar"></div>
+    <h1>Agregar Usuario</h1>
+    <div class="contentBackground">
+      <form class="addUserForm" action="/addUser" method="post">
+        <div class="row">
+          <h2>Datos personales</h2>
+          <div class="col-md-4">
+            <label for="">Nombre</label>
+            <input
+              id="businessName"
+              type="text"
+              class="form-control"
+              name="userName"
+              placeholder="Nombre"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Correo Electronico</label>
+            <input
+              id="businessID"
+              type="email"
+              class="form-control"
+              name="userEmail"
+              placeholder="Correo Electronico"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Numero Telefonico</label>
+            <input
+              type="number"
+              minlength="9"
+              class="form-control"
+              name="inputPhone"
+              placeholder="Numero Telefonico"
+              required
+            />
+          </div>
+        </div>
+        <button
+          name="submit"
+          id="submit"
+          type="submit"
+          class="btn btn btn-light col-md-12"
+        >
+          Agregar Usuario
+        </button>
+      </form>
+    </div>
+    <script>
+      var i = 1;
+      $(document).ready(function () {
+        $("#navBar").load("/assets/navbar.html");
+      });
+    </script>
+  </body>
+</html>

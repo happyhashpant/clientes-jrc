@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="/assets/jquery-3.6.0.min.js"></script>
+    <script src="/assets/bootstrap.js"></script>
+    <script defer src="/assets/functions.js"></script>
+    <script defer src="/assets/insertNewBusiness.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <!-- <link rel="stylesheet" href="/assets/navBar2.css" /> -->
+    <title>Agregar Sociedad</title>
+  </head>
+  <body>
+    <div id="navBar"></div>
+    <script>
+      $("#navBar").load("/assets/navBar.html");
+    </script>
+    <h1>Agregar Sociedad</h1>
+    <div class="contentBackground">
+      <form
+        class="needs-validation"
+        name="businessForm"
+        id="businessForm"
+        action="/addBusiness"
+        method="post"
+        novalidate
+      >
+        <h2>Datos Generales</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Nombre*</label>
+            <input
+              name="businessName"
+              type="text"
+              class="form-control"
+              onfocus="validate3(value, '#nameTool')"
+              onkeyup="validate3(value,'#nameTool')"
+              placeholder="Nombre de la sociedad"
+              required
+            />
+            <span class="tooltipText" id="nameTool">Requerido</span>
+          </div>
+          <div class="col-md-4">
+            <label for="">Cédula Jurídica*</label>
+            <input
+              type="number"
+              class="form-control"
+              name="businessID"
+              onfocus="validateNumber(value, '#idTool')"
+              onkeyup="validateNumber(value, '#idTool')"
+              onkeypress="limit(event,this.value,10)"
+              placeholder="Cédula Jurídica"
+              required
+            />
+            <span class="tooltipText" id="idTool"
+              >Requerido<br />Contenido con menos de 10 caracteres</span
+            >
+          </div>
+        </div>
+        <h2>Representante Legal</h2>
+        <div id="addOwner">
+          <div id="ownerDIV1">
+            <div class="row" id="ownerRow1">
+              <div class="col-md-4" id="ownerNameInput1">
+                <label for="">Nombre*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="businessOwnerName1"
+                  name="businessOwnerName1"
+                  placeholder="Nombre del Representante"
+                  onfocus="validate(value, '#ownerNameTool1')"
+                  onkeyup="validate(value,'#ownerNameTool1')"
+                  required
+                />
+                <span class="tooltipText" id="ownerNameTool1">Requerido</span>
+              </div>
+              <div class="col-md-4" id="ownerIDInput1">
+                <label for="">Cédula*</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="businessOwnerID1"
+                  name="businessOwnerID1"
+                  placeholder="Cédula"
+                  onfocus="validateNumber(value, '#ownerIDTool1')"
+                  onkeyup="validateNumber(value, '#ownerIDTool1')"
+                  onkeypress="limit(event,this.value,10)"
+                  required
+                />
+                <span class="tooltipText" id="ownerIDTool1">Requerido</span>
+              </div>
+              <div class="col-md-4" id="ownerIDExpDateInput1">
+                <label for="">Fecha de expiración de la Cédula*</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="ownerIDExpDate1"
+                  name="ownerIDExpDate1"
+                  placeholder="Fecha de expiración de la Cédula"
+                  onfocus="validate(value, '#expDateTool1')"
+                  onkeyup="validate(value,'#expDateTool1')"
+                  required
+                />
+                <span class="tooltipText" id="expDateTool1">Requerido</span>
+              </div>
+            </div>
+            <div class="row" id="ownerSecRow1">
+              <div class="col-md-4" id="ownerBirDateToolInput1">
+                <label for="">Fecha de Nacimiento*</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="ownerBirDate1"
+                  name="ownerBirDate1"
+                  placeholder="Fecha de Nacimiento"
+                  onfocus="validate(value, '#birDateTool1')"
+                  onkeyup="validate(value,'#birDateTool1')"
+                  required
+                />
+                <span class="tooltipText" id="birDateTool1">Requerido</span>
+              </div>
+              <div class="col-md-4" id="ownerAddressInput1">
+                <label for="">Domicilio*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="ownerAddress1"
+                  name="ownerAddress1"
+                  placeholder="Domicilio"
+                  onfocus="validate(value, '#addressTool1')"
+                  onkeyup="validate(value,'#addressTool1')"
+                  required
+                />
+                <span class="tooltipText" id="addressTool1">Requerido</span>
+              </div>
+            </div>
+            <div class="row" id="ownerThrRow">
+              <div class="col-md-6" id="ownerDeleteButtonInput">
+                <!-- <button
+                  class="btn btn btn-light deleteButton col-md-6"
+                  id="ownerDeleteButton"
+                  type="button"
+                  onclick="removeOwner('ownerRow1')"
+                >
+                  Eliminar
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-light" type="button" onclick="clonOwner()">
+            <i class="glyphicon glyphicon-plus"></i> Agregar Representante
+          </button>
+        </div>
+        <h2>Datos contables</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario ATV*</label>
+            <input
+              type="text"
+              class="form-control"
+              name="atvUser"
+              placeholder="Usuario ATV"
+              onfocus="validate(value, '#atvUserTool')"
+              onkeyup="validate(value,'#atvUserTool')"
+              required
+            />
+            <span class="tooltipText" id="atvUserTool">Requerido</span>
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña ATV*</label>
+            <input
+              type="text"
+              class="form-control"
+              name="atvPassword"
+              placeholder="Contraseña ATV"
+              onfocus="validate(value, '#atvPasswordTool')"
+              onkeyup="validate(value,'#atvPasswordTool')"
+              required
+            />
+            <span class="tooltipText" id="atvPasswordTool">Requerido</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="">Sistema de Facturación</label>
+            <input
+              type="text"
+              class="form-control"
+              name="billSystem"
+              placeholder="Sistema de Facturación"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Usuario del Sistema de Facturación</label>
+            <input
+              type="text"
+              class="form-control"
+              name="billSystemUser"
+              placeholder="Usuario del Sistema de Facturación"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="">Contraseña del Sistema de Facturación</label>
+            <input
+              type="text"
+              class="form-control"
+              name="billSystemPassword"
+              placeholder="Contraseña del Sistema de Facturación"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Correo para recepción de Facturas*</label>
+            <input
+              type="email"
+              class="form-control"
+              name="billEmail"
+              placeholder="Correo para recepción de Facturas"
+              onfocus="validate(value, '#billEmailTool')"
+              onkeyup="validate(value,'#billEmailTool')"
+              required
+            />
+            <span class="tooltipText" id="billEmailTool">Requerido</span>
+          </div>
+          <div class="col-md-6">
+            <label for=""
+              >Contraseña del Correo para recepción de Facturas*</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="billEmailPassword"
+              placeholder="Contraseña del Correo para recepción de Facturas"
+              onfocus="validate(value, '#billEmailPasswordTool')"
+              onkeyup="validate(value,'#billEmailPasswordTool')"
+              required
+            />
+            <span class="tooltipText" id="billEmailPasswordTool"
+              >Requerido</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario Travi</label>
+            <input
+              type="text"
+              class="form-control"
+              name="traviUser"
+              placeholder="Usuario Travi"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña Travi</label>
+            <input
+              type="text"
+              class="form-control"
+              name="traviPassword"
+              placeholder="Contraseña Travi"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario CCSS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="ccssUser"
+              placeholder="Usuario CCSS"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña CCSS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="ccssPassword"
+              placeholder="Contraseña CCSS"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Usuario INS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="insUser"
+              placeholder="Usuario INS"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="">Contraseña INS</label>
+            <input
+              type="text"
+              class="form-control"
+              name="insPassword"
+              placeholder="Contraseña INS"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Agente encargado*</label>
+            <select
+              name="userCharge"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <% var i=0; user.forEach(function(data){ %>
+              <option value="<%=data.id%>"><%=data.userName%></option>
+              <% i++; }) %>
+            </select>
+          </div>
+        </div>
+        <h2>Actividad Económica</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Actividad Económica*</label>
+            <select
+              name="activity"
+              class="form-select"
+              aria-label="Default select example"
+              required
+            >
+              <% var j=0; activity.forEach(function(datas){ %>
+              <option value="<%=datas.id%>"><%=datas.activityName%></option>
+              <% j++; }) %>
+            </select>
+          </div>
+        </div>
+
+        <h2 id="tivTool">
+          TIV*<span class="tooltipText" id="tivMsgTool"
+            >Requiere Dos Caracteres</span
+          >
+        </h2>
+
+        <div class="table-responsive">
+          <table class="table table-light table-striped table-bordered tiv">
+            <tr>
+              <th scope="col">A</th>
+              <th scope="col">B</th>
+              <th scope="col">C</th>
+              <th scope="col">D</th>
+              <th scope="col">E</th>
+              <th scope="col">F</th>
+              <th scope="col">G</th>
+              <th scope="col">H</th>
+              <th scope="col">I</th>
+              <th scope="col">J</th>
+              <th scope="col">K</th>
+              <th scope="col">L</th>
+              <th scope="col">M</th>
+              <th scope="col">N</th>
+              <th scope="col">O</th>
+            </tr>
+
+            <tr>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  size="1"
+                  type="text"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  name="a"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="b"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="c"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="d"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="e"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="f"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="g"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="h"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="i"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="j"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="k"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="l"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="m"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="n"
+                  required
+                />
+              </th>
+              <th>
+                <input
+                  oninput="this.value = this.value.toUpperCase()"
+                  onkeypress="limit(event,this.value,2)"
+                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
+                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
+                  size="1"
+                  type="text"
+                  name="o"
+                  required
+                />
+              </th>
+            </tr>
+          </table>
+        </div>
+        <h2>Logo</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <input type="file" class="form-control" name="picture" />
+          </div>
+        </div>
+
+        <h2>Contactos</h2>
+
+        <div id="addContact">
+          <div id="addContactDIV">
+            <div class="row addContactRow">
+              <div class="col-md-4">
+                <label for="">Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactName"
+                  id="contactName"
+                  placeholder="Nombre"
+                  required
+                />
+                <span class="tooltipText" id="contactNameTool">Requerido</span>
+              </div>
+              <div class="col-md-4">
+                <label for="">Número Telefónico</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactPhone"
+                  id="contactPhone"
+                  placeholder="Número Telefónico"
+                  required
+                />
+                <span class="tooltipText" id="contactPhoneTool">Requerido</span>
+              </div>
+              <div class="col-md-4">
+                <label for="">Correo Electrónico</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactEmail"
+                  id="contactEmail"
+                  placeholder="Correo Electrónico"
+                  required
+                />
+                <span class="tooltipText" id="contactEmailTool">Requerido</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button
+            class="btn btn-light"
+            type="button"
+            onclick="addContactFields()"
+          >
+            <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
+          </button>
+        </div>
+
+        <button
+          name="submit"
+          id="submit"
+          type="button"
+          class="btn btn btn-light col-md-12"
+          onclick="addBusinessss()"
+        >
+          Agregar Sociedad
+        </button>
+      </form>
+    </div>
+  </body>
+  <script>
+    var test = "";
+    var l = 1;
+    var i = 1;
+    var j = 1;
+    var newOwnerCount = 1;
+    var oldOwnerCount = 1;
+  </script>
+</html>
