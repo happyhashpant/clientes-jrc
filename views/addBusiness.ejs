@@ -19,8 +19,7 @@
     <h1>Agregar Sociedad</h1>
     <div class="contentBackground">
       <form
-        class="needs-validation"
-        name="businessForm"
+        
         id="businessForm"
         action="/addBusiness"
         method="post"
@@ -34,8 +33,8 @@
               name="businessName"
               type="text"
               class="form-control"
-              onfocus="validate3(value, '#nameTool')"
-              onkeyup="validate3(value,'#nameTool')"
+              onfocus="validate(value, '#nameTool')"
+              onkeyup="validate(value,'#nameTool')"
               placeholder="Nombre de la sociedad"
               required
             />
@@ -137,16 +136,7 @@
               </div>
             </div>
             <div class="row" id="ownerThrRow">
-              <div class="col-md-6" id="ownerDeleteButtonInput">
-                <!-- <button
-                  class="btn btn btn-light deleteButton col-md-6"
-                  id="ownerDeleteButton"
-                  type="button"
-                  onclick="removeOwner('ownerRow1')"
-                >
-                  Eliminar
-                </button> -->
-              </div>
+              <div class="col-md-6" id="ownerDeleteButtonInput"></div>
             </div>
           </div>
         </div>
@@ -157,7 +147,7 @@
         </div>
         <h2>Datos contables</h2>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Usuario ATV*</label>
             <input
               type="text"
@@ -170,7 +160,7 @@
             />
             <span class="tooltipText" id="atvUserTool">Requerido</span>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Contraseña ATV*</label>
             <input
               type="text"
@@ -214,7 +204,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Correo para recepción de Facturas*</label>
             <input
               type="email"
@@ -227,7 +217,7 @@
             />
             <span class="tooltipText" id="billEmailTool">Requerido</span>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for=""
               >Contraseña del Correo para recepción de Facturas*</label
             >
@@ -246,7 +236,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Usuario Travi</label>
             <input
               type="text"
@@ -255,7 +245,7 @@
               placeholder="Usuario Travi"
             />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Contraseña Travi</label>
             <input
               type="text"
@@ -266,7 +256,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Usuario CCSS</label>
             <input
               type="text"
@@ -275,7 +265,7 @@
               placeholder="Usuario CCSS"
             />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Contraseña CCSS</label>
             <input
               type="text"
@@ -286,7 +276,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Usuario INS</label>
             <input
               type="text"
@@ -295,7 +285,7 @@
               placeholder="Usuario INS"
             />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Contraseña INS</label>
             <input
               type="text"
@@ -306,7 +296,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="">Agente encargado*</label>
             <select
               name="userCharge"
@@ -610,9 +600,8 @@
         <button
           name="submit"
           id="submit"
-          type="button"
+          type="submit"
           class="btn btn btn-light col-md-12"
-          onclick="addBusinessss()"
         >
           Agregar Sociedad
         </button>
@@ -620,11 +609,32 @@
     </div>
   </body>
   <script>
-    var test = "";
     var l = 1;
     var i = 1;
     var j = 1;
     var newOwnerCount = 1;
     var oldOwnerCount = 1;
+    (function () {
+      "use strict";
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll(".needs-validation");
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener(
+          "submit",
+          function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    })();
   </script>
 </html>

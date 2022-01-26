@@ -1,5 +1,16 @@
 const { use } = require("express/lib/application");
-
+const res = require("express/lib/response");
+const user = {
+  id: null,
+  name: "",
+  phone: "",
+  email: "",
+  status: null
+};
+const business= {
+  id: null,
+  name: "",
+};
 module.exports = function (app) {
   var path = require("path");
   var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
@@ -45,7 +56,22 @@ module.exports = function (app) {
   });
 
   app.post("/addBusiness", function (req, res) {
-    insertBusiness.addBusinesss(req);
+    // insertBusiness.addBusinesss(req);
+
+    formData = req.body;
+    // var newBusiness =  Object.create(business);
+    var i = 0;
+    var j = 0;
+    var ownerArray = [];
+    // newBusiness.name = formData.businessName;
+    for (const property in formData) {
+      // console.log(`${property}: ${formData[property]}`);
+      console.log(`${property}`);
+      ownerArray[i] = formData[property];
+      i++;
+    }
+    console.log(ownerArray);
+
     loadBusinessTable
       .loadBusinessTable()
       .then(function (result) {

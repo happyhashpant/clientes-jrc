@@ -124,7 +124,7 @@ function addContactFields() {
   inputContactEmail.setAttribute("placeHolder", "Correo Electrónico");
 
   var deleteButton = document.createElement("button");
-  deleteButton.setAttribute("class", "btn btn btn-light deleteButton col-md-4");
+  deleteButton.setAttribute("class", "btn btn btn-light deleteButton");
   deleteButton.setAttribute("type", "button");
   deleteButton.setAttribute("onclick", "removeContact('contactName" + j + "')");
   deleteButton.textContent = "Eliminar";
@@ -143,13 +143,22 @@ function addContactFields() {
   container.appendChild(div);
   j++;
 }
+function cloneContact() {
+  $("#addContactDIV")
+    .clone()
+    .attr("id", "addContactDIV" + i)
+    .append("#addContactDIV");
+}
 
 function removeContact(id) {
   var input = document.getElementById(id);
   input.remove();
 }
 function removeOwner(id) {
-  $("#" + id).remove();  
+  $("#" + id).remove();
+  i--;
+  newOwnerCount--;
+  oldOwnerCount--;
 }
 
 function loadUser(user) {
@@ -214,25 +223,20 @@ function clonOwner() {
   $("#ownerDIV1")
     .clone()
     .attr("id", "ownerDIV" + newOwnerCount)
-    .insertAfter("#ownerDIV" + i);
+    .insertAfter("#ownerDIV1");
 
   i++;
+  // console.log(i);
 
-  $("#ownerDIV" + i + " #ownerRow" + oldOwnerCount).attr("id", "ownerRow" + i);
+  $("#ownerDIV" + i + " #ownerRow1").attr("id", "ownerRow" + i);
 
   //Clone ownerNameInput
-  $("#ownerRow" + i + " #ownerNameInput" + oldOwnerCount).attr(
-    "id",
-    "ownerNameInput" + i
-  );
-  $("#ownerNameInput" + i + " #businessOwnerName" + oldOwnerCount).attr(
+  $("#ownerRow" + i + " #ownerNameInput1").attr("id", "ownerNameInput" + i);
+  $("#ownerNameInput" + i + " #businessOwnerName1").attr(
     "id",
     "businessOwnerName" + i
   );
-  $("#ownerNameInput" + i + " #ownerNameTool" + oldOwnerCount).attr(
-    "id",
-    "ownerNameTool" + i
-  );
+  $("#ownerNameInput" + i + " #ownerNameTool1").attr("id", "ownerNameTool" + i);
   $("#businessOwnerName" + i).attr("name", "businessOwnerName" + i);
   $("#businessOwnerName" + i).attr(
     "onfocus",
@@ -242,28 +246,22 @@ function clonOwner() {
     "onkeyup",
     "validate(value, '#ownerNameTool" + i + "')"
   );
-  $("#ownerNameInput" + i + " #ownerNameTool" + oldOwnerCount).attr(
+  $("#ownerNameInput" + i + " #ownerNameTool1").attr(
     "id",
     "ownerNameInput" + i
   );
 
   //Clone ownerIDInput
-  $("#ownerRow" + i + " #ownerIDInput" + oldOwnerCount).attr(
-    "id",
-    "ownerIDInput" + i
-  );
-  $("#ownerIDInput" + i + " #businessOwnerID" + oldOwnerCount).attr(
+  $("#ownerRow" + i + " #ownerIDInput1").attr("id", "ownerIDInput" + i);
+  $("#ownerIDInput" + i + " #businessOwnerID1").attr(
     "id",
     "businessOwnerID" + i
   );
-  $("#ownerIDInput" + i + " #businessOwnerID").attr(
+  $("#ownerIDInput" + i + " #businessOwnerID1").attr(
     "name",
     "businessOwnerID" + i
   );
-  $("#ownerIDInput" + i + " #ownerIDTool" + oldOwnerCount).attr(
-    "id",
-    "ownerIDTool" + i
-  );
+  $("#ownerIDInput" + i + " #ownerIDTool1").attr("id", "ownerIDTool" + i);
   $("#businessOwnerID" + i).attr("name", "businessOwnerID" + i);
   $("#businessOwnerID" + i).attr(
     "onfocus",
@@ -275,15 +273,15 @@ function clonOwner() {
   );
 
   //Clone ownerIDExpDateInput
-  $("#ownerRow" + i + " #ownerIDExpDateInput" + oldOwnerCount).attr(
+  $("#ownerRow" + i + " #ownerIDExpDateInput1").attr(
     "id",
     "ownerIDExpDateInput" + i
   );
-  $("#ownerIDExpDateInput" + i + " #ownerIDExpDate" + oldOwnerCount).attr(
+  $("#ownerIDExpDateInput" + i + " #ownerIDExpDate1").attr(
     "id",
     "ownerIDExpDate" + i
   );
-  $("#ownerIDExpDateInput" + i + " #expDateTool" + oldOwnerCount).attr(
+  $("#ownerIDExpDateInput" + i + " #expDateTool1").attr(
     "id",
     "expDateTool" + i
   );
@@ -297,20 +295,17 @@ function clonOwner() {
     "validate(value, '#expDateTool" + i + "')"
   );
 
-  $("#ownerDIV" + i + " #ownerSecRow" + oldOwnerCount).attr(
-    "id",
-    "ownerSecRow" + i
-  );
+  $("#ownerDIV" + i + " #ownerSecRow1").attr("id", "ownerSecRow" + i);
   //Clone ownerBirDateToolInput
-  $("#ownerSecRow" + i + " #ownerBirDateToolInput" + oldOwnerCount).attr(
+  $("#ownerSecRow" + i + " #ownerBirDateToolInput1").attr(
     "id",
     "ownerBirDateToolInput" + i
   );
-  $("#ownerBirDateToolInput" + i + " #ownerBirDate" + oldOwnerCount).attr(
+  $("#ownerBirDateToolInput" + i + " #ownerBirDate1").attr(
     "id",
     "ownerBirDate" + i
   );
-  $("#ownerBirDateToolInput" + i + " #birDateTool" + oldOwnerCount).attr(
+  $("#ownerBirDateToolInput" + i + " #birDateTool1").attr(
     "id",
     "birDateTool" + i
   );
@@ -325,18 +320,15 @@ function clonOwner() {
   );
 
   //Clone ownerAddressInput
-  $("#ownerSecRow" + i + " #ownerAddressInput" + oldOwnerCount).attr(
+  $("#ownerSecRow" + i + " #ownerAddressInput1").attr(
     "id",
     "ownerAddressInput" + i
   );
-  $("#ownerAddressInput" + i + " #ownerAddress" + oldOwnerCount).attr(
+  $("#ownerAddressInput" + i + " #ownerAddress1").attr(
     "id",
     "ownerAddress" + i
   );
-  $("#ownerAddressInput" + i + " #addressTool" + oldOwnerCount).attr(
-    "id",
-    "addressTool" + i
-  );
+  $("#ownerAddressInput" + i + " #addressTool1").attr("id", "addressTool" + i);
   $("#ownerAddress" + i).attr(
     "onfocus",
     "validate(value, '#addressTool" + i + "')"
@@ -370,9 +362,4 @@ function clonOwner() {
   oldOwnerCount++;
 }
 
-function cloneContact() {
-  $("#addContactDIV")
-    .clone()
-    .attr("id", "addContactDIV" + i)
-    .append("#addContactDIV");
-}
+

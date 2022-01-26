@@ -1,18 +1,13 @@
-var express = require('express');
-var todoController = require('./controllers/todoController')
-var path = require('path'); 
-var objects;
+var express = require("express");
+var todoController = require("./controllers/todoController");
 
 var app = express();
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
-app.use(express.static('./'));
+app.use(express.static("./"));
+app.use(express.json());
 
 todoController(app);
 
-
 app.listen(3000);
-
-
-
