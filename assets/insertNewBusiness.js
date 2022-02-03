@@ -1,169 +1,193 @@
-exports.addBusiness = function (req) {
+exports.addBusiness = function (businessArray) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   var query =
-    "INSERT into business (businessName, businessID, atvUser, atvPassword, billSystem, billSystemUser, billSystemPassword, billEmail, billEmailPassword, traviUser, traviPassword, ccssUser, ccssPassword, insUser, insPassword, activity, userID, TIV) VALUES ('" +
-    req.body.businessName +
+    "INSERT into business (businessName, businessID, atvUser, atvPassword, billSystem, billSystemUser, billSystemPassword, billEmail, billEmailPassword, traviUser, traviPassword, ccssUser, ccssPassword, insUser, insPassword, userID, activity, TIV) VALUES ('" +
+    businessArray[0] +
     "','" +
-    req.body.businessID +
+    businessArray[1] +
     "','" +
-    req.body.atvUser +
+    businessArray[2] +
     "','" +
-    req.body.atvPassword +
+    businessArray[3] +
     "','" +
-    req.body.billSystem +
+    businessArray[4] +
     "','" +
-    req.body.billSystemUser +
+    businessArray[5] +
     "','" +
-    req.body.billSystemPassword +
+    businessArray[6] +
     "','" +
-    req.body.billEmail +
+    businessArray[7] +
     "','" +
-    req.body.billEmailPassword +
+    businessArray[8] +
     "','" +
-    req.body.traviUser +
+    businessArray[9] +
     "','" +
-    req.body.traviPassword +
+    businessArray[10] +
     "','" +
-    req.body.ccssUser +
+    businessArray[11] +
     "','" +
-    req.body.ccssPassword +
+    businessArray[12] +
     "','" +
-    req.body.insUser +
+    businessArray[13] +
     "','" +
-    req.body.insPassword +
+    businessArray[14] +
     "','" +
-    req.body.activity +
+    businessArray[15] +
     "','" +
-    req.body.userCharge +
+    businessArray[16] +
     "','" +
-    req.body.a +
+    businessArray[17] +
     "/" +
-    req.body.b +
+    businessArray[18] +
     "/" +
-    req.body.c +
+    businessArray[19] +
     "/" +
-    req.body.d +
+    businessArray[20] +
     "/" +
-    req.body.e +
+    businessArray[21] +
     "/" +
-    req.body.f +
+    businessArray[22] +
     "/" +
-    req.body.g +
+    businessArray[23] +
     "/" +
-    req.body.h +
+    businessArray[24] +
     "/" +
-    req.body.i +
+    businessArray[25] +
     "/" +
-    req.body.j +
+    businessArray[26] +
     "/" +
-    req.body.k +
+    businessArray[27] +
     "/" +
-    req.body.l +
+    businessArray[28] +
     "/" +
-    req.body.m +
+    businessArray[29] +
     "/" +
-    req.body.n +
+    businessArray[30] +
     "/" +
-    req.body.o +
+    businessArray[31] +
     "')";
 
   connect.query(query);
+  return new Promise(function (resolve, reject) {
+    query = "SELECT id FROM business WHERE businessID= 0";
+    connect.query(query, function (err, result, fields) {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+    connect.end();
+  });
+};
+
+exports.verifiedBusiness = (businessID) => {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  return new Promise(function (resolve, reject) {
+    var query = "SELECT id FROM business WHERE businessID = " + businessID;
+    connect.query(query, function (err, result, fields) {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+    connect.end();
+  });
+};
+
+exports.addBusinessOwner = (ownerArray, businessID, ownerAmount) => {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var ownerName = 0;
+  var ownerID = 1;
+  var ownerIDexpDate = 2;
+  var ownerBirthDate = 3;
+  var ownerAddress = 4;
+  console.log(ownerArray);
+  if (ownerAmount === 1) {
+    var query =
+      "INSERT into legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES ('" +
+      businessID +
+      "','" +
+      ownerArray[0] +
+      "','" +
+      ownerArray[1] +
+      "','" +
+      ownerArray[2] +
+      "','" +
+      ownerArray[3] +
+      "','" +
+      ownerArray[4] +
+      "')";
+    connect.query(query);
+  } else {
+    for (let i = 0; i < ownerAmount; i++) {
+      var query =
+        "INSERT into legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES ('" +
+        businessID +
+        "','" +
+        ownerArray[0][i] +
+        "','" +
+        ownerArray[1][i] +
+        "','" +
+        ownerArray[2][i] +
+        "','" +
+        ownerArray[3][i] +
+        "','" +
+        ownerArray[4][i] +
+        "')";
+      ownerName = ownerName + 5;
+      ownerID = ownerID + 5;
+      ownerIDexpDate = ownerIDexpDate + 5;
+      ownerBirthDate = ownerBirthDate + 5;
+      ownerAddress = ownerAddress + 5;
+      // console.log(i)
+      connect.query(query);
+    }
+  }
   connect.end();
 };
 
-exports.addBusinesss = function (req, id) {
+exports.addBusinessContact = (contactArray, businessID, contactAmount) => {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query = "req.body.businessOwnerName1";
-  var test = query;
-  console.log(test);
-  // for (let int of id) {
-  //   query =
-  //     "INSERT INTO legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES('"+
-  //     req.body.businessName +
-  //   "','" +
-  //   req.body.o +
-  //   "')";
-  // }
+  var contactName = 0;
+  var contactPhone = 1;
+  var contactEmail = 2;
+  if (contactAmount === 1) {
+    var query =
+      "INSERT into businessContact (businessID, contactName, contactPhone, contactEmail) VALUES ('" +
+      businessID +
+      "','" +
+      contactArray[0] +
+      "','" +
+      contactArray[1] +
+      "','" +
+      contactArray[2] +
+      "')";
+    connect.query(query);
+  } else {
+    for (let i = 0; i < contactAmount; i++) {
+      var query =
+        "INSERT into businessContact (businessID, contactName, contactPhone, contactEmail) VALUES ('" +
+        businessID +
+        "','" +
+        contactArray[0][i] +
+        "','" +
+        contactArray[1][i] +
+        "','" +
+        contactArray[2][i] +
+        "')";
+      contactName = contactName + 3;
+      contactPhone = contactPhone + 3;
+      contactEmail = contactEmail + 3;
+      connect.query(query);
+    }
+  }
+  connect.end();
 };
-
-function addBusinessss(req) {
-  var credentials = require("./connection");
-  var mysql = require("mysql2");
-  var connect = mysql.createConnection(credentials);
-   var formData = JSON.stringify($("#businessForm").serializeArray());
-   console.log(formData);
-  formData = JSON.parse(formData);
-  console.log(formData);
-  var query =
-  "INSERT into business (businessName, businessID, atvUser, atvPassword, billSystem, billSystemUser, billSystemPassword, billEmail, billEmailPassword, traviUser, traviPassword, ccssUser, ccssPassword, insUser, insPassword, activity, userID, TIV) VALUES ('" +
-  formData[0].value +
-  "','" +
-  req.body.businessID +
-  "','" +
-  req.body.atvUser +
-  "','" +
-  req.body.atvPassword +
-  "','" +
-  req.body.billSystem +
-  "','" +
-  req.body.billSystemUser +
-  "','" +
-  req.body.billSystemPassword +
-  "','" +
-  req.body.billEmail +
-  "','" +
-  req.body.billEmailPassword +
-  "','" +
-  req.body.traviUser +
-  "','" +
-  req.body.traviPassword +
-  "','" +
-  req.body.ccssUser +
-  "','" +
-  req.body.ccssPassword +
-  "','" +
-  req.body.insUser +
-  "','" +
-  req.body.insPassword +
-  "','" +
-  req.body.activity +
-  "','" +
-  req.body.userCharge +
-  "','" +
-  req.body.a +
-  "/" +
-  req.body.b +
-  "/" +
-  req.body.c +
-  "/" +
-  req.body.d +
-  "/" +
-  req.body.e +
-  "/" +
-  req.body.f +
-  "/" +
-  req.body.g +
-  "/" +
-  req.body.h +
-  "/" +
-  req.body.i +
-  "/" +
-  req.body.j +
-  "/" +
-  req.body.k +
-  "/" +
-  req.body.l +
-  "/" +
-  req.body.m +
-  "/" +
-  req.body.n +
-  "/" +
-  req.body.o +
-  "')";
-  console.log(query);
-  return formData;
-}

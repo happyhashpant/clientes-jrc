@@ -12,7 +12,7 @@
 
   <body>
     <div id="navBar"></div>
-    <h1><%=user[0].userName%></h1>
+    <h1><%=userInfo[0].userName%></h1>
     <div class="contentBackground">
       <h2>Datos personales</h2>
       <form class="addUserForm" action="/saveUser" method="post">
@@ -25,7 +25,7 @@
               name="inputUserName"
               id="inputUserName"
               placeholder="Nombre"
-              value="<%=user[0].userName%>"
+              value="<%=userInfo[0].userName%>"
               readonly
             />
           </div>
@@ -38,7 +38,7 @@
               name="inputUserEmail"
               id="inputUserEmail"
               placeholder="Email"
-              value="<%=user[0].userEmail%>"
+              value="<%=userInfo[0].userEmail%>"
               readonly
             />
           </div>
@@ -50,7 +50,7 @@
               name="inputPhone"
               id="inputPhone"
               placeholder="Numero Telefonico"
-              value="<%=user[0].userPhone%>"
+              value="<%=userInfo[0].userPhone%>"
               readonly
             />
           </div>

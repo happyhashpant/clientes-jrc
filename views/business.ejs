@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/assets/jquery-3.6.0.min.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
+    <script defer src="/assets/functions.js"></script>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <title>Sociedades</title>
+  </head>
+
+  <body>
+    <div id="navBar"></div>
+
+    <h1>Sociedades</h1>
+    <input
+      type="text"
+      name="inputSearch"
+      id="inputSearch"
+      placeholder="Buscar"
+      onkeyup="searchTable()"
+    />
+
+    <div class="table-responsive">
+      <table class="table table-light table-striped table-bordered table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Sistema De Facturacion</th>
+            <th scope="col">Usuario De Facturacion</th>
+            <th scope="col">Contraseña De Facturacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% var i=1; objects.forEach(function(data){%>
+            <tr class="clickable" onclick="loadBusiness('<%=data.id%>')" onauxclick="loadBusiness2('<%=data.id%>')";>
+              <td><%=data.businessName%></td>
+              <td><%=data.businessID%></td>
+              <td><%=data.billSystem%></td>
+              <td><%=data.billSystemUser%></td>
+              <td><%=data.billSystemPassword%></td>
+            </tr>
+            <% i++; }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+  <script>
+    
+    $(document).ready(function () {
+      $("#navBar").load("/assets/navbar.html");
+    });
+  </script>
+</html>

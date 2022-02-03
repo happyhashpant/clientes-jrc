@@ -53,127 +53,6 @@ function searchTable() {
   }
 }
 
-function addContactFields() {
-  console.log(j);
-
-  var container = document.getElementById("addContact");
-
-  var div = document.createElement("div");
-  div.setAttribute("class", "row");
-  div.id = "contactName" + j;
-
-  var div2 = document.createElement("div");
-  div2.setAttribute("class", "col-md-4");
-
-  var div3 = document.createElement("div");
-  div3.setAttribute("class", "col-md-4");
-
-  var div4 = document.createElement("div");
-  div4.setAttribute("class", "col-md-4");
-
-  var div5 = document.createElement("div");
-  div5.setAttribute("class", "col-md-4");
-
-  var inputContactName = document.createElement("input");
-
-  inputContactName.type = "text";
-  inputContactName.name = "contactName" + j;
-
-  inputContactName.setAttribute("class", "form-control");
-  inputContactName.setAttribute("placeHolder", "Nombre");
-  inputContactName.setAttribute(
-    "onfocus",
-    "validate(value, '#spanContactName" + j + "')"
-  );
-  inputContactName.setAttribute(
-    "onkeyup",
-    "validate(value, '#spanContactName" + j + "')"
-  );
-
-  var spanContactName = document.createElement("span");
-  spanContactName.className = "tooltipText";
-  spanContactName.id = "spanContactName" + j;
-  spanContactName.textContent = "Requerido";
-
-  var inputContactPhone = document.createElement("input");
-
-  inputContactPhone.type = "number";
-  inputContactPhone.name = "Número Telefónico" + j;
-
-  inputContactPhone.setAttribute("class", "form-control");
-  inputContactPhone.setAttribute("placeHolder", "Numero Telefonico");
-  inputContactPhone.setAttribute(
-    "onfocus",
-    "validate(value, '#spanContactPhone" + j + "')"
-  );
-  inputContactPhone.setAttribute(
-    "onkeyup",
-    "validate(value, '#spanContactPhone" + j + "')"
-  );
-  var spanContactPhone = document.createElement("span");
-  spanContactPhone.className = "tooltipText";
-  spanContactPhone.id = "spanContactPhone" + j;
-  spanContactPhone.textContent = "Requerido";
-
-  var inputContactEmail = document.createElement("input");
-
-  inputContactEmail.type = "email";
-  inputContactEmail.name = "contactEmail" + j;
-
-  inputContactEmail.setAttribute("class", "form-control");
-  inputContactEmail.setAttribute("placeHolder", "Correo Electrónico");
-
-  var deleteButton = document.createElement("button");
-  deleteButton.setAttribute("class", "btn btn btn-light deleteButton");
-  deleteButton.setAttribute("type", "button");
-  deleteButton.setAttribute("onclick", "removeContact('contactName" + j + "')");
-  deleteButton.textContent = "Eliminar";
-
-  div2.appendChild(inputContactName);
-  div2.appendChild(spanContactName);
-  div3.appendChild(inputContactPhone);
-  div3.appendChild(spanContactPhone);
-  div4.appendChild(inputContactEmail);
-  div5.appendChild(deleteButton);
-  div.appendChild(div2);
-  div.appendChild(div3);
-  div.appendChild(div4);
-  div.appendChild(div5);
-
-  container.appendChild(div);
-  j++;
-}
-function cloneContact() {
-  $("#addContactDIV")
-    .clone()
-    .attr("id", "addContactDIV" + i)
-    .append("#addContactDIV");
-}
-
-function removeContact(id) {
-  var input = document.getElementById(id);
-  input.remove();
-}
-function removeOwner(id) {
-  $("#" + id).remove();
-  i--;
-  newOwnerCount--;
-  oldOwnerCount--;
-}
-
-function loadUser(user) {
-  window.location.replace("/loadUser?userID=" + user);
-}
-function loadUser2(user) {
-  window.location.replace("/loadUser?userID=" + user);
-}
-function loadBusiness(business) {
-  window.location.replace("/loadBusiness?businessID=" + business);
-}
-function loadBusiness2(business) {
-  window.location.replace("/loadBusiness?businessID=" + business);
-}
-
 function validate(value, msg) {
   if (value == "") {
     $(msg).css("visibility", "visible");
@@ -207,6 +86,116 @@ function limit(event, value, maxLength) {
   }
 }
 
+// --------------------------------------------------------------------------------------
+
+//Function to clone the contact input space
+function cloneContact() {
+  newContactCount++;
+  console.log(j);
+  $("#contactDIV1")
+    .clone()
+    .attr("id", "contactDIV" + newContactCount)
+    .insertAfter("#contactDIV1");
+
+  j++;
+  console.log(j);
+  $("#contactDIV" + j + " #contactRow1").attr("id", "contactRow" + j);
+
+  //Clone contactNameInput
+  $("#contactRow" + j + " #inputContactName1").attr(
+    "id",
+    "inputContactName" + j
+  );
+  $("#inputContactName" + j + " #contactName1").attr("id", "contactName" + j);
+  $("#inputContactName" + j + " #contactNameTool1").attr(
+    "id",
+    "contactNameTool" + j
+  );
+  $("#contactName" + j).attr(
+    "onfocus",
+    "validate(value, '#contactNameTool" + j + "')"
+  );
+  $("#contactName" + j).attr(
+    "onkeyup",
+    "validate(value, '#contactNameTool" + j + "')"
+  );
+  $("#inputContactName" + j + " #contactNameTool1").attr(
+    "id",
+    "inputContactName" + j
+  );
+
+  //Clone contactPhoneInput
+  $("#contactRow" + j + " #inputContactPhone1").attr(
+    "id",
+    "inputContactPhone" + j
+  );
+  $("#inputContactPhone" + j + " #contactPhone1").attr(
+    "id",
+    "contactPhone" + j
+  );
+  $("#inputContactPhone" + j + " #contactPhoneTool1").attr(
+    "id",
+    "contactPhoneTool" + j
+  );
+  $("#contactPhone" + j).attr(
+    "onfocus",
+    "validate(value, '#contactPhoneTool" + j + "')"
+  );
+  $("#contactPhone" + j).attr(
+    "onkeyup",
+    "validate(value, '#contactPhoneTool" + j + "')"
+  );
+  $("#inputContactPhone" + j + " #contactPhoneTool1").attr(
+    "id",
+    "inputContactPhone" + j
+  );
+
+  //Clone contactEmailInput
+  $("#contactRow" + j + " #inputContactEmail1").attr(
+    "id",
+    "inputContactEmail" + j
+  );
+  $("#inputContactEmail" + j + " #contactEmail1").attr(
+    "id",
+    "contactEmail" + j
+  );
+  $("#inputContactEmail" + j + " #contactEmailTool1").attr(
+    "id",
+    "contactEmailTool" + j
+  );
+  $("#contactEmail" + j).attr(
+    "onfocus",
+    "validate(value, '#contactEmailTool" + j + "')"
+  );
+  $("#contactEmail" + j).attr(
+    "onkeyup",
+    "validate(value, '#contactEmailTool" + j + "')"
+  );
+  $("#inputContactEmail" + j + " #contactEmailTool1").attr(
+    "id",
+    "inputContactEmail" + j
+  );
+  //Add contact delete button
+  $("#contactDIV" + j + " #contactSecRow1").attr("id", "contactSecRow" + j);
+  $("#contactSecRow" + j + " #contactDeleteButtonInput1").attr(
+    "id",
+    "contactDeleteButtonInput" + j
+  );
+  1;
+  $("#contactDeleteButtonInput" + j).append(
+    "<button class='btn btn btn-light deleteButton' type='button' id='contactDeleteButton'>Eliminar</button>"
+  );
+
+  $("#contactDeleteButtonInput" + j + " #contactDeleteButton").attr(
+    "id",
+    "contactDeleteButton" + j
+  );
+  $("#contactDeleteButton" + j).attr(
+    "onclick",
+    "removeContact('contactDIV" + j + "')"
+  );
+}
+
 function editOneUser() {
   $("#inputUserName").attr("readonly", false);
   $("#inputUserEmail").attr("readonly", false);
@@ -217,6 +206,21 @@ function editOneUser() {
   $("#editUser").after(saveUserButton);
   $("#editUser").remove();
 }
+
+function removeContact(id) {
+  $("#" + id).remove();
+  j--;
+  newContactCount--;
+}
+
+function loadUser(user) {
+  window.location.replace("/loadUser?userID=" + user);
+}
+function loadUser2(user) {
+  window.location.replace("/loadUser?userID=" + user);
+}
+
+// --------------------------------------------------------------------------------------
 
 function clonOwner() {
   newOwnerCount++;
@@ -237,7 +241,6 @@ function clonOwner() {
     "businessOwnerName" + i
   );
   $("#ownerNameInput" + i + " #ownerNameTool1").attr("id", "ownerNameTool" + i);
-  $("#businessOwnerName" + i).attr("name", "businessOwnerName" + i);
   $("#businessOwnerName" + i).attr(
     "onfocus",
     "validate(value, '#ownerNameTool" + i + "')"
@@ -257,12 +260,7 @@ function clonOwner() {
     "id",
     "businessOwnerID" + i
   );
-  $("#ownerIDInput" + i + " #businessOwnerID1").attr(
-    "name",
-    "businessOwnerID" + i
-  );
   $("#ownerIDInput" + i + " #ownerIDTool1").attr("id", "ownerIDTool" + i);
-  $("#businessOwnerID" + i).attr("name", "businessOwnerID" + i);
   $("#businessOwnerID" + i).attr(
     "onfocus",
     "validateNumber(value, '#ownerIDTool" + i + "')"
@@ -289,13 +287,13 @@ function clonOwner() {
     "onfocus",
     "validate(value, '#expDateTool" + i + "')"
   );
-  $("#ownerIDExpDate" + i).attr("name", "ownerIDExpDate" + i);
   $("#ownerIDExpDate" + i).attr(
     "onkeyup",
     "validate(value, '#expDateTool" + i + "')"
   );
 
   $("#ownerDIV" + i + " #ownerSecRow1").attr("id", "ownerSecRow" + i);
+
   //Clone ownerBirDateToolInput
   $("#ownerSecRow" + i + " #ownerBirDateToolInput1").attr(
     "id",
@@ -309,7 +307,6 @@ function clonOwner() {
     "id",
     "birDateTool" + i
   );
-  $("#ownerBirDate" + i).attr("name", "ownerBirDate" + i);
   $("#ownerBirDate" + i).attr(
     "onfocus",
     "validate(value, '#birDateTool" + i + "')"
@@ -333,7 +330,6 @@ function clonOwner() {
     "onfocus",
     "validate(value, '#addressTool" + i + "')"
   );
-  $("#ownerAddress" + i).attr("name", "ownerAddressInput" + i);
   $("#ownerAddress" + i).attr(
     "onkeyup",
     "validate(value, '#addressTool" + i + "')"
@@ -359,7 +355,18 @@ function clonOwner() {
     "onclick",
     "removeOwner('ownerDIV" + i + "')"
   );
-  oldOwnerCount++;
 }
 
+//Remove Owner
+function removeOwner(id) {
+  $("#" + id).remove();
+  i--;
+  newOwnerCount--;
+}
 
+function loadBusiness(business) {
+  window.location.replace("/loadBusiness?businessID=" + business);
+}
+function loadBusiness2(business) {
+  window.location.replace("/loadBusiness?businessID=" + business);
+}

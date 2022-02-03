@@ -18,13 +18,7 @@
     </script>
     <h1>Agregar Sociedad</h1>
     <div class="contentBackground">
-      <form
-        
-        id="businessForm"
-        action="/addBusiness"
-        method="post"
-        novalidate
-      >
+      <form id="businessForm" action="/addBusiness" method="post" class="needs-validation" novalidate>
         <h2>Datos Generales</h2>
         <div class="row">
           <div class="col-md-4">
@@ -67,13 +61,13 @@
                   type="text"
                   class="form-control"
                   id="businessOwnerName1"
-                  name="businessOwnerName1"
+                  name="businessOwnerName"
                   placeholder="Nombre del Representante"
                   onfocus="validate(value, '#ownerNameTool1')"
                   onkeyup="validate(value,'#ownerNameTool1')"
                   required
                 />
-                <span class="tooltipText" id="ownerNameTool1">Requerido</span>
+                <span class="tooltipText" id="ownerNameTool">Requerido</span>
               </div>
               <div class="col-md-4" id="ownerIDInput1">
                 <label for="">Cédula*</label>
@@ -81,7 +75,7 @@
                   type="number"
                   class="form-control"
                   id="businessOwnerID1"
-                  name="businessOwnerID1"
+                  name="businessOwnerID"
                   placeholder="Cédula"
                   onfocus="validateNumber(value, '#ownerIDTool1')"
                   onkeyup="validateNumber(value, '#ownerIDTool1')"
@@ -96,7 +90,7 @@
                   type="date"
                   class="form-control"
                   id="ownerIDExpDate1"
-                  name="ownerIDExpDate1"
+                  name="ownerIDExpDate"
                   placeholder="Fecha de expiración de la Cédula"
                   onfocus="validate(value, '#expDateTool1')"
                   onkeyup="validate(value,'#expDateTool1')"
@@ -112,7 +106,7 @@
                   type="date"
                   class="form-control"
                   id="ownerBirDate1"
-                  name="ownerBirDate1"
+                  name="ownerBirDate"
                   placeholder="Fecha de Nacimiento"
                   onfocus="validate(value, '#birDateTool1')"
                   onkeyup="validate(value,'#birDateTool1')"
@@ -126,7 +120,7 @@
                   type="text"
                   class="form-control"
                   id="ownerAddress1"
-                  name="ownerAddress1"
+                  name="ownerAddress"
                   placeholder="Domicilio"
                   onfocus="validate(value, '#addressTool1')"
                   onkeyup="validate(value,'#addressTool1')"
@@ -545,75 +539,78 @@
 
         <h2>Contactos</h2>
 
-        <div id="addContact">
-          <div id="addContactDIV">
-            <div class="row addContactRow">
-              <div class="col-md-4">
+        <div id="contact">
+          <div id="contactDIV1">
+            <div class="row" id="contactRow1">
+              <div class="col-md-4" id="inputContactName1">
                 <label for="">Nombre</label>
                 <input
                   type="text"
                   class="form-control"
                   name="contactName"
-                  id="contactName"
+                  id="contactName1"
                   placeholder="Nombre"
+                  onfocus="validate(value, '#contactNameTool1')"
+                  onkeyup="validate(value,'#contactNameTool1')"
                   required
                 />
-                <span class="tooltipText" id="contactNameTool">Requerido</span>
+                <span class="tooltipText" id="contactNameTool1">Requerido</span>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4" id="inputContactPhone1">
                 <label for="">Número Telefónico</label>
                 <input
                   type="text"
                   class="form-control"
                   name="contactPhone"
-                  id="contactPhone"
+                  id="contactPhone1"
+                  onfocus="validate(value, '#contactPhoneTool1')"
+                  onkeyup="validate(value,'#contactPhoneTool1')"
                   placeholder="Número Telefónico"
                   required
                 />
-                <span class="tooltipText" id="contactPhoneTool">Requerido</span>
+                <span class="tooltipText" id="contactPhoneTool1"
+                  >Requerido</span
+                >
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4" id="inputContactEmail1">
                 <label for="">Correo Electrónico</label>
                 <input
                   type="text"
                   class="form-control"
                   name="contactEmail"
-                  id="contactEmail"
+                  id="contactEmail1"
+                  onfocus="validate(value, '#contactEmailTool1')"
+                  onkeyup="validate(value,'#contactEmailTool1')"
                   placeholder="Correo Electrónico"
                   required
                 />
-                <span class="tooltipText" id="contactEmailTool">Requerido</span>
+                <span class="tooltipText" id="contactEmailTool1"
+                  >Requerido</span
+                >
               </div>
+            </div>
+            <div class="row" id="contactSecRow1">
+              <div class="col-md-6" id="contactDeleteButtonInput1"></div>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <button
-            class="btn btn-light"
-            type="button"
-            onclick="addContactFields()"
-          >
+          <button class="btn btn-light" type="button" onclick="cloneContact()">
             <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
           </button>
         </div>
 
-        <button
-          name="submit"
-          id="submit"
-          type="submit"
-          class="btn btn btn-light col-md-12"
-        >
+        <button id="submit" type="submit" class="btn btn btn-light col-md-12">
           Agregar Sociedad
         </button>
       </form>
     </div>
   </body>
   <script>
-    var l = 1;
     var i = 1;
     var j = 1;
     var newOwnerCount = 1;
-    var oldOwnerCount = 1;
+    var newContactCount = 1;
     (function () {
       "use strict";
 
