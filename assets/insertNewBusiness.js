@@ -3,7 +3,7 @@ exports.addBusiness = function (businessArray) {
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   var query =
-    "INSERT into business (businessName, businessID, atvUser, atvPassword, billSystem, billSystemUser, billSystemPassword, billEmail, billEmailPassword, traviUser, traviPassword, ccssUser, ccssPassword, insUser, insPassword, userID, activity, TIV) VALUES ('" +
+    "INSERT into business (businessName, businessID, atvUser, atvPassword, billSystem, billSystemUser, billSystemPassword, billEmail, billEmailPassword, traviUser, traviPassword, ccssUser, ccssPassword, insUser, insPassword, userID, TIV) VALUES ('" +
     businessArray[0] +
     "','" +
     businessArray[1] +
@@ -37,12 +37,10 @@ exports.addBusiness = function (businessArray) {
     businessArray[15] +
     "','" +
     businessArray[16] +
-    "','" +
+    "/" +
     businessArray[17] +
     "/" +
     businessArray[18] +
-    "/" +
-    businessArray[19] +
     "/" +
     businessArray[20] +
     "/" +
@@ -102,12 +100,7 @@ exports.addBusinessOwner = (ownerArray, businessID, ownerAmount) => {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var ownerName = 0;
-  var ownerID = 1;
-  var ownerIDexpDate = 2;
-  var ownerBirthDate = 3;
-  var ownerAddress = 4;
-  console.log(ownerArray);
+
   if (ownerAmount === 1) {
     var query =
       "INSERT into legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES ('" +
@@ -140,12 +133,7 @@ exports.addBusinessOwner = (ownerArray, businessID, ownerAmount) => {
         "','" +
         ownerArray[4][i] +
         "')";
-      ownerName = ownerName + 5;
-      ownerID = ownerID + 5;
-      ownerIDexpDate = ownerIDexpDate + 5;
-      ownerBirthDate = ownerBirthDate + 5;
-      ownerAddress = ownerAddress + 5;
-      // console.log(i)
+
       connect.query(query);
     }
   }
@@ -156,9 +144,7 @@ exports.addBusinessContact = (contactArray, businessID, contactAmount) => {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var contactName = 0;
-  var contactPhone = 1;
-  var contactEmail = 2;
+
   if (contactAmount === 1) {
     var query =
       "INSERT into businessContact (businessID, contactName, contactPhone, contactEmail) VALUES ('" +
@@ -183,9 +169,33 @@ exports.addBusinessContact = (contactArray, businessID, contactAmount) => {
         "','" +
         contactArray[2][i] +
         "')";
-      contactName = contactName + 3;
-      contactPhone = contactPhone + 3;
-      contactEmail = contactEmail + 3;
+      connect.query(query);
+    }
+  }
+  connect.end();
+};
+
+exports.addBusinessActivity = (activityArray, businessID, activityAmount) => {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+
+  if (activityAmount === 1) {
+    var query =
+      "INSERT into businesactivity (businessID, activityID) VALUES ('" +
+      businessID +
+      "','" +
+      activityArray[0] +
+      "')";
+    connect.query(query);
+  } else {
+    for (let i = 0; i < activityAmount; i++) {
+      var query =
+        "INSERT into businesactivity (businessID, activityID) VALUES ('" +
+        businessID +
+        "','" +
+        activityArray[0][i] +
+        "')";
       connect.query(query);
     }
   }

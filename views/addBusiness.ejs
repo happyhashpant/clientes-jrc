@@ -18,7 +18,13 @@
     </script>
     <h1>Agregar Sociedad</h1>
     <div class="contentBackground">
-      <form id="businessForm" action="/addBusiness" method="post" class="needs-validation" novalidate>
+      <form
+        id="businessForm"
+        action="/addBusiness"
+        method="post"
+        class="needs-validation"
+        novalidate
+      >
         <h2>Datos Generales</h2>
         <div class="row">
           <div class="col-md-4">
@@ -170,7 +176,7 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <label for="">Sistema de Facturación</label>
+            <label class="bill" for="">Sistema de Facturación</label>
             <input
               type="text"
               class="form-control"
@@ -304,20 +310,36 @@
           </div>
         </div>
         <h2>Actividad Económica</h2>
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Actividad Económica*</label>
-            <select
-              name="activity"
-              class="form-select"
-              aria-label="Default select example"
-              required
-            >
-              <% var j=0; activity.forEach(function(datas){ %>
-              <option value="<%=datas.id%>"><%=datas.activityName%></option>
-              <% j++; }) %>
-            </select>
+        <div id="activity">
+          <div id="activityDIV1">
+            <div class="row" id="activityFrRow1">
+              <div class="col-md-6">
+                <label for="">Actividad Económica*</label>
+                <select
+                  name="activity"
+                  class="form-select"
+                  aria-label="Default select example"
+                  required
+                >
+                  <% var j=0; activity.forEach(function(datas){ %>
+                  <optgroup>
+                    <option value="<%=datas.id%>">
+                      <%=datas.activityName%>
+                    </option>
+                  </optgroup>
+                  <% j++; }) %>
+                </select>
+              </div>
+            </div>
+            <div class="row" id="activitySecRow">
+              <div class="col-md-6" id="activityDeleteButtonInput"></div>
+            </div>
           </div>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-light" type="button" onclick="cloneActivity()">
+            <i class="glyphicon glyphicon-plus"></i> Agregar Actividad
+          </button>
         </div>
 
         <h2 id="tivTool">
@@ -609,8 +631,10 @@
   <script>
     var i = 1;
     var j = 1;
+    var z = 1;
     var newOwnerCount = 1;
     var newContactCount = 1;
+    var newActivityCount = 1;
     (function () {
       "use strict";
 

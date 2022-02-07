@@ -5,9 +5,16 @@
     <script src="/assets/jquery-3.6.0.min.js"></script>
     <script src="/assets/bootstrap.js"></script>
     <script defer src="/assets/functions.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comforter&family=Open+Sans+Condensed:ital,wght@1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/normalize.css" />
     <link rel="stylesheet" href="/assets/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <title>Agregar Sociedad</title>
+    <title><%=business[0].businessName%></title>
   </head>
   <body>
     <div id="navBar"></div>
@@ -42,76 +49,70 @@
           </div>
         </div>
         <h2>Representante Legal</h2>
-        <div class="row">
-          <div class="col-md-4">
-            <label for="">Nombre del Representante</label>
-            <input
-              type="text"
-              class="form-control"
-              name="businessOwner"
-              placeholder="Nombre del Representante"
-              readonly
-            />
+        <% var i=1; owner.forEach(function(data){%>
+        <div id="ownerDIV1">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="">Nombre del Representante</label>
+              <input
+                type="text"
+                class="form-control"
+                name="businessOwner"
+                placeholder="Nombre del Representante"
+                value="<%=data.nameLegal%>"
+                readonly
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="">Cedula del Representante</label>
+              <input
+                type="text"
+                class="form-control"
+                name="businessOwner"
+                value="<%=data.idLegal%>"
+                placeholder="Cedula del Representante"
+                readonly
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="">Fecha de expiracion de la Cedula</label>
+              <input
+                type="date"
+                class="form-control"
+                name="businessOwner"
+                value="<%=data.dateIdExpiration%>"
+                placeholder="Fecha de expiracion de la Cedula"
+                readonly
+              />
+            </div>
           </div>
-          <div class="col-md-4">
-            <label for="">Cedula del Representante</label>
-            <input
-              type="text"
-              class="form-control"
-              name="businessOwner"
-              placeholder="Cedula del Representante"
-              readonly
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="">Fecha de expiracion de la Cedula</label>
-            <input
-              type="date"
-              class="form-control"
-              name="businessOwner"
-              placeholder="Fecha de expiracion de la Cedula"
-              readonly
-            />
+          <div class="row">
+            <div class="col-md-4">
+              <label for="">Fecha de nacimiento</label>
+              <input
+                type="date"
+                class="form-control"
+                name="businessOwner"
+                value="<%=data.dateBirthLegal%>"
+                placeholder="Fecha de nacimiento"
+                readonly
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="">Domicilio</label>
+              <input
+                type="text"
+                class="form-control"
+                name="businessOwner"
+                value="<%=data.address%>"
+                placeholder="Domicilio"
+                readonly
+              />
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <label for="">Fecha de nacimiento</label>
-            <input
-              type="date"
-              class="form-control"
-              name="businessOwner"
-              placeholder="Fecha de nacimiento"
-              readonly
-            />
-          </div>
-          <div class="col-md-4">
-            <label for="">Domicilio</label>
-            <input
-              type="text"
-              class="form-control"
-              name="businessOwner"
-              placeholder="Domicilio"
-              readonly
-            />
-          </div>
-        </div>
-        <!-- <div class="col-md-6">
-          <button
-            class="btn btn-light"
-            type="button"
-            onclick="addRepFields()"
-          >
-            <i class="glyphicon glyphicon-plus"></i> Agregar Representante
-          </button>
-          <button
-            class="btn btn-light"
-            type="button"
-            onclick="removeRepFields()"
-          >
-            <i class="glyphicon glyphicon-plus"></i> Eliminar Representante
-          </button>
-        </div> -->
+        <% i++; }) %>
+
         <h2>Datos contables</h2>
         <div class="row">
           <div class="col-md-6">
@@ -286,21 +287,27 @@
           </div>
         </div>
         <h2>Actividad Económica</h2>
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">Actividad Económica*</label>
-            <select
-              name="activity"
-              class="form-select"
-              aria-label="Default select example"
-              disabled
-            >
-              <% var j=0; activity.forEach(function(datas){ %>
-              <option value="<%=datas.id%>"><%=datas.activityName%></option>
-              <% j++; }) %>
-            </select>
+        <% var j=0; activity.forEach(function(datas){ %>
+
+        <div id="activityDIV1">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="">Actividad Económica*</label>
+              <select
+                name="activity"
+                class="form-select"
+                aria-label="Default select example"
+                disabled
+              >
+                <optgroup>
+                  <option value="<%=datas.id%>"><%=datas.activityName%></option>
+                </optgroup>
+              </select>
+            </div>
           </div>
         </div>
+
+        <% j++; }) %>
         <h2>TIV</h2>
         <div class="table-responsive">
           <table class="table table-light table-striped table-bordered tiv">
@@ -463,40 +470,42 @@
         <h2>Logo</h2>
         <div class="row">
           <div class="col-md-6">
-            <input type="file" class="form-control" name="picture"/>
+            <input type="file" class="form-control" name="picture" />
           </div>
         </div>
 
         <h2>Contacto</h2>
 
-        <div id="addContact">
-          <div class="row">
-            <div class="col-md-4">
-              <input
-                type="text"
-                class="form-control"
-                name="contactName"
-                placeholder="Nombre"
-                readonly
-              />
-            </div>
-            <div class="col-md-4">
-              <input
-                type="text"
-                class="form-control"
-                name="contactPhone"
-                placeholder="Numero Telefonico"
-                readonly
-              />
-            </div>
-            <div class="col-md-4">
-              <input
-                type="text"
-                class="form-control"
-                name="contactEmail"
-                placeholder="Correo electronico"
-                readonly
-              />
+        <div id="contact">
+          <div id="contactDIV1">
+            <div class="row">
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactName"
+                  placeholder="Nombre"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactPhone"
+                  placeholder="Numero Telefonico"
+                  readonly
+                />
+              </div>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contactEmail"
+                  placeholder="Correo electronico"
+                  readonly
+                />
+              </div>
             </div>
           </div>
         </div>

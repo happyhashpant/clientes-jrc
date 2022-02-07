@@ -1,20 +1,22 @@
 h1 {
   margin: 10px;
   padding-top: 50px;
+  text-align: center;
+  font-weight: bold;
 }
 h2 {
-  color: white;
   border-bottom: black;
   border-bottom-style: groove;
   margin-bottom: 30px;
   margin-top: 30px;
+  font-size: 40px;
 }
 
 body {
-  background-color: #a39ba8;
-  margin: 2px;
+  background-color: white;
   color: black;
-  font-family: "Tahoma", "Courier New", monospace;
+  letter-spacing: 3px;
+  font-family: "Open Sans Condensed", sans-serif;
 }
 input {
   margin-bottom: 10px;
@@ -31,7 +33,7 @@ input {
 }
 
 .contentBackground {
-  background-color: #b8c5d6;
+  background-color: #737373;
   padding: 10px;
   margin: 5px;
   border-radius: 10px;
@@ -40,9 +42,7 @@ input {
 .hide {
   display: none;
 }
-#navBar {
-  box-shadow: 2px 5px black;
-}
+
 .error {
   text-align: center;
 }
@@ -50,6 +50,35 @@ input {
 .tiv {
   text-align: center;
   width: 30%;
+}
+
+input[type="text"] {
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+input[type="date"] {
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+input[type="number"] {
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+optgroup {
+  font-size: 15px;
+}
+select {
+  height: 55px;
+  margin-bottom: 10px;
+}
+
+input[type="password"] {
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+input[type="email"] {
+  font-size: 30px;
+  letter-spacing: 3px;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -81,6 +110,7 @@ th > input:read-only {
 }
 
 .deleteButton {
+  margin-top: 5px;
   margin-bottom: 5px;
 }
 
@@ -131,6 +161,17 @@ th > input:read-only {
   cursor: pointer;
 }
 
-.tokenInvalid{
+.tokenInvalid {
   text-align: center;
+}
+
+label {
+  font-weight: bold;
+  font-size: 30px;
+  }
+
+@media screen and (min-width: 1000px) {
+  .bill {
+    margin-top: 45px;
+  }
 }

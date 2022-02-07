@@ -97,7 +97,6 @@ module.exports = function (app) {
   app.get("/setNewPassword", function (req, res) {
     var userEmail = req.query.userEmail;
     res.render("setNewPassword", { userEmail: userEmail });
-    console.log(test);
   });
 
   app.post("/setNewPassword", function (req, res) {
@@ -133,7 +132,7 @@ module.exports = function (app) {
     addBusinessSync(req, res);
   });
 
-  app.get("/loadBusiness*", checkSignIn, (req, res) => {
+  app.get("/loadBusiness*", (req, res) => {
     console.log(req.session.user);
     loadBusinessSync(req, res);
   });
@@ -189,12 +188,20 @@ module.exports = function (app) {
 
   async function loadBusinessSync(req, res) {
     var business = await loadBusiness.loadBusinessAsy(req.query.businessID);
-    var user = await loadUser.loadUser(24);
-    var activity = await loadActivity.loadActivityMenu();
+    var user = await loadUser.loadUser(business[0].userID);
+    var owner = await loadBusiness.loadOwners(business[0].id);
+    var contact = await loadBusiness.loadContacts(business[0].id);
+    var activity = await loadBusiness.loadActivity(business[0].id);
+    console.log(owner);
+    console.log(business);
+    console.log(contact);
+    console.log(activity);
     res.render("loadBusiness", {
       business: business,
       user: user,
       activity: activity,
+      owner: owner,
+      contact: contact,
     });
   }
 
@@ -212,6 +219,8 @@ module.exports = function (app) {
     var ownerArray = [];
     var businessArray = [];
     var contactArray = [];
+    var activityArray = [];
+    var p = 0;
     var j = 0;
     var i = 0;
     var z = 0;
@@ -226,7 +235,6 @@ module.exports = function (app) {
       } else if (`${property}` === "ownerIDExpDate") {
         ownerArray[i] = formData[property];
         i++;
-        SW;
       } else if (`${property}` === "ownerBirDate") {
         ownerArray[i] = formData[property];
         i++;
@@ -242,12 +250,18 @@ module.exports = function (app) {
       } else if (`${property}` === "contactEmail") {
         contactArray[j] = formData[property];
         j++;
+      } else if (`${property}` === "activity") {
+        activityArray[j] = formData[property];
+        p++;
       } else {
         businessArray[z] = formData[property];
         z++;
       }
     }
-    // console.log(businessArray);
+    console.log(businessArray);
+    console.log(contactArray);
+    console.log(activityArray);
+    console.log(ownerArray);
     await insertBusiness.addBusiness(businessArray);
     var businessID = await insertBusiness.verifiedBusiness(req.body.businessID);
     console.log(ownerArray[0].length);
@@ -260,6 +274,11 @@ module.exports = function (app) {
       contactArray,
       businessID[0].id,
       contactArray[0].length
+    );
+    await insertBusiness.addBusinessActivity(
+      activityArray,
+      businessID[0].id,
+      activityArray[0].length
     );
   }
 

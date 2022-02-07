@@ -230,7 +230,6 @@ function clonOwner() {
     .insertAfter("#ownerDIV1");
 
   i++;
-  // console.log(i);
 
   $("#ownerDIV" + i + " #ownerRow1").attr("id", "ownerRow" + i);
 
@@ -335,9 +334,9 @@ function clonOwner() {
     "validate(value, '#addressTool" + i + "')"
   );
 
+  //Add delete button
   $("#ownerDIV" + i + " #ownerThrRow").attr("id", "ownerThrRow" + i);
 
-  //Add delete button
   $("#ownerThrRow" + i + " #ownerDeleteButtonInput").attr(
     "id",
     "ownerDeleteButtonInput" + i
@@ -369,4 +368,37 @@ function loadBusiness(business) {
 }
 function loadBusiness2(business) {
   window.location.replace("/loadBusiness?businessID=" + business);
+}
+
+function cloneActivity() {
+  newActivityCount++;
+  $("#activityDIV1")
+    .clone()
+    .attr("id", "activityDIV" + newActivityCount)
+    .insertAfter("#activityDIV1");
+  z++;
+  $("#activityDIV" + z + " #activitySecRow").attr("id", "activitySecRow" + z);
+  $("#activitySecRow" + z + " #activityDeleteButtonInput").attr(
+    "id",
+    "activityDeleteButtonInput" + z
+  );
+
+  $("#activityDeleteButtonInput" + z).append(
+    "<button class='btn btn btn-light deleteButton' type='button' id='activityDeleteButton'>Eliminar</button>"
+  );
+
+  $("#activityDeleteButtonInput" + z + " #activityDeleteButton").attr(
+    "id",
+    "activityDeleteButton" + z
+  );
+  $("#activityDeleteButton" + z).attr(
+    "onclick",
+    "removeActivity('activityDIV" + z + "')"
+  );
+}
+
+function removeActivity(id) {
+  $("#" + id).remove();
+  z--;
+  newActivityCount--;
 }
