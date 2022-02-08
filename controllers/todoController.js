@@ -81,7 +81,7 @@ module.exports = function (app) {
       from: "ihangcf64@gmail.com",
       to: req.body.email,
       subject: "Se me olvido la contrasenha",
-      text: "http://127.0.0.1:3000/setNewPassword?userEmail=" + req.body.email,
+      text: "https://jrcclient.herokuapp.com/setNewPassword?userEmail=" + req.body.email,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
