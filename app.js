@@ -10,6 +10,7 @@ app.set("trust proxy", true);
 app.use(express.static("./"));
 app.use(express.json());
 app.use(cookie());
+var MemcachedStore = require('connect-memjs')(session);
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(
   session({
@@ -17,6 +18,10 @@ app.use(
     saveUninitialized: false,
     cookie: { maxAge: oneDay, secure: true },
     resave: false,
+    store: new MemcachedStore({
+        servers: [process.env.MEMCACHIER_SERVERS],
+        prefix: '_session_'
+      })
   })
 );
 
