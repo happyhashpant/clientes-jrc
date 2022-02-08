@@ -1,7 +1,7 @@
 var express = require("express");
 var session = require("express-session");
 var todoController = require("./controllers/todoController");
-
+var cookie = require("cookie-parser");
 var app = express();
 
 app.set("view engine", "ejs");
