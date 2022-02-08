@@ -32,6 +32,7 @@ module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   function checkSignIn(req, res, next) {
+    console.log(req.session.user);
     if (req.session.user) {
       console.log("made it");
       next();
@@ -322,6 +323,7 @@ module.exports = function (app) {
           }
         })
         .catch((err) => console.error(err.message));
+        console.log("asd");
       res.redirect("/business");
     } else {
       res.redirect("/login");

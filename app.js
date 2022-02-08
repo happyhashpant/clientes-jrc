@@ -10,21 +10,16 @@ app.set("trust proxy", true);
 app.use(express.static("./"));
 app.use(express.json());
 app.use(cookie());
-var MemcachedStore = require('connect-memjs')(session);
+var MemcachedStore = require("connect-memjs")(session);
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(
   session({
     secret: "thisismysecrctekey",
-    saveUninitialized: false,
-    cookie: { maxAge: oneDay, secure: true },
+    saveUninitialized: true,
     resave: false,
-    store: new MemcachedStore({
-        servers: [process.env.MEMCACHIER_SERVERS],
-        prefix: '_session_'
-      })
   })
 );
 
 todoController(app);
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 3000);
