@@ -8,10 +8,10 @@ app.set("view engine", "ejs");
 
 app.use(express.static("./"));
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookie());
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(
-  sessions({
+  session({
     secret: "thisismysecrctekey",
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
