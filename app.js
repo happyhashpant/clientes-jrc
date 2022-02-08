@@ -5,7 +5,7 @@ var cookie = require("cookie-parser");
 var app = express();
 
 app.set("view engine", "ejs");
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 app.use(express.static("./"));
 app.use(express.json());
