@@ -108,14 +108,20 @@ module.exports = function (app) {
     loadUserEmail(req, res);
   });
 
-  app.get("/business", checkSignIn, function (req, res) {
-    loadBusinessTable
+  app.get("/business", function (req, res) {
+    if (req.session.user) {
+      loadBusinessTable
       .loadBusinessTable()
       .then(function (result) {
         objects = result;
         res.render("business");
       })
       .catch((err) => alert(err));
+    } else {
+      var err = new Error("Not logged in!");
+      res.render("index");
+    }
+    
   });
 
   app.post("/addBusiness", function (req, res) {
