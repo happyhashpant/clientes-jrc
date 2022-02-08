@@ -5,7 +5,7 @@ var cookie = require("cookie-parser");
 var app = express();
 
 app.set("view engine", "ejs");
-app.set('trust proxy', true);
+app.set("trust proxy", true);
 
 app.use(express.static("./"));
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(
   session({
     secret: "thisismysecrctekey",
     saveUninitialized: true,
-    cookie: { maxAge: oneDay },
+    cookie: { maxAge: oneDay, secure: true },
     resave: false,
   })
 );
