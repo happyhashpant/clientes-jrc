@@ -134,7 +134,7 @@ module.exports = function (app) {
       .loadBusinessTable()
       .then(function (result) {
         objects = result;
-        res.render("business");
+        res.render("business", "/assets/navbar.html");
       })
       .catch((err) => alert(err));
   });
