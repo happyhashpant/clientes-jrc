@@ -124,6 +124,10 @@ module.exports = function (app) {
     
   });
 
+  app.get("/assets/navbar.html", function (req, res) {
+    res.send(console.log("hola"));
+  });
+
   app.post("/addBusiness", function (req, res) {
     addNewBusiness(req);
     loadBusinessTable

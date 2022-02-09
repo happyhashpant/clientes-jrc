@@ -1,10 +1,5 @@
 <!DOCTYPE html>
-<script type="module">
-    
-  $(document).ready(function () {
-    $("#navBar").load("/assets/navbar.html");
-  });
-</script>
+
 <html>
   <head>
     <script src="/assets/jquery-3.6.0.min.js"></script>
@@ -40,17 +35,26 @@
         </thead>
         <tbody>
           <% var i=1; objects.forEach(function(data){%>
-            <tr class="clickable" onclick="loadBusiness('<%=data.id%>')" onauxclick="loadBusiness2('<%=data.id%>')";>
-              <td><%=data.businessName%></td>
-              <td><%=data.businessID%></td>
-              <td><%=data.billSystem%></td>
-              <td><%=data.billSystemUser%></td>
-              <td><%=data.billSystemPassword%></td>
-            </tr>
-            <% i++; }) %>
+          <tr
+            class="clickable"
+            onclick="loadBusiness('<%=data.id%>')"
+            onauxclick="loadBusiness2('<%=data.id%>')"
+            ;
+          >
+            <td><%=data.businessName%></td>
+            <td><%=data.businessID%></td>
+            <td><%=data.billSystem%></td>
+            <td><%=data.billSystemUser%></td>
+            <td><%=data.billSystemPassword%></td>
+          </tr>
+          <% i++; }) %>
         </tbody>
       </table>
     </div>
   </body>
-  
+  <script type="module">
+    $(document).ready(function () {
+      $("#navBar").load("/assets/navbar.html");
+    });
+  </script>
 </html>
