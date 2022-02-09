@@ -191,9 +191,9 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
-  // app.get("*", function (req, res) {
-  //   res.render("404");
-  // });
+  app.get("*", function (req, res) {
+    res.render("404");
+  });
 
   app.delete("/todo", function (req, res) {});
 
