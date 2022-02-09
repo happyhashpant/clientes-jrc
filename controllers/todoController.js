@@ -119,7 +119,7 @@ module.exports = function (app) {
       .loadBusinessTable()
       .then(function (result) {
         objects = result;
-        res.render("business", "/assets/navbar.html");
+        res.render("business");
       })
       .catch((err) => alert(err));
   });
