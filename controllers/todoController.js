@@ -125,7 +125,7 @@ module.exports = function (app) {
   });
 
   app.get("/assets/navbar.html", function (req, res) {
-    res.send(console.log("hola"));
+    req.render("business");
   });
 
   app.post("/addBusiness", function (req, res) {
