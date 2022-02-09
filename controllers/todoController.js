@@ -109,8 +109,14 @@ module.exports = function (app) {
     loadUserEmail(req, res);
   });
 
-  app.get("/business", function (req, res) {
-    test(req, res);
+  app.get("/business", checkSignIn, function (req, res) {
+    loadBusinessTable
+        .loadBusinessTable()
+        .then(function (result) {
+          objects = result;
+          res.render("business");
+        })
+        .catch((err) => alert(err));
   });
 
   app.post("/addBusiness", function (req, res) {
@@ -177,7 +183,7 @@ module.exports = function (app) {
   });
 
   app.get("*", function (req, res) {
-    res.render("404");
+    res.render("navBar");
   });
 
   app.delete("/todo", function (req, res) {});
@@ -312,14 +318,13 @@ module.exports = function (app) {
         .then((res) => {
           if (res) {
             req.session.user = password[0].userEmail;
-            console.log(req.session.user);
+            c;
           } else {
             res.redirect("/login");
           }
         })
         .catch((err) => console.error(err.message));
-      console.log("asd");
-      res.redirect("/business");
+            res.redirect("/business");
     } else {
       res.redirect("/login");
     }
