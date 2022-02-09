@@ -32,7 +32,6 @@ module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   function checkSignIn(req, res, next) {
-    console.log(req.session.user);
     if (req.session.user) {
       console.log("made it");
       next();
@@ -82,7 +81,9 @@ module.exports = function (app) {
       from: "ihangcf64@gmail.com",
       to: req.body.email,
       subject: "Se me olvido la contrasenha",
-      text: "https://jrcclient.herokuapp.com/setNewPassword?userEmail=" + req.body.email,
+      text:
+        "https://jrcclient.herokuapp.com/setNewPassword?userEmail=" +
+        req.body.email,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -109,23 +110,7 @@ module.exports = function (app) {
   });
 
   app.get("/business", function (req, res) {
-    if (req.session.user) {
-      loadBusinessTable
-      .loadBusinessTable()
-      .then(function (result) {
-        objects = result;
-        res.render("business");
-      })
-      .catch((err) => alert(err));
-    } else {
-      var err = new Error("Not logged in!");
-      res.render("index");
-    }
-    
-  });
-
-  app.get("/assets/navbar.html", function (req, res) {
-    req.render("business");
+    test(req, res);
   });
 
   app.post("/addBusiness", function (req, res) {
@@ -333,10 +318,25 @@ module.exports = function (app) {
           }
         })
         .catch((err) => console.error(err.message));
-        console.log("asd");
+      console.log("asd");
       res.redirect("/business");
     } else {
       res.redirect("/login");
+    }
+  }
+
+  async function test(req, res) {
+    if (req.session.user) {
+      await loadBusinessTable
+        .loadBusinessTable()
+        .then(function (result) {
+          objects = result;
+          res.render("business");
+        })
+        .catch((err) => alert(err));
+    } else {
+      var err = new Error("Not logged in!");
+      res.render("index");
     }
   }
 };
