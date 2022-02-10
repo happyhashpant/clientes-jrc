@@ -172,28 +172,63 @@ label {
   font-weight: bold;
   font-size: 20px;
 }
-@media only screen and (min-width: 700px) {
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 600px) {
   .bill,
   .ownerName,
   .ownerID {
     margin-top: 30px;
   }
   .billEmail {
-    margin-top: 30px;
+    margin-top: 0;
   }
 }
 
-@media only screen and (min-width: 1000px) {
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1375px) {
   .bill,
   .ownerName,
   .ownerID {
     margin-top: 0;
   }
   .billEmail {
+    margin-top: 0;
+  }
+}
+
+@media only screen and (min-width: 1420px) {
+  .ownerName,
+  .ownerID {
+    margin-top: 0;
+  }
+  .billEmail,
+  .bill,
+  .billUser {
     margin-top: 30px;
   }
 }
 
+@media only screen and (min-width: 1720px) {
+  .ownerName,
+  .ownerID,
+  .bill,
+  .billUser {
+    margin-top: 0;
+  }
+  .billEmail {
+    margin-top: 30px;
+  }
+}
+@media only screen and (min-width: 2000px) {
+  .ownerName,
+  .ownerID,
+  .bill,
+  .billUser,
+  .billEmail {
+    margin-top: 0;
+  }
+}
 img {
   max-width: 100%;
   height: 100%;
