@@ -33,7 +33,6 @@ module.exports = function (app) {
 
   function checkSignIn(req, res, next) {
     if (req.session.user) {
-      console.log("made it");
       next();
     } else {
       var err = new Error("Not logged in!");
@@ -111,12 +110,12 @@ module.exports = function (app) {
 
   app.get("/business", checkSignIn, function (req, res) {
     loadBusinessTable
-        .loadBusinessTable()
-        .then(function (result) {
-          objects = result;
-          res.render("business");
-        })
-        .catch((err) => alert(err));
+      .loadBusinessTable()
+      .then(function (result) {
+        objects = result;
+        res.render("business");
+      })
+      .catch((err) => alert(err));
   });
 
   app.post("/addBusiness", function (req, res) {
@@ -324,7 +323,7 @@ module.exports = function (app) {
           }
         })
         .catch((err) => console.error(err.message));
-            res.redirect("/business");
+      res.redirect("/business");
     } else {
       res.redirect("/login");
     }

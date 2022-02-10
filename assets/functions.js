@@ -106,6 +106,10 @@ function cloneContact() {
     "id",
     "inputContactName" + j
   );
+  $("#contactDIV" + j).attr(
+    "style", "border-top-style: dotted;"
+  )
+
   $("#inputContactName" + j + " #contactName1").attr("id", "contactName" + j);
   $("#inputContactName" + j + " #contactNameTool1").attr(
     "id",
@@ -239,6 +243,10 @@ function clonOwner() {
     "id",
     "businessOwnerName" + i
   );
+  $("#ownerDIV" + i).attr(
+    "style", "border-top-style: dotted;"
+  )
+
   $("#ownerNameInput" + i + " #ownerNameTool1").attr("id", "ownerNameTool" + i);
   $("#businessOwnerName" + i).attr(
     "onfocus",
@@ -382,6 +390,9 @@ function cloneActivity() {
     "id",
     "activityDeleteButtonInput" + z
   );
+  $("#activityDIV" + z).attr(
+    "style", "border-top-style: dotted;"
+  )
 
   $("#activityDeleteButtonInput" + z).append(
     "<button class='btn btn btn-light deleteButton' type='button' id='activityDeleteButton'>Eliminar</button>"
