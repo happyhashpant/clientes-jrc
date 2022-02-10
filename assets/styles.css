@@ -53,7 +53,7 @@ input {
 
 .tiv {
   text-align: center;
-  width: 100%;
+  width: 40%;
 }
 
 input[type="text"] {
@@ -185,6 +185,9 @@ label {
   .billEmail {
     margin-top: 0;
   }
+  input{
+    width: 100px;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -197,6 +200,7 @@ label {
   .billEmail {
     margin-top: 0;
   }
+  
 }
 
 @media only screen and (min-width: 1420px) {
