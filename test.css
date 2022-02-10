@@ -1,4 +1,7 @@
-.navBar{
-    background-color: black;
-    height: 20px;    
+.content {
+  margin-top: 300px;
+  margin-left: 300px; 
+  width: 60%;
+  border: 3px solid #73ad21;
+  padding: 10px;
 }

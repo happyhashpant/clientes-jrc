@@ -9,7 +9,7 @@ h2 {
   border-bottom-style: groove;
   margin-bottom: 30px;
   margin-top: 30px;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 body {
@@ -18,8 +18,10 @@ body {
   letter-spacing: 3px;
   font-family: "Open Sans Condensed", sans-serif;
 }
+
 input {
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 
 .addUserForm {
@@ -53,15 +55,16 @@ input {
 }
 
 input[type="text"] {
-  font-size: 30px;
+  font-size: 20px;
   letter-spacing: 3px;
 }
+
 input[type="date"] {
-  font-size: 30px;
+  font-size: 20px;
   letter-spacing: 3px;
 }
 input[type="number"] {
-  font-size: 30px;
+  font-size: 20px;
   letter-spacing: 3px;
 }
 optgroup {
@@ -73,11 +76,11 @@ select {
 }
 
 input[type="password"] {
-  font-size: 30px;
+  font-size: 20px;
   letter-spacing: 3px;
 }
 input[type="email"] {
-  font-size: 30px;
+  font-size: 20px;
   letter-spacing: 3px;
 }
 
@@ -167,11 +170,31 @@ th > input:read-only {
 
 label {
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
+}
+@media only screen and (min-width: 700px) {
+  .bill,
+  .ownerName,
+  .ownerID {
+    margin-top: 30px;
   }
+  .billEmail {
+    margin-top: 30px;
+  }
+}
 
-@media screen and (min-width: 1000px) {
-  .bill {
-    margin-top: 45px;
+@media only screen and (min-width: 1000px) {
+  .bill,
+  .ownerName,
+  .ownerID {
+    margin-top: 0;
   }
+  .billEmail {
+    margin-top: 30px;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
 }

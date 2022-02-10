@@ -17,15 +17,16 @@
       $("#navBar").load("/assets/navBar.html");
     </script>
     <h1>Agregar Sociedad</h1>
-    <div class="contentBackground">
-      <form
-        id="businessForm"
-        action="/addBusiness"
-        method="post"
-        class="needs-validation"
-        novalidate
-      >
-        <h2>Datos Generales</h2>
+
+    <form
+      id="businessForm"
+      action="/addBusiness"
+      method="post"
+      class="needs-validation"
+      novalidate
+    >
+      <h2>Datos Generales</h2>
+      <div class="contentBackground">
         <div class="row">
           <div class="col-md-4">
             <label for="">Nombre*</label>
@@ -57,12 +58,14 @@
             >
           </div>
         </div>
-        <h2>Representante Legal</h2>
+      </div>
+      <h2>Representante Legal</h2>
+      <div class="contentBackground">
         <div id="addOwner">
           <div id="ownerDIV1">
             <div class="row" id="ownerRow1">
               <div class="col-md-4" id="ownerNameInput1">
-                <label for="">Nombre*</label>
+                <label class="ownerName" for="">Nombre*</label>
                 <input
                   type="text"
                   class="form-control"
@@ -76,7 +79,7 @@
                 <span class="tooltipText" id="ownerNameTool">Requerido</span>
               </div>
               <div class="col-md-4" id="ownerIDInput1">
-                <label for="">Cédula*</label>
+                <label class="ownerID" for="">Cédula*</label>
                 <input
                   type="number"
                   class="form-control"
@@ -140,12 +143,16 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <button class="btn btn-light" type="button" onclick="clonOwner()">
-            <i class="glyphicon glyphicon-plus"></i> Agregar Representante
-          </button>
-        </div>
-        <h2>Datos contables</h2>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-light" type="button" onclick="clonOwner()">
+          <i class="glyphicon glyphicon-plus"></i> Agregar Representante
+        </button>
+      </div>
+
+      <h2>Datos contables</h2>
+
+      <div class="contentBackground">
         <div class="row">
           <div class="col-md-4">
             <label for="">Usuario ATV*</label>
@@ -205,7 +212,7 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <label for="">Correo para recepción de Facturas*</label>
+            <label class="billEmail" for="">Correo para recepción de Facturas*</label>
             <input
               type="email"
               class="form-control"
@@ -309,7 +316,9 @@
             </select>
           </div>
         </div>
-        <h2>Actividad Económica</h2>
+      </div>
+      <h2>Actividad Económica</h2>
+      <div class="contentBackground">
         <div id="activity">
           <div id="activityDIV1">
             <div class="row" id="activityFrRow1">
@@ -336,19 +345,20 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <button class="btn btn-light" type="button" onclick="cloneActivity()">
-            <i class="glyphicon glyphicon-plus"></i> Agregar Actividad
-          </button>
-        </div>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-light" type="button" onclick="cloneActivity()">
+          <i class="glyphicon glyphicon-plus"></i> Agregar Actividad
+        </button>
+      </div>
 
-        <h2 id="tivTool">
-          TIV*<span class="tooltipText" id="tivMsgTool"
-            >Requiere Dos Caracteres</span
-          >
-        </h2>
-
-        <div class="table-responsive">
+      <h2 id="tivTool">
+        TIV*<span class="tooltipText" id="tivMsgTool"
+          >Requiere Dos Caracteres</span
+        >
+      </h2>
+      <div class="">
+        <div class="table-responsive contentBackground">
           <table class="table table-light table-striped table-bordered tiv">
             <tr>
               <th scope="col">A</th>
@@ -552,15 +562,18 @@
             </tr>
           </table>
         </div>
-        <h2>Logo</h2>
+      </div>
+      <h2>Logo</h2>
+      <div class="contentBackground">
         <div class="row">
           <div class="col-md-6">
             <input type="file" class="form-control" name="picture" />
           </div>
         </div>
+      </div>
 
-        <h2>Contactos</h2>
-
+      <h2>Contactos</h2>
+      <div class="contentBackground">
         <div id="contact">
           <div id="contactDIV1">
             <div class="row" id="contactRow1">
@@ -616,17 +629,17 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <button class="btn btn-light" type="button" onclick="cloneContact()">
-            <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
-          </button>
-        </div>
-
-        <button id="submit" type="submit" class="btn btn btn-light col-md-12">
-          Agregar Sociedad
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-light" type="button" onclick="cloneContact()">
+          <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
         </button>
-      </form>
-    </div>
+      </div>
+
+      <button id="submit" type="submit" class="btn btn btn-light col-md-12">
+        Agregar Sociedad
+      </button>
+    </form>
   </body>
   <script>
     var i = 1;
