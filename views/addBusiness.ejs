@@ -34,12 +34,9 @@
               name="businessName"
               type="text"
               class="form-control"
-              onfocus="validate(value, '#nameTool')"
-              onkeyup="validate(value,'#nameTool')"
               placeholder="Nombre de la sociedad"
               required
             />
-            <span class="tooltipText" id="nameTool">Requerido</span>
           </div>
           <div class="col-md-4">
             <label for="">Cédula Jurídica*</label>
@@ -47,15 +44,10 @@
               type="number"
               class="form-control"
               name="businessID"
-              onfocus="validateNumber(value, '#idTool')"
-              onkeyup="validateNumber(value, '#idTool')"
               onkeypress="limit(event,this.value,10)"
               placeholder="Cédula Jurídica"
               required
             />
-            <span class="tooltipText" id="idTool"
-              >Requerido<br />Contenido con menos de 10 caracteres</span
-            >
           </div>
         </div>
       </div>
@@ -72,11 +64,8 @@
                   id="businessOwnerName1"
                   name="businessOwnerName"
                   placeholder="Nombre del Representante"
-                  onfocus="validate(value, '#ownerNameTool1')"
-                  onkeyup="validate(value,'#ownerNameTool1')"
                   required
                 />
-                <span class="tooltipText" id="ownerNameTool">Requerido</span>
               </div>
               <div class="col-md-4" id="ownerIDInput1">
                 <label class="ownerID" for="">Cédula*</label>
@@ -86,12 +75,9 @@
                   id="businessOwnerID1"
                   name="businessOwnerID"
                   placeholder="Cédula"
-                  onfocus="validateNumber(value, '#ownerIDTool1')"
-                  onkeyup="validateNumber(value, '#ownerIDTool1')"
                   onkeypress="limit(event,this.value,10)"
                   required
                 />
-                <span class="tooltipText" id="ownerIDTool1">Requerido</span>
               </div>
               <div class="col-md-4" id="ownerIDExpDateInput1">
                 <label for="">Fecha de expiración de la Cédula*</label>
@@ -101,11 +87,8 @@
                   id="ownerIDExpDate1"
                   name="ownerIDExpDate"
                   placeholder="Fecha de expiración de la Cédula"
-                  onfocus="validate(value, '#expDateTool1')"
-                  onkeyup="validate(value,'#expDateTool1')"
                   required
                 />
-                <span class="tooltipText" id="expDateTool1">Requerido</span>
               </div>
             </div>
             <div class="row" id="ownerSecRow1">
@@ -117,11 +100,8 @@
                   id="ownerBirDate1"
                   name="ownerBirDate"
                   placeholder="Fecha de Nacimiento"
-                  onfocus="validate(value, '#birDateTool1')"
-                  onkeyup="validate(value,'#birDateTool1')"
                   required
                 />
-                <span class="tooltipText" id="birDateTool1">Requerido</span>
               </div>
               <div class="col-md-4" id="ownerAddressInput1">
                 <label for="">Domicilio*</label>
@@ -131,11 +111,8 @@
                   id="ownerAddress1"
                   name="ownerAddress"
                   placeholder="Domicilio"
-                  onfocus="validate(value, '#addressTool1')"
-                  onkeyup="validate(value,'#addressTool1')"
                   required
                 />
-                <span class="tooltipText" id="addressTool1">Requerido</span>
               </div>
             </div>
             <div class="row" id="ownerThrRow">
@@ -145,7 +122,11 @@
         </div>
       </div>
       <div class="col-md-6">
-        <button class="addButton btn btn-dark" type="button" onclick="clonOwner()">
+        <button
+          class="addButton btn btn-dark"
+          type="button"
+          onclick="clonOwner()"
+        >
           <i class="glyphicon glyphicon-plus"></i> Agregar Representante
         </button>
       </div>
@@ -161,11 +142,8 @@
               class="form-control"
               name="atvUser"
               placeholder="Usuario ATV"
-              onfocus="validate(value, '#atvUserTool')"
-              onkeyup="validate(value,'#atvUserTool')"
               required
             />
-            <span class="tooltipText" id="atvUserTool">Requerido</span>
           </div>
           <div class="col-md-4">
             <label for="">Contraseña ATV*</label>
@@ -174,11 +152,8 @@
               class="form-control"
               name="atvPassword"
               placeholder="Contraseña ATV"
-              onfocus="validate(value, '#atvPasswordTool')"
-              onkeyup="validate(value,'#atvPasswordTool')"
               required
             />
-            <span class="tooltipText" id="atvPasswordTool">Requerido</span>
           </div>
         </div>
         <div class="row">
@@ -192,7 +167,9 @@
             />
           </div>
           <div class="col-md-4">
-            <label class="billUser" for="">Usuario del Sistema de Facturación</label>
+            <label class="billUser" for=""
+              >Usuario del Sistema de Facturación</label
+            >
             <input
               type="text"
               class="form-control"
@@ -212,17 +189,16 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <label class="billEmail" for="">Correo para recepción de Facturas*</label>
+            <label class="billEmail" for=""
+              >Correo para recepción de Facturas*</label
+            >
             <input
               type="email"
               class="form-control"
               name="billEmail"
               placeholder="Correo para recepción de Facturas"
-              onfocus="validate(value, '#billEmailTool')"
-              onkeyup="validate(value,'#billEmailTool')"
               required
             />
-            <span class="tooltipText" id="billEmailTool">Requerido</span>
           </div>
           <div class="col-md-4">
             <label for=""
@@ -233,13 +209,8 @@
               class="form-control"
               name="billEmailPassword"
               placeholder="Contraseña del Correo para recepción de Facturas"
-              onfocus="validate(value, '#billEmailPasswordTool')"
-              onkeyup="validate(value,'#billEmailPasswordTool')"
               required
             />
-            <span class="tooltipText" id="billEmailPasswordTool"
-              >Requerido</span
-            >
           </div>
         </div>
         <div class="row">
@@ -347,14 +318,16 @@
         </div>
       </div>
       <div class="col-md-6">
-        <button class="addButton btn btn-dark" type="button" onclick="cloneActivity()">
+        <button
+          class="addButton btn btn-dark"
+          type="button"
+          onclick="cloneActivity()"
+        >
           <i class="glyphicon glyphicon-plus"></i> Agregar Actividad
         </button>
       </div>
 
-      <h2>
-        TIV*
-      </h2>
+      <h2>TIV*</h2>
       <div class="contentBackground">
         <div class="table-responsive">
           <table class="table table-light table-striped table-bordered tiv">
@@ -383,8 +356,6 @@
                   onkeypress="limit(event,this.value,2)"
                   size="1"
                   type="text"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   name="a"
                   required
                 />
@@ -393,8 +364,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="b"
@@ -405,8 +374,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="c"
@@ -417,8 +384,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="d"
@@ -429,8 +394,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="e"
@@ -441,8 +404,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="f"
@@ -453,8 +414,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="g"
@@ -465,8 +424,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="h"
@@ -477,8 +434,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="i"
@@ -489,8 +444,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="j"
@@ -501,8 +454,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="k"
@@ -513,8 +464,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="l"
@@ -525,8 +474,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="m"
@@ -537,8 +484,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="n"
@@ -549,8 +494,6 @@
                 <input
                   oninput="this.value = this.value.toUpperCase()"
                   onkeypress="limit(event,this.value,2)"
-                  onblur="validateTIV(value, '#tivTool', '#tivMsgTool')"
-                  onkeyup="validateTIV(value,'#tivTool', '#tivMsgTool')"
                   size="1"
                   type="text"
                   name="o"
@@ -583,11 +526,8 @@
                   name="contactName"
                   id="contactName1"
                   placeholder="Nombre"
-                  onfocus="validate(value, '#contactNameTool1')"
-                  onkeyup="validate(value,'#contactNameTool1')"
                   required
                 />
-                <span class="tooltipText" id="contactNameTool1">Requerido</span>
               </div>
               <div class="col-md-4" id="inputContactPhone1">
                 <label for="">Número Telefónico</label>
@@ -596,14 +536,10 @@
                   class="form-control"
                   name="contactPhone"
                   id="contactPhone1"
-                  onfocus="validate(value, '#contactPhoneTool1')"
-                  onkeyup="validate(value,'#contactPhoneTool1')"
+                  onkeypress="limit(event,this.value,8)"
                   placeholder="Número Telefónico"
                   required
                 />
-                <span class="tooltipText" id="contactPhoneTool1"
-                  >Requerido</span
-                >
               </div>
               <div class="col-md-4" id="inputContactEmail1">
                 <label for="">Correo Electrónico</label>
@@ -612,14 +548,9 @@
                   class="form-control"
                   name="contactEmail"
                   id="contactEmail1"
-                  onfocus="validate(value, '#contactEmailTool1')"
-                  onkeyup="validate(value,'#contactEmailTool1')"
                   placeholder="Correo Electrónico"
                   required
                 />
-                <span class="tooltipText" id="contactEmailTool1"
-                  >Requerido</span
-                >
               </div>
             </div>
             <div class="row" id="contactSecRow1">
@@ -629,7 +560,11 @@
         </div>
       </div>
       <div class="col-md-6">
-        <button class="addButton btn btn-dark" type="button" onclick="cloneContact()">
+        <button
+          class="addButton btn btn-dark"
+          type="button"
+          onclick="cloneContact()"
+        >
           <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
         </button>
       </div>

@@ -134,7 +134,6 @@ module.exports = function (app) {
   });
 
   app.get("/loadBusiness*", (req, res) => {
-    console.log(req.session.user);
     loadBusinessSync(req, res);
   });
 
@@ -165,7 +164,7 @@ module.exports = function (app) {
       .loadUserTable()
       .then(function (result) {
         objects = result;
-        res.render("user");
+        res.redirect("user");
       })
       .catch((err) => alert(err));
   });
@@ -193,10 +192,6 @@ module.exports = function (app) {
     var owner = await loadBusiness.loadOwners(business[0].id);
     var contact = await loadBusiness.loadContacts(business[0].id);
     var activity = await loadBusiness.loadActivity(business[0].id);
-    console.log(owner);
-    console.log(business);
-    console.log(contact);
-    console.log(activity);
     res.render("loadBusiness", {
       business: business,
       user: user,
@@ -259,13 +254,9 @@ module.exports = function (app) {
         z++;
       }
     }
-    console.log(businessArray);
-    console.log(contactArray);
-    console.log(activityArray);
-    console.log(ownerArray);
     await insertBusiness.addBusiness(businessArray);
     var businessID = await insertBusiness.verifiedBusiness(req.body.businessID);
-    console.log(ownerArray[0].length);
+
     await insertBusiness.addBusinessOwner(
       ownerArray,
       businessID[0].id,
@@ -285,7 +276,6 @@ module.exports = function (app) {
 
   async function loadUserEmail(req, res) {
     var user = await loadUser.loadForgetEmailArray();
-    // console.log(user);
     res.render("forgetPassword", {
       user: user,
     });
@@ -310,14 +300,14 @@ module.exports = function (app) {
 
   async function login(req, res) {
     const bcrypt = require("bcrypt");
-    var password = await loadUser.loginUser(req.body.userEmail);
+    var trunkEmail = req.body.userEmail.replace(/\s+/g, "");
+    var password = await loadUser.loginUser(trunkEmail);
     if (password.length == 1) {
       await bcrypt
         .compare(req.body.userPassword, password[0].userPassword)
         .then((res) => {
           if (res) {
             req.session.user = password[0].userEmail;
-            c;
           } else {
             res.redirect("/login");
           }

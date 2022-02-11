@@ -53,7 +53,7 @@ input {
 
 .tiv {
   text-align: center;
-  width: 40%;
+  width: 100%;
 }
 
 input[type="text"] {
@@ -242,4 +242,8 @@ img {
 
 .addButton{
   margin-left: 5px;
+}
+
+.search{
+  width: 100%;
 }

@@ -100,33 +100,16 @@ function cloneContact() {
   j++;
   console.log(j);
   $("#contactDIV" + j + " #contactRow1").attr("id", "contactRow" + j);
+  $("#contactDIV" + j).attr("style", "border-top-style: solid;");
 
   //Clone contactNameInput
   $("#contactRow" + j + " #inputContactName1").attr(
     "id",
     "inputContactName" + j
   );
-  $("#contactDIV" + j).attr(
-    "style", "border-top-style: dotted;"
-  )
 
   $("#inputContactName" + j + " #contactName1").attr("id", "contactName" + j);
-  $("#inputContactName" + j + " #contactNameTool1").attr(
-    "id",
-    "contactNameTool" + j
-  );
-  $("#contactName" + j).attr(
-    "onfocus",
-    "validate(value, '#contactNameTool" + j + "')"
-  );
-  $("#contactName" + j).attr(
-    "onkeyup",
-    "validate(value, '#contactNameTool" + j + "')"
-  );
-  $("#inputContactName" + j + " #contactNameTool1").attr(
-    "id",
-    "inputContactName" + j
-  );
+  $("#contactName" + j).val("");
 
   //Clone contactPhoneInput
   $("#contactRow" + j + " #inputContactPhone1").attr(
@@ -137,22 +120,7 @@ function cloneContact() {
     "id",
     "contactPhone" + j
   );
-  $("#inputContactPhone" + j + " #contactPhoneTool1").attr(
-    "id",
-    "contactPhoneTool" + j
-  );
-  $("#contactPhone" + j).attr(
-    "onfocus",
-    "validate(value, '#contactPhoneTool" + j + "')"
-  );
-  $("#contactPhone" + j).attr(
-    "onkeyup",
-    "validate(value, '#contactPhoneTool" + j + "')"
-  );
-  $("#inputContactPhone" + j + " #contactPhoneTool1").attr(
-    "id",
-    "inputContactPhone" + j
-  );
+  $("#contactPhone" + j).val("");
 
   //Clone contactEmailInput
   $("#contactRow" + j + " #inputContactEmail1").attr(
@@ -163,22 +131,7 @@ function cloneContact() {
     "id",
     "contactEmail" + j
   );
-  $("#inputContactEmail" + j + " #contactEmailTool1").attr(
-    "id",
-    "contactEmailTool" + j
-  );
-  $("#contactEmail" + j).attr(
-    "onfocus",
-    "validate(value, '#contactEmailTool" + j + "')"
-  );
-  $("#contactEmail" + j).attr(
-    "onkeyup",
-    "validate(value, '#contactEmailTool" + j + "')"
-  );
-  $("#inputContactEmail" + j + " #contactEmailTool1").attr(
-    "id",
-    "inputContactEmail" + j
-  );
+  $("#contactEmail" + j).val("");
   //Add contact delete button
   $("#contactDIV" + j + " #contactSecRow1").attr("id", "contactSecRow" + j);
   $("#contactSecRow" + j + " #contactDeleteButtonInput1").attr(
@@ -236,6 +189,7 @@ function clonOwner() {
   i++;
 
   $("#ownerDIV" + i + " #ownerRow1").attr("id", "ownerRow" + i);
+  $("#ownerDIV" + i).attr("style", "border-top-style: solid;");
 
   //Clone ownerNameInput
   $("#ownerRow" + i + " #ownerNameInput1").attr("id", "ownerNameInput" + i);
@@ -243,23 +197,7 @@ function clonOwner() {
     "id",
     "businessOwnerName" + i
   );
-  $("#ownerDIV" + i).attr(
-    "style", "border-top-style: dotted;"
-  )
-
-  $("#ownerNameInput" + i + " #ownerNameTool1").attr("id", "ownerNameTool" + i);
-  $("#businessOwnerName" + i).attr(
-    "onfocus",
-    "validate(value, '#ownerNameTool" + i + "')"
-  );
-  $("#businessOwnerName" + i).attr(
-    "onkeyup",
-    "validate(value, '#ownerNameTool" + i + "')"
-  );
-  $("#ownerNameInput" + i + " #ownerNameTool1").attr(
-    "id",
-    "ownerNameInput" + i
-  );
+  $("#businessOwnerName" + i).val("");
 
   //Clone ownerIDInput
   $("#ownerRow" + i + " #ownerIDInput1").attr("id", "ownerIDInput" + i);
@@ -267,15 +205,7 @@ function clonOwner() {
     "id",
     "businessOwnerID" + i
   );
-  $("#ownerIDInput" + i + " #ownerIDTool1").attr("id", "ownerIDTool" + i);
-  $("#businessOwnerID" + i).attr(
-    "onfocus",
-    "validateNumber(value, '#ownerIDTool" + i + "')"
-  );
-  $("#businessOwnerID" + i).attr(
-    "onkeyup",
-    "validateNumber(value, '#ownerIDTool" + i + "')"
-  );
+  $("#businessOwnerID" + i).val("");
 
   //Clone ownerIDExpDateInput
   $("#ownerRow" + i + " #ownerIDExpDateInput1").attr(
@@ -286,18 +216,7 @@ function clonOwner() {
     "id",
     "ownerIDExpDate" + i
   );
-  $("#ownerIDExpDateInput" + i + " #expDateTool1").attr(
-    "id",
-    "expDateTool" + i
-  );
-  $("#ownerIDExpDate" + i).attr(
-    "onfocus",
-    "validate(value, '#expDateTool" + i + "')"
-  );
-  $("#ownerIDExpDate" + i).attr(
-    "onkeyup",
-    "validate(value, '#expDateTool" + i + "')"
-  );
+  $("#ownerIDExpDate" + i).val("");
 
   $("#ownerDIV" + i + " #ownerSecRow1").attr("id", "ownerSecRow" + i);
 
@@ -310,18 +229,7 @@ function clonOwner() {
     "id",
     "ownerBirDate" + i
   );
-  $("#ownerBirDateToolInput" + i + " #birDateTool1").attr(
-    "id",
-    "birDateTool" + i
-  );
-  $("#ownerBirDate" + i).attr(
-    "onfocus",
-    "validate(value, '#birDateTool" + i + "')"
-  );
-  $("#ownerBirDate" + i).attr(
-    "onkeyup",
-    "validate(value, '#birDateTool" + i + "')"
-  );
+  $("#ownerBirDate" + i).val("");
 
   //Clone ownerAddressInput
   $("#ownerSecRow" + i + " #ownerAddressInput1").attr(
@@ -332,15 +240,7 @@ function clonOwner() {
     "id",
     "ownerAddress" + i
   );
-  $("#ownerAddressInput" + i + " #addressTool1").attr("id", "addressTool" + i);
-  $("#ownerAddress" + i).attr(
-    "onfocus",
-    "validate(value, '#addressTool" + i + "')"
-  );
-  $("#ownerAddress" + i).attr(
-    "onkeyup",
-    "validate(value, '#addressTool" + i + "')"
-  );
+  $("#ownerAddress" + i).val("");
 
   //Add delete button
   $("#ownerDIV" + i + " #ownerThrRow").attr("id", "ownerThrRow" + i);
@@ -390,9 +290,7 @@ function cloneActivity() {
     "id",
     "activityDeleteButtonInput" + z
   );
-  $("#activityDIV" + z).attr(
-    "style", "border-top-style: dotted;"
-  )
+  $("#activityDIV" + z).attr("style", "border-top-style: solid;");
 
   $("#activityDeleteButtonInput" + z).append(
     "<button class='btn btn btn-light deleteButton' type='button' id='activityDeleteButton'>Eliminar</button>"
