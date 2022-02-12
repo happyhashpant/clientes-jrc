@@ -10,9 +10,15 @@ exports.addUser = function (req) {
     "','" +
     req.body.inputPhone +
     "')";
-
-  connect.query(query);
-  connect.end();
+  return new Promise(function (resolve, reject) {
+    connect.query(query, function (err, result, fields) {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+    connect.end();
+  });
 };
 
 exports.resetUserPassword = function (newPassword, userEmail) {
@@ -48,7 +54,7 @@ exports.verifiedToken = function (userEmail) {
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   return new Promise(function (resolve, reject) {
-    var query = 'SELECT token FROM user WHERE userEmail= "' + userEmail+'"';
+    var query = 'SELECT token FROM user WHERE userEmail= "' + userEmail + '"';
     connect.query(query, function (err, result, fields) {
       if (err) {
         return reject(err);
@@ -58,5 +64,3 @@ exports.verifiedToken = function (userEmail) {
     connect.end();
   });
 };
-
-
