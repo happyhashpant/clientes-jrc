@@ -164,7 +164,7 @@ module.exports = function (app) {
       .loadUserTable()
       .then(function (result) {
         objects = result;
-        res.redirect("user");
+        res.redirect("/user");
       })
       .catch((err) => alert(err));
   });
@@ -175,7 +175,7 @@ module.exports = function (app) {
       .loadUserTable()
       .then(function (result) {
         objects = result;
-        res.render("user");
+        res.redirect("user");
       })
       .catch((err) => alert(err));
   });
