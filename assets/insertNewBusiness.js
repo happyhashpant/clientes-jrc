@@ -75,7 +75,7 @@ exports.addBusiness = function (businessArray, formData) {
 exports.verifiedBusiness = (businessID) => {
   var credentials = require("./connection");
   var mysql = require("mysql2");
-  console.log("espero");
+  console.log(connect);
   var connect = mysql.createConnection(credentials);
   return new Promise(function (resolve, reject) {
     var query =
@@ -97,7 +97,7 @@ exports.addBusinessOwner = (ownerArray, businessID, ownerAmount) => {
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   console.log(ownerArray[0]);
-  if (ownerAmount == 5) {
+  if (ownerAmount <= 6) {
     var query =
       "INSERT into legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES ('" +
       businessID +
@@ -179,7 +179,7 @@ exports.addBusinessActivity = (activityArray, businessID, activityAmount) => {
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
 
-  if (activityAmount === 1) {
+  if (activityAmount === 5) {
     var query =
       "INSERT into businesactivity (businessID, activityID) VALUES ('" +
       businessID +

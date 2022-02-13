@@ -54,6 +54,7 @@ exports.loadContacts = function loadContact(businessID) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
+  
   var query = "SELECT * FROM businessContact WHERE businessID=" + businessID;
 
   return new Promise((resolve, reject) => {
@@ -61,7 +62,10 @@ exports.loadContacts = function loadContact(businessID) {
       if (err) {
         return reject(err);
       }
+      console.log(result);
+      console.log(query);
       return resolve(result);
+      
     });
     connect.end();
   });

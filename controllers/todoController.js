@@ -2,6 +2,7 @@ const { use } = require("express/lib/application");
 const { render } = require("express/lib/response");
 const res = require("express/lib/response");
 const { DATETIME } = require("mysql/lib/protocol/constants/types");
+const { loadavg } = require("os");
 const { join } = require("path");
 const { nextTick } = require("process");
 
@@ -38,6 +39,7 @@ module.exports = function (app) {
 
   var loadUser = require(path.join(__dirname, "../assets/loadUser.js"));
   var saveUser = require(path.join(__dirname, "../assets/saveUser.js"));
+  var saveBusiness = require(path.join(__dirname, "../assets/saveBusiness.js"));
   var insertBusiness = require(path.join(
     __dirname,
     "../assets/insertNewBusiness.js"
@@ -207,13 +209,48 @@ module.exports = function (app) {
   });
 
   app.delete("/todo", function (req, res) {});
+  ////////////////////////////////////////// editBusinessPostHandling/////////////////////////////////////////
+  app.post("/saveGeneralData", function (req, res) {
+    saveBusiness.saveGeneralData(req);
+    loadBusinessTable
+      .loadBusinessTable()
+      .then(function (result) {
+        objects = result;
+        res.redirect("business");
+      })
+      .catch((err) => alert(err));
+  });
+
+  app.post("/saveAccountsData", function (req, res) {
+    saveBusiness.saveAccountsData(req);
+    loadBusinessTable
+      .loadBusinessTable()
+      .then(function (result) {
+        objects = result;
+        res.redirect("business");
+      })
+      .catch((err) => alert(err));
+  });
+
+  app.post("/saveTivData", function (req, res) {
+    saveBusiness.saveTIVData(req);
+    loadBusinessTable
+      .loadBusinessTable()
+      .then(function (result) {
+        objects = result;
+        res.redirect("business");
+      })
+      .catch((err) => alert(err));
+  });
 
   async function loadBusinessSync(req, res) {
     var business = await loadBusiness.loadBusinessAsy(req.query.businessID);
     var user = await loadUser.loadUser(business[0].userID);
-    var owner = await loadBusiness.loadOwners(business[0].id);
-    var contact = await loadBusiness.loadContacts(business[0].id);
-    var activity = await loadBusiness.loadActivity(business[0].id);
+    var owner = await loadBusiness.loadOwners(business[0].businessID);
+    var totalUsers = await loadUser.loadUserMenu();
+    var totalActivity = await loadActivity.loadActivityMenu();
+    var contact = await loadBusiness.loadContacts(business[0].businessID);
+    var activity = await loadBusiness.loadActivity(business[0].businessID);
 
     res.render("loadBusiness", {
       business: business,
@@ -221,6 +258,8 @@ module.exports = function (app) {
       activity: activity,
       owner: owner,
       contact: contact,
+      totalUsers: totalUsers,
+      totalActivity: totalActivity,
     });
   }
 
@@ -235,7 +274,6 @@ module.exports = function (app) {
 
   async function addNewBusiness(req) {
     formData = req.body;
-    console.log(business.businessName);
     var ownerArray = [];
     var businessArray = [];
     var contactArray = [];
@@ -279,24 +317,26 @@ module.exports = function (app) {
         z++;
       }
     }
-    console.log(ownerArray[0]);
+    console.log(ownerArray[0].length);
+    console.log(activityArray[0].length);
+    console.log(contactArray[0].length);
     await insertBusiness.addBusiness(businessArray, formData);
     var businessID = await insertBusiness.verifiedBusiness(
       req.body.inputBusinessID
     );
     await insertBusiness.addBusinessOwner(
       ownerArray,
-      businessID[0].id,
+      req.body.inputBusinessID,
       ownerArray[0].length
     );
     await insertBusiness.addBusinessContact(
       contactArray,
-      businessID[0].id,
+      req.body.inputBusinessID,
       contactArray[0].length
     );
     await insertBusiness.addBusinessActivity(
       activityArray,
-      businessID[0].id,
+      req.body.inputBusinessID,
       activityArray[0].length
     );
   }

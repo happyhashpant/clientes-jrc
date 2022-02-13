@@ -42,7 +42,7 @@
               id="businessName"
               type="text"
               class="form-control"
-              name="inputBusinessName"
+              name="businessName"
               placeholder="Nombre de la sociedad"
               value="<%=business[0].businessName%>"
               readonly
@@ -50,6 +50,11 @@
           </div>
           <div class="col-md-4">
             <label for="">Cedula Juridica</label>
+            <input
+              name="businessID2"
+              type="hidden"
+              value="<%=business[0].businessID%>"
+            />
             <input
               id="businessID"
               type="number"
@@ -147,10 +152,15 @@
     <form
       id="accountData"
       class="addUserForm"
-      action="/saveAccountData"
+      action="/saveAccountsData"
       method="post"
     >
       <h2>Datos contables</h2>
+      <input
+        name="businessID"
+        type="hidden"
+        value="<%=business[0].businessID%>"
+      />
       <button
         type="button"
         class="edit editAccountData"
@@ -342,7 +352,12 @@
             >
               <% var i=0; user.forEach(function(data){ %>
               <option value="<%=data.id%>"><%=data.userName%></option>
-              <% i++; }) %>
+              <% i++; }) %> <% var p=0;
+              totalUsers.forEach(function(totalUsersData){ %>
+              <option value="<%=totalUsersData.id%>">
+                <%=totalUsersData.userName%>
+              </option>
+              <% p++; }) %>
             </select>
           </div>
         </div>
@@ -368,18 +383,21 @@
           <div class="row">
             <div class="col-md-6">
               <label for="">Actividad Económica*</label>
-              <% var j=0; activity.forEach(function(datas){ %>
               <select
                 name="activity"
                 class="form-select activity"
                 aria-label="Default select example"
                 disabled="true"
               >
-                <optgroup>
-                  <option value="<%=datas.id%>"><%=datas.activityName%></option>
-                </optgroup>
+                <% var j=0; activity.forEach(function(datas){ %>
+                <option value="<%=datas.id%>"><%=datas.activityName%></option>
+                <% j++; }) %><% var n=0;
+                totalActivity.forEach(function(totalActivityData){ %>
+                <option value="<%=totalActivityData.id%>">
+                  <%=totalActivityData.activityName%>
+                </option>
+                <% n++; }) %>
               </select>
-              <% j++; }) %>
             </div>
           </div>
         </div>
@@ -387,10 +405,15 @@
     </form>
     <form id="tivData" class="addUserForm" action="/saveTivData" method="post">
       <h2>TIV</h2>
+      <input
+      name="businessID"
+      type="hidden"
+      value="<%=business[0].businessID%>"
+    />
       <button
         type="button"
-        class="edit"
-        id="editActivity"
+        class="edit editTIV"
+        id="editTIV"
         onclick="editBusinessTivData()"
       >
         <i class="material-icons">mode_edit</i>
@@ -611,7 +634,8 @@
               <div class="col-md-4">
                 <input
                   type="text"
-                  class="form-control"\
+                  class="form-control"
+                  \
                   id="contactPhone"
                   name="contactPhone"
                   placeholder="Numero Telefonico"

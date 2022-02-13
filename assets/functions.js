@@ -32,7 +32,7 @@ function searchTable() {
   filter = input.value.toUpperCase();
   filter = accent_fold(filter);
   console.log(filter);
-  table = document.getElementById("userTable");
+  table = document.getElementById("table");
   compare = "";
   tr = table.getElementsByTagName("tr");
   for (i = 1; i < tr.length; i++) {
@@ -286,7 +286,6 @@ function removeActivity(id) {
 
 function editGeneralDataDiv() {
   $("#businessName").attr("readonly", false);
-  $("#businessID").attr("readonly", false);
   $("#editGeneralData").after(
     "<button class='edit' form='generalData' id='editGeneralData'><i class='material-icons'>sd_card</i></button>"
   );
@@ -353,10 +352,10 @@ function editBusinessTivData() {
   $("#n").attr("readonly", false);
   $("#o").attr("readonly", false);
 
-  $(".editActivity").after(
-    "<button class='edit' form=''tivData' id='editTivData'><i class='material-icons'>sd_card</i></button>"
+  $(".editTIV").after(
+    "<button class='edit' form='tivData' id='editTivData'><i class='material-icons'>sd_card</i></button>"
   );
-  $(".editActivity").remove();
+  $(".editTIV").remove();
 }
 
 function editContactData() {
