@@ -192,6 +192,7 @@ module.exports = function (app) {
     var owner = await loadBusiness.loadOwners(business[0].id);
     var contact = await loadBusiness.loadContacts(business[0].id);
     var activity = await loadBusiness.loadActivity(business[0].id);
+
     res.render("loadBusiness", {
       business: business,
       user: user,
@@ -215,7 +216,7 @@ module.exports = function (app) {
     var ownerArray = [];
     var businessArray = [];
     var contactArray = [];
-    var activityArray = [];
+    var activityArray = [];    
     var p = 0;
     var j = 0;
     var i = 0;
@@ -247,7 +248,7 @@ module.exports = function (app) {
         contactArray[j] = formData[property];
         j++;
       } else if (`${property}` === "activity") {
-        activityArray[j] = formData[property];
+        activityArray[p] = formData[property];
         p++;
       } else {
         businessArray[z] = formData[property];
@@ -255,7 +256,24 @@ module.exports = function (app) {
       }
     }
     await insertBusiness.addBusiness(businessArray);
+    console.log(formData);
+    console.log(req.body.businessID);
     var businessID = await insertBusiness.verifiedBusiness(req.body.businessID);
+    console.log(businessID);
+    console.log(ownerArray);  
+    console.log(ownerArray.length);
+    console.log(ownerArray[0]);
+    console.log(businessArray);
+    console.log(businessArray.length);
+    console.log(activityArray);
+    console.log(activityArray.length);
+    console.log(contactArray);
+    console.log(contactArray.length);
+    console.log(i);
+    console.log(j);
+    console.log(z);
+    console.log(p);
+    console.log(businessID);
 
     await insertBusiness.addBusinessOwner(
       ownerArray,
@@ -265,7 +283,7 @@ module.exports = function (app) {
     await insertBusiness.addBusinessContact(
       contactArray,
       businessID[0].id,
-      contactArray[0].length
+      p
     );
     await insertBusiness.addBusinessActivity(
       activityArray,

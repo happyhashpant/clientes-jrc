@@ -53,33 +53,6 @@ function searchTable() {
   }
 }
 
-function validate(value, msg) {
-  if (value == "") {
-    $(msg).css("visibility", "visible");
-    setTimeout(function () {
-      $(msg).css("visibility", "hidden");
-    }, 3000);
-  }
-}
-
-function validateNumber(value, msg) {
-  if (value == "") {
-    $(msg).css("visibility", "visible");
-    setTimeout(function () {
-      $(msg).css("visibility", "hidden");
-    }, 3000);
-  }
-}
-function validateTIV(value, msg, msg2) {
-  if (value == "" || value.length < 2) {
-    $(msg).css("color", "red");
-    $(msg2).css("visibility", "visible");
-  } else {
-    $(msg).css("color", "white");
-    $(msg2).css("visibility", "hidden");
-  }
-}
-
 function limit(event, value, maxLength) {
   if (value != undefined && value.toString().length >= maxLength) {
     event.preventDefault();
@@ -138,7 +111,6 @@ function cloneContact() {
     "id",
     "contactDeleteButtonInput" + j
   );
-  1;
   $("#contactDeleteButtonInput" + j).append(
     "<button class='btn btn btn-light deleteButton' type='button' id='contactDeleteButton'>Eliminar</button>"
   );
@@ -310,4 +282,79 @@ function removeActivity(id) {
   $("#" + id).remove();
   z--;
   newActivityCount--;
+}
+
+function editGeneralDataDiv() {
+  $("#businessName").attr("readonly", false);
+  $("#businessID").attr("readonly", false);
+  $("#editGeneralData").after(
+    "<button class='edit' form='generalData' id='editGeneralData'><i class='material-icons'>sd_card</i></button>"
+  );
+  $("#editGeneralData").remove();
+}
+
+function editOwnerData() {
+  $(".businessOwnerName").attr("readonly", false);
+  $(".businessOwnerID").attr("readonly", false);
+  $(".ownerIDExpDate").attr("readonly", false);
+  $(".ownerBirDate").attr("readonly", false);
+  $(".ownerAddress").attr("readonly", false);
+  $(".editOwner").after(
+    "<button class='edit' form='ownerData' id='editOwnerData'><i class='material-icons'>sd_card</i></button>"
+  );
+  $(".editOwner").remove();
+}
+
+function editAccountsData() {
+  $("#atvUser").attr("readonly", false);
+  $("#atvPassword").attr("readonly", false);
+  $("#billSystem").attr("readonly", false);
+  $("#billSystemUser").attr("readonly", false);
+  $("#billSystemPassword").attr("readonly", false);
+  $("#billEmail").attr("readonly", false);
+  $("#billEmailPassword").attr("readonly", false);
+  $("#traviUser").attr("readonly", false);
+  $("#traviPassword").attr("readonly", false);
+  $("#ccssUser").attr("readonly", false);
+  $("#ccssPassword").attr("readonly", false);
+  $("#insUser").attr("readonly", false);
+  $("#insPassword").attr("readonly", false);
+  $("#userCharge").prop("disabled", false);
+
+  $(".editOwner").after(
+    "<button class='edit' form='accountData' id='editAccountData'><i class='material-icons'>sd_card</i></button>"
+  );
+  $(".editOwner").remove();
+}
+
+function editBusinessActivity() {
+  $(".activity").prop("disabled", false);
+
+  $(".editActivity").after(
+    "<button class='edit' form='businessActivity' id='editBusinessActivity'><i class='material-icons'>sd_card</i></button>"
+  );
+  $(".editActivity").remove();
+}
+
+function editBusinessTivData() {
+  $("#a").attr("readonly", false);
+  $("#b").attr("readonly", false);
+  $("#c").attr("readonly", false);
+  $("#d").attr("readonly", false);
+  $("#e").attr("readonly", false);
+  $("#f").attr("readonly", false);
+  $("#g").attr("readonly", false);
+  $("#h").attr("readonly", false);
+  $("#i").attr("readonly", false);
+  $("#j").attr("readonly", false);
+  $("#k").attr("readonly", false);
+  $("#l").attr("readonly", false);
+  $("#m").attr("readonly", false);
+  $("#n").attr("readonly", false);
+  $("#o").attr("readonly", false);
+
+  $(".editActivity").after(
+    "<button class='edit' form='tivData id='editTivData'><i class='material-icons'>sd_card</i></button>"
+  );
+  $(".editActivity").remove();
 }

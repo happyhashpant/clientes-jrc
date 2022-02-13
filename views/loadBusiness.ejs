@@ -5,24 +5,36 @@
     <script src="/assets/jquery-3.6.0.min.js"></script>
     <script src="/assets/bootstrap.js"></script>
     <script defer src="/assets/functions.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comforter&family=Open+Sans+Condensed:ital,wght@1,300&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="/assets/normalize.css" />
     <link rel="stylesheet" href="/assets/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="icon" href="/assets/logo.png">
+    <link rel="icon" href="/assets/logo.png" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title><%=business[0].businessName%></title>
   </head>
   <body>
     <div id="navBar"></div>
     <h1><%=business[0].businessName%></h1>
-    <div class="contentBackground">
-      <form class="addUserForm" action="/addBusiness" method="post">
-        <h2>Datos Generales</h2>
+
+    <form
+      id="generalData"
+      class="addUserForm"
+      action="/saveGeneralData"
+      method="post"
+    >
+      <h2>Datos Generales</h2>
+      <button
+        type="button"
+        class="edit"
+        id="editGeneralData"
+        onclick="editGeneralDataDiv()"
+      >
+        <i class="material-icons">mode_edit</i>
+      </button>
+      <div class="contentBackground">
         <div class="row">
           <div class="col-md-4">
             <label for="">Nombre de la sociedad</label>
@@ -49,7 +61,24 @@
             />
           </div>
         </div>
-        <h2>Representante Legal</h2>
+      </div>
+    </form>
+    <form
+      id="ownerData"
+      class="addUserForm"
+      action="/saveOwnerData"
+      method="post"
+    >
+      <h2>Representante Legal</h2>
+      <button
+        type="button"
+        class="edit editOwner"
+        id="editOwner"
+        onclick="editOwnerData()"
+      >
+        <i class="material-icons">mode_edit</i>
+      </button>
+      <div class="contentBackground">
         <% var i=1; owner.forEach(function(data){%>
         <div id="ownerDIV1">
           <div class="row">
@@ -57,8 +86,8 @@
               <label for="">Nombre del Representante</label>
               <input
                 type="text"
-                class="form-control"
-                name="businessOwner"
+                class="form-control businessOwnerName"
+                name="businessOwnerName"
                 placeholder="Nombre del Representante"
                 value="<%=data.nameLegal%>"
                 readonly
@@ -68,8 +97,8 @@
               <label for="">Cedula del Representante</label>
               <input
                 type="text"
-                class="form-control"
-                name="businessOwner"
+                class="form-control businessOwnerID"
+                name="businessOwnerID"
                 value="<%=data.idLegal%>"
                 placeholder="Cedula del Representante"
                 readonly
@@ -79,8 +108,8 @@
               <label for="">Fecha de expiracion de la Cedula</label>
               <input
                 type="date"
-                class="form-control"
-                name="businessOwner"
+                class="form-control ownerIDExpDate"
+                name="ownerIDExpDate"
                 value="<%=data.dateIdExpiration%>"
                 placeholder="Fecha de expiracion de la Cedula"
                 readonly
@@ -92,8 +121,8 @@
               <label for="">Fecha de nacimiento</label>
               <input
                 type="date"
-                class="form-control"
-                name="businessOwner"
+                class="form-control ownerBirDate"
+                name="ownerBirDate"
                 value="<%=data.dateBirthLegal%>"
                 placeholder="Fecha de nacimiento"
                 readonly
@@ -103,8 +132,8 @@
               <label for="">Domicilio</label>
               <input
                 type="text"
-                class="form-control"
-                name="businessOwner"
+                class="form-control ownerAddress"
+                name="ownerAddress"
                 value="<%=data.address%>"
                 placeholder="Domicilio"
                 readonly
@@ -113,14 +142,31 @@
           </div>
         </div>
         <% i++; }) %>
-
-        <h2>Datos contables</h2>
+      </div>
+    </form>
+    <form
+      id="accountData"
+      class="addUserForm"
+      action="/saveAccountData"
+      method="post"
+    >
+      <h2>Datos contables</h2>
+      <button
+        type="button"
+        class="edit"
+        id="editAccountData"
+        onclick="editAccountsData()"
+      >
+        <i class="material-icons">mode_edit</i>
+      </button>
+      <div class="contentBackground">
         <div class="row">
           <div class="col-md-6">
             <label for="">Usuario ATV</label>
             <input
               type="text"
               class="form-control"
+              id="atvUser"
               name="atvUser"
               placeholder="Usuario ATV"
               value="<%=business[0].atvUser%>"
@@ -132,6 +178,7 @@
             <input
               type="text"
               class="form-control"
+              id="atvPassword"
               name="atvPassword"
               placeholder="Contraseña ATV"
               value="<%=business[0].atvPassword%>"
@@ -145,6 +192,7 @@
             <input
               type="text"
               class="form-control"
+              id="billSystem"
               name="billSystem"
               placeholder="Sistema de Facturacion"
               value="<%=business[0].billSystem%>"
@@ -156,6 +204,7 @@
             <input
               type="text"
               class="form-control"
+              id="billSystemUser"
               name="billSystemUser"
               placeholder="Usuario del Sistema de Facturacion"
               value="<%=business[0].billSystemUser%>"
@@ -167,6 +216,7 @@
             <input
               type="text"
               class="form-control"
+              id="billSystemPassword"
               name="billSystemPassword"
               placeholder="Contraseña del Sistema de Facturacion"
               value="<%=business[0].billSystemPassword%>"
@@ -180,6 +230,7 @@
             <input
               type="text"
               class="form-control"
+              id="billEmail"
               name="billEmail"
               placeholder="Correo para recepcion de Facturas"
               value="<%=business[0].billEmail%>"
@@ -193,6 +244,7 @@
             <input
               type="text"
               class="form-control"
+              id="billEmailPassword"
               name="billEmailPassword"
               placeholder="Contraseña del Correo para recepcion de Facturas"
               value="<%=business[0].billEmailPassword%>"
@@ -206,6 +258,7 @@
             <input
               type="text"
               class="form-control"
+              id="traviUser"
               name="traviUser"
               placeholder="Usuario Travi"
               value="<%=business[0].traviUser%>"
@@ -217,6 +270,7 @@
             <input
               type="text"
               class="form-control"
+              id="traviPassword"
               name="traviPassword"
               placeholder="Contraseña Travi"
               value="<%=business[0].traviPassword%>"
@@ -230,6 +284,7 @@
             <input
               type="text"
               class="form-control"
+              id="ccssUser"
               name="ccssUser"
               placeholder="Usuario CCSS"
               value="<%=business[0].ccssUser%>"
@@ -241,6 +296,7 @@
             <input
               type="text"
               class="form-control"
+              id="ccssPassword"
               name="ccssPassword"
               placeholder="Contraseña CCSS"
               value="<%=business[0].ccssPassword%>"
@@ -254,6 +310,7 @@
             <input
               type="text"
               class="form-control"
+              id="insUser"
               name="insUser"
               placeholder="Usuario INS"
               value="<%=business[0].insUser%>"
@@ -265,6 +322,7 @@
             <input
               type="text"
               class="form-control"
+              id="insPassword"
               name="insPassword"
               placeholder="Contraseña INS"
               value="<%=business[0].insPassword%>"
@@ -276,10 +334,11 @@
           <div class="col-md-6">
             <label for="">Agente encargado*</label>
             <select
+              id="userCharge"
               name="userCharge"
-              class="form-select"
+              class="form-select userCharge"
               aria-label="Default select example"
-              disabled
+              disabled="true"
             >
               <% var i=0; user.forEach(function(data){ %>
               <option value="<%=data.id%>"><%=data.userName%></option>
@@ -287,196 +346,250 @@
             </select>
           </div>
         </div>
-        <h2>Actividad Económica</h2>
-        <% var j=0; activity.forEach(function(datas){ %>
-
+      </div>
+    </form>
+    <form
+      id="businessActivity"
+      class="addUserForm"
+      action="/saveBusinessActivity"
+      method="post"
+    >
+      <h2>Actividad Económica</h2>
+      <button
+        type="button"
+        class="edit"
+        id="editActivity"
+        onclick="editBusinessActivity()"
+      >
+        <i class="material-icons">mode_edit</i>
+      </button>
+      <div class="contentBackground">
         <div id="activityDIV1">
           <div class="row">
             <div class="col-md-6">
               <label for="">Actividad Económica*</label>
+              <% var j=0; activity.forEach(function(datas){ %>
               <select
                 name="activity"
-                class="form-select"
+                class="form-select activity"
                 aria-label="Default select example"
-                disabled
+                disabled="true"
               >
                 <optgroup>
                   <option value="<%=datas.id%>"><%=datas.activityName%></option>
                 </optgroup>
               </select>
+              <% j++; }) %>
             </div>
           </div>
         </div>
-
-        <% j++; }) %>
-        <h2>TIV</h2>
-        <div class="table-responsive">
-          <table class="table table-light table-striped table-bordered tiv">
-            <tr>
-              <th scope="col">A</th>
-              <th scope="col">B</th>
-              <th scope="col">C</th>
-              <th scope="col">D</th>
-              <th scope="col">E</th>
-              <th scope="col">F</th>
-              <th scope="col">G</th>
-              <th scope="col">H</th>
-              <th scope="col">I</th>
-              <th scope="col">J</th>
-              <th scope="col">K</th>
-              <th scope="col">L</th>
-              <th scope="col">M</th>
-              <th scope="col">N</th>
-              <th scope="col">O</th>
-            </tr>
-            <tr>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="a"
-                  value="<%=business[0].TIV.charAt(0)%><%=business[0].TIV.charAt(1)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="b"
-                  value="<%=business[0].TIV.charAt(3)%><%=business[0].TIV.charAt(4)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="c"
-                  value="<%=business[0].TIV.charAt(6)%><%=business[0].TIV.charAt(7)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="d"
-                  value="<%=business[0].TIV.charAt(9)%><%=business[0].TIV.charAt(10)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="1"
-                  value="<%=business[0].TIV.charAt(12)%><%=business[0].TIV.charAt(13)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="f"
-                  value="<%=business[0].TIV.charAt(15)%><%=business[0].TIV.charAt(16)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="g"
-                  value="<%=business[0].TIV.charAt(18)%><%=business[0].TIV.charAt(19)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="h"
-                  value="<%=business[0].TIV.charAt(21)%><%=business[0].TIV.charAt(22)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="i"
-                  value="<%=business[0].TIV.charAt(24)%><%=business[0].TIV.charAt(25)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="j"
-                  value="<%=business[0].TIV.charAt(27)%><%=business[0].TIV.charAt(28)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="k"
-                  value="<%=business[0].TIV.charAt(30)%><%=business[0].TIV.charAt(31)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="l"
-                  value="<%=business[0].TIV.charAt(33)%><%=business[0].TIV.charAt(34)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="m"
-                  value="<%=business[0].TIV.charAt(36)%><%=business[0].TIV.charAt(37)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="n"
-                  value="<%=business[0].TIV.charAt(39)%><%=business[0].TIV.charAt(40)%>"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  name="o"
-                  value="<%=business[0].TIV.charAt(42)%><%=business[0].TIV.charAt(43)%>"
-                  readonly
-                />
-              </th>
-            </tr>
-          </table>
-        </div>
-        <h2>Logo</h2>
+      </div>
+    </form>
+    <form
+      id="tivData"
+      class="addUserForm"
+      action="/saveTivData"
+      method="post"
+    >
+      <h2>TIV</h2>
+      <button
+        type="button"
+        class="edit"
+        id="editActivity"
+        onclick="editBusinessTivData()"
+      ><i class="material-icons">mode_edit</i></button>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-bordered tiv">
+          <tr>
+            <th scope="col">A</th>
+            <th scope="col">B</th>
+            <th scope="col">C</th>
+            <th scope="col">D</th>
+            <th scope="col">E</th>
+            <th scope="col">F</th>
+            <th scope="col">G</th>
+            <th scope="col">H</th>
+            <th scope="col">I</th>
+            <th scope="col">J</th>
+            <th scope="col">K</th>
+            <th scope="col">L</th>
+            <th scope="col">M</th>
+            <th scope="col">N</th>
+            <th scope="col">O</th>
+          </tr>
+          <tr>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="a"
+                name="a"
+                value="<%=business[0].TIV.charAt(0)%><%=business[0].TIV.charAt(1)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="b"
+                name="b"
+                value="<%=business[0].TIV.charAt(3)%><%=business[0].TIV.charAt(4)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="c"
+                name="c"
+                value="<%=business[0].TIV.charAt(6)%><%=business[0].TIV.charAt(7)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="d"
+                name="d"
+                value="<%=business[0].TIV.charAt(9)%><%=business[0].TIV.charAt(10)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="e"
+                name="e"
+                value="<%=business[0].TIV.charAt(12)%><%=business[0].TIV.charAt(13)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="f"
+                name="f"
+                value="<%=business[0].TIV.charAt(15)%><%=business[0].TIV.charAt(16)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="g"
+                name="g"
+                value="<%=business[0].TIV.charAt(18)%><%=business[0].TIV.charAt(19)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="h"
+                name="h"
+                value="<%=business[0].TIV.charAt(21)%><%=business[0].TIV.charAt(22)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="i"
+                name="i"
+                value="<%=business[0].TIV.charAt(24)%><%=business[0].TIV.charAt(25)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="j"
+                name="j"
+                value="<%=business[0].TIV.charAt(27)%><%=business[0].TIV.charAt(28)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="k"
+                name="k"
+                value="<%=business[0].TIV.charAt(30)%><%=business[0].TIV.charAt(31)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="l"
+                name="l"
+                value="<%=business[0].TIV.charAt(33)%><%=business[0].TIV.charAt(34)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="m"
+                name="m"
+                value="<%=business[0].TIV.charAt(36)%><%=business[0].TIV.charAt(37)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="n"
+                name="n"
+                value="<%=business[0].TIV.charAt(39)%><%=business[0].TIV.charAt(40)%>"
+                readonly
+              />
+            </th>
+            <th>
+              <input
+                size="1"
+                type="text"
+                id="o"
+                name="o"
+                value="<%=business[0].TIV.charAt(42)%><%=business[0].TIV.charAt(43)%>"
+                readonly
+              />
+            </th>
+          </tr>
+        </table>
+      </div>
+      <h2>Logo</h2>
+      <div class="contentBackground">
         <div class="row">
           <div class="col-md-6">
             <input type="file" class="form-control" name="picture" />
           </div>
         </div>
-
-        <h2>Contacto</h2>
-
+      </div>
+    </form>
+    <form
+      id="accountData"
+      class="addUserForm"
+      action="/saveaccountData"
+      method="post"
+    >
+      <h2>Contacto</h2>
+      <button class="edit"><i class="material-icons">mode_edit</i></button>
+      <div class="contentBackground">
+        <% var p=0; contact.forEach(function(contactData){ %>
         <div id="contact">
           <div id="contactDIV1">
             <div class="row">
@@ -486,6 +599,7 @@
                   class="form-control"
                   name="contactName"
                   placeholder="Nombre"
+                  value="<%=contactData.contactName%>"
                   readonly
                 />
               </div>
@@ -495,6 +609,7 @@
                   class="form-control"
                   name="contactPhone"
                   placeholder="Numero Telefonico"
+                  value="<%=contactData.contactPhone%>"
                   readonly
                 />
               </div>
@@ -504,31 +619,25 @@
                   class="form-control"
                   name="contactEmail"
                   placeholder="Correo electronico"
+                  value="<%=contactData.contactEmail%>"
                   readonly
                 />
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <button
-            class="btn btn-light"
-            type="button"
-            onclick="addContactFields()"
-          >
-            <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
-          </button>
-        </div>
+        <% p++; }) %>
+      </div>
+      <!-- <div class="col-md-6">
         <button
-          name="submit"
-          id="submit"
-          type="submit"
-          class="btn btn btn-light col-md-12"
+          class="btn btn-light"
+          type="button"
+          onclick="addContactFields()"
         >
-          Agregar Sociedad
+          <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
         </button>
-      </form>
-    </div>
+      </div> -->
+    </form>
   </body>
   <script type="module">
     var i = 1;
