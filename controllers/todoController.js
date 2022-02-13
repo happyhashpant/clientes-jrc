@@ -5,7 +5,29 @@ const { DATETIME } = require("mysql/lib/protocol/constants/types");
 const { join } = require("path");
 const { nextTick } = require("process");
 
-var Users = [];
+var business = {
+  business: [
+    {
+      businessName: "",
+      businessID: "",
+      atvUser: "",
+      atvPassword: "",
+      billSystem: "",
+      billSystemPassword: "",
+      billEmail: "",
+      billEmaillPassword: "",
+      traviUser: "",
+      traviPassword: "",
+      ccssUser: "",
+      ccssPassword: "",
+      insUser: "",
+      insPassword: "",
+      userID: "",
+      tiv: "",
+      logo: "",
+    },
+  ],
+};
 module.exports = function (app) {
   var path = require("path");
   var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
@@ -213,14 +235,16 @@ module.exports = function (app) {
 
   async function addNewBusiness(req) {
     formData = req.body;
+    console.log(business.businessName);
     var ownerArray = [];
     var businessArray = [];
     var contactArray = [];
-    var activityArray = [];    
+    var activityArray = [];
     var p = 0;
     var j = 0;
     var i = 0;
     var z = 0;
+    console.log(formData);
 
     for (const property in formData) {
       if (`${property}` === "businessOwnerName") {
@@ -255,26 +279,11 @@ module.exports = function (app) {
         z++;
       }
     }
-    await insertBusiness.addBusiness(businessArray);
-    console.log(formData);
-    console.log(req.body.businessID);
-    var businessID = await insertBusiness.verifiedBusiness(req.body.businessID);
-    console.log(businessID);
-    console.log(ownerArray);  
-    console.log(ownerArray.length);
     console.log(ownerArray[0]);
-    console.log(businessArray);
-    console.log(businessArray.length);
-    console.log(activityArray);
-    console.log(activityArray.length);
-    console.log(contactArray);
-    console.log(contactArray.length);
-    console.log(i);
-    console.log(j);
-    console.log(z);
-    console.log(p);
-    console.log(businessID);
-
+    await insertBusiness.addBusiness(businessArray, formData);
+    var businessID = await insertBusiness.verifiedBusiness(
+      req.body.inputBusinessID
+    );
     await insertBusiness.addBusinessOwner(
       ownerArray,
       businessID[0].id,
@@ -283,7 +292,7 @@ module.exports = function (app) {
     await insertBusiness.addBusinessContact(
       contactArray,
       businessID[0].id,
-      p
+      contactArray[0].length
     );
     await insertBusiness.addBusinessActivity(
       activityArray,

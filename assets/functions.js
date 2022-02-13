@@ -321,10 +321,10 @@ function editAccountsData() {
   $("#insPassword").attr("readonly", false);
   $("#userCharge").prop("disabled", false);
 
-  $(".editOwner").after(
+  $(".editAccountData").after(
     "<button class='edit' form='accountData' id='editAccountData'><i class='material-icons'>sd_card</i></button>"
   );
-  $(".editOwner").remove();
+  $(".editAccountData").remove();
 }
 
 function editBusinessActivity() {
@@ -354,7 +354,18 @@ function editBusinessTivData() {
   $("#o").attr("readonly", false);
 
   $(".editActivity").after(
-    "<button class='edit' form='tivData id='editTivData'><i class='material-icons'>sd_card</i></button>"
+    "<button class='edit' form=''tivData' id='editTivData'><i class='material-icons'>sd_card</i></button>"
   );
   $(".editActivity").remove();
+}
+
+function editContactData() {
+  $("#contactName").attr("readonly", false);
+  $("#contactPhone").attr("readonly", false);
+  $("#contactEmail").attr("readonly", false);
+
+  $(".editContactsData").after(
+    "<button class='edit' form='userData' id='editUserData'><i class='material-icons'>sd_card</i></button>"
+  );
+  $(".editContactsData").remove();
 }

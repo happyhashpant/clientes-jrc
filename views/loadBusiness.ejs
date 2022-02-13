@@ -153,7 +153,7 @@
       <h2>Datos contables</h2>
       <button
         type="button"
-        class="edit"
+        class="edit editAccountData"
         id="editAccountData"
         onclick="editAccountsData()"
       >
@@ -357,7 +357,7 @@
       <h2>Actividad Económica</h2>
       <button
         type="button"
-        class="edit"
+        class="edit editActivity"
         id="editActivity"
         onclick="editBusinessActivity()"
       >
@@ -385,19 +385,16 @@
         </div>
       </div>
     </form>
-    <form
-      id="tivData"
-      class="addUserForm"
-      action="/saveTivData"
-      method="post"
-    >
+    <form id="tivData" class="addUserForm" action="/saveTivData" method="post">
       <h2>TIV</h2>
       <button
         type="button"
         class="edit"
         id="editActivity"
         onclick="editBusinessTivData()"
-      ><i class="material-icons">mode_edit</i></button>
+      >
+        <i class="material-icons">mode_edit</i>
+      </button>
       <div class="table-responsive">
         <table class="table table-dark table-striped table-bordered tiv">
           <tr>
@@ -581,13 +578,20 @@
       </div>
     </form>
     <form
-      id="accountData"
+      id="userData"
       class="addUserForm"
-      action="/saveaccountData"
+      action="/saveUserData"
       method="post"
     >
       <h2>Contacto</h2>
-      <button class="edit"><i class="material-icons">mode_edit</i></button>
+      <button
+        type="button"
+        class="edit"
+        id="editContactsData"
+        onclick="editContactData()"
+      >
+        <i class="material-icons">mode_edit</i>
+      </button>
       <div class="contentBackground">
         <% var p=0; contact.forEach(function(contactData){ %>
         <div id="contact">
@@ -597,6 +601,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  id="contactName"
                   name="contactName"
                   placeholder="Nombre"
                   value="<%=contactData.contactName%>"
@@ -606,7 +611,8 @@
               <div class="col-md-4">
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control"\
+                  id="contactPhone"
                   name="contactPhone"
                   placeholder="Numero Telefonico"
                   value="<%=contactData.contactPhone%>"
@@ -617,6 +623,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  id="contactEmail"
                   name="contactEmail"
                   placeholder="Correo electronico"
                   value="<%=contactData.contactEmail%>"
