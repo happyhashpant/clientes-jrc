@@ -7,11 +7,9 @@ h1 {
 h2 {
   border-bottom: black;
   border-bottom-style: groove;
-  margin-bottom: 30px;
-  margin-top: 30px;
   font-size: 30px;
-  margin-left: 10px;
-  margin-right: 10px;
+  max-width: 100rem;
+  margin: 40px auto;
 }
 
 body {
@@ -41,6 +39,8 @@ input {
   padding: 10px;
   margin: 5px;
   border-radius: 10px;
+  max-width: 100rem;
+  margin: 0 auto;
 }
 
 .hide {
@@ -54,6 +54,8 @@ input {
 .tiv {
   text-align: center;
   width: 100%;
+  max-width: 100rem;
+  margin: 0 auto;
 }
 
 input[type="text"] {
@@ -173,6 +175,7 @@ th > input:read-only {
 label {
   font-weight: bold;
   font-size: 20px;
+  margin: 30px 0 30px 0;
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -185,7 +188,7 @@ label {
   .billEmail {
     margin-top: 0;
   }
-  input{
+  input {
     width: 100px;
   }
 }
@@ -200,7 +203,6 @@ label {
   .billEmail {
     margin-top: 0;
   }
-  
 }
 
 @media only screen and (min-width: 1420px) {
@@ -240,14 +242,15 @@ img {
   height: 100%;
 }
 
-.addButton{
-  margin-left: 5px;
+.addButton {
+  margin: 20px auto;
+  
 }
 
-.search{
+.search {
   width: 100%;
 }
-.edit{
+.edit {
   display: flex;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -255,4 +258,7 @@ img {
   cursor: pointer;
   overflow: hidden;
   outline: none;
+  max-width: 100rem;
+  margin: 20px auto;
+  font-size: 60px;
 }
