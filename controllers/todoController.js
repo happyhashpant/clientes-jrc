@@ -148,7 +148,7 @@ module.exports = function (app) {
       .loadBusinessTable()
       .then(function (result) {
         objects = result;
-        res.render("business");
+        res.redirect("business");
       })
       .catch((err) => alert(err));
   });
@@ -251,7 +251,6 @@ module.exports = function (app) {
     var totalActivity = await loadActivity.loadActivityMenu();
     var contact = await loadBusiness.loadContacts(business[0].businessID);
     var activity = await loadBusiness.loadActivity(business[0].businessID);
-
     res.render("loadBusiness", {
       business: business,
       user: user,
@@ -317,28 +316,30 @@ module.exports = function (app) {
         z++;
       }
     }
-    console.log(ownerArray[0].length);
-    console.log(activityArray[0].length);
-    console.log(contactArray[0].length);
     await insertBusiness.addBusiness(businessArray, formData);
-    var businessID = await insertBusiness.verifiedBusiness(
-      req.body.inputBusinessID
-    );
-    await insertBusiness.addBusinessOwner(
-      ownerArray,
-      req.body.inputBusinessID,
-      ownerArray[0].length
-    );
-    await insertBusiness.addBusinessContact(
-      contactArray,
-      req.body.inputBusinessID,
-      contactArray[0].length
-    );
-    await insertBusiness.addBusinessActivity(
-      activityArray,
-      req.body.inputBusinessID,
-      activityArray[0].length
-    );
+    console.log(formData.inputBusinessID);
+    var businessID;
+    setTimeout(async function () {
+      businessID = await loadBusiness.loadMyBusiness(formData.inputBusinessID);
+      console.log(businessID);
+      console.log(businessID);
+    }, 2000);
+
+    // await insertBusiness.addBusinessOwner(
+    //   ownerArray,
+    //   req.body.inputBusinessID,
+    //   ownerArray[0].length
+    // );
+    // await insertBusiness.addBusinessContact(
+    //   contactArray,
+    //   req.body.inputBusinessID,
+    //   contactArray[0].length
+    // );
+    // await insertBusiness.addBusinessActivity(
+    //   activityArray,
+    //   req.body.inputBusinessID,
+    //   activityArray[0].length
+    // );
   }
 
   async function loadUserEmail(req, res) {

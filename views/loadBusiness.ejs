@@ -341,24 +341,22 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-2">
             <label for="">Agente encargado*</label>
-            <select
-              id="userCharge"
+            <input
               name="userCharge"
-              class="form-select userCharge"
-              aria-label="Default select example"
-              disabled="true"
-            >
-              <% var i=0; user.forEach(function(data){ %>
-              <option value="<%=data.id%>"><%=data.userName%></option>
-              <% i++; }) %> <% var p=0;
-              totalUsers.forEach(function(totalUsersData){ %>
-              <option value="<%=totalUsersData.id%>">
-                <%=totalUsersData.userName%>
-              </option>
+              id="userCharge"
+              class="form-control"
+              list="datalistOptions"
+              value="<%=user[0].userName%>"
+              id="exampleDataList"
+              readonly
+            />
+            <datalist id="datalistOptions">
+              <% var p=0; totalUsers.forEach(function(totalUsersData){ %>
+              <option value="<%=totalUsersData.userName%>"></option>
               <% p++; }) %>
-            </select>
+            </datalist>
           </div>
         </div>
       </div>
@@ -380,24 +378,28 @@
       </button>
       <div class="contentBackground">
         <div id="activityDIV1">
-          <div class="row">
+          <div class="row-fluid">
             <div class="col-md-6">
               <label for="">Actividad Económica*</label>
-              <select
-                name="activity"
-                class="form-select activity"
-                aria-label="Default select example"
-                disabled="true"
-              >
-                <% var j=0; activity.forEach(function(datas){ %>
-                <option value="<%=datas.id%>"><%=datas.activityName%></option>
-                <% j++; }) %><% var n=0;
-                totalActivity.forEach(function(totalActivityData){ %>
-                <option value="<%=totalActivityData.id%>">
+              <% var e=0; activity.forEach(function(activityData){
+                %>
+              <input
+                name="userCharge"
+                id="userCharge"
+                class="form-control"
+                list="datalistOptions"
+                value="<%=activityData.activityName%>"
+                readonly
+              />
+              <% e++; }) %>
+              <datalist id="datalistOptions">
+                <% var n=0; totalActivity.forEach(function(totalActivityData){
+                %>
+                <option value="<%=totalActivityData.activityName%>">
                   <%=totalActivityData.activityName%>
                 </option>
                 <% n++; }) %>
-              </select>
+              </datalist>
             </div>
           </div>
         </div>
@@ -406,10 +408,10 @@
     <form id="tivData" class="addUserForm" action="/saveTivData" method="post">
       <h2>TIV</h2>
       <input
-      name="businessID"
-      type="hidden"
-      value="<%=business[0].businessID%>"
-    />
+        name="businessID"
+        type="hidden"
+        value="<%=business[0].businessID%>"
+      />
       <button
         type="button"
         class="edit editTIV"

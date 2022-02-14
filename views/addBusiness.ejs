@@ -18,13 +18,7 @@
     </script>
     <h1>Agregar Sociedad</h1>
 
-    <form
-      id="businessForm"
-      action="/addBusiness"
-      method="post"
-      class="needs-validation"
-      novalidate
-    >
+    <form id="businessForm" action="/addBusiness" method="post" novalidate>
       <h2>Datos Generales</h2>
       <div class="contentBackground">
         <div class="row">
@@ -44,8 +38,7 @@
               type="number"
               id="inputBusinessID"
               class="form-control"
-              name="inputBusinessID"    
-              onkeypress="limit(event,this.value,10)"         
+              name="inputBusinessID"
               placeholder="Cédula Jurídica"
               required
             />
@@ -275,7 +268,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-2">
             <label for="">Agente encargado*</label>
             <select
               name="userCharge"
@@ -329,181 +322,179 @@
       </div>
 
       <h2>TIV*</h2>
-      <div class="contentBackground">
-        <div class="table-responsive">
-          <table class="table table-light table-striped table-bordered tiv">
-            <tr>
-              <th scope="col">A</th>
-              <th scope="col">B</th>
-              <th scope="col">C</th>
-              <th scope="col">D</th>
-              <th scope="col">E</th>
-              <th scope="col">F</th>
-              <th scope="col">G</th>
-              <th scope="col">H</th>
-              <th scope="col">I</th>
-              <th scope="col">J</th>
-              <th scope="col">K</th>
-              <th scope="col">L</th>
-              <th scope="col">M</th>
-              <th scope="col">N</th>
-              <th scope="col">O</th>
-            </tr>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped table-bordered tiv">
+          <tr>
+            <th scope="col">A</th>
+            <th scope="col">B</th>
+            <th scope="col">C</th>
+            <th scope="col">D</th>
+            <th scope="col">E</th>
+            <th scope="col">F</th>
+            <th scope="col">G</th>
+            <th scope="col">H</th>
+            <th scope="col">I</th>
+            <th scope="col">J</th>
+            <th scope="col">K</th>
+            <th scope="col">L</th>
+            <th scope="col">M</th>
+            <th scope="col">N</th>
+            <th scope="col">O</th>
+          </tr>
 
-            <tr>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="a"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="b"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="c"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="d"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="e"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="f"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="g"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="h"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="i"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="j"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="k"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="l"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="m"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="n"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="o"
-                  required
-                />
-              </th>
-            </tr>
-          </table>
-        </div>
+          <tr>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="a"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="b"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="c"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="d"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="e"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="f"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="g"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="h"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="i"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="j"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="k"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="l"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="m"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="n"
+                required
+              />
+            </th>
+            <th>
+              <input
+                oninput="this.value = this.value.toUpperCase()"
+                onkeypress="limit(event,this.value,2)"
+                size="1"
+                type="text"
+                name="o"
+                required
+              />
+            </th>
+          </tr>
+        </table>
       </div>
       <h2>Logo</h2>
       <div class="contentBackground">

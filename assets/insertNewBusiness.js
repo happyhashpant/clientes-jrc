@@ -1,7 +1,6 @@
 exports.addBusiness = function (businessArray, formData) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
-  console.log("hola");
   var connect = mysql.createConnection(credentials);
   var query =
     "INSERT into business (businessName, businessID, atvUser, atvPassword, billSystem, billSystemUser, billSystemPassword, billEmail, billEmailPassword, traviUser, traviPassword, ccssUser, ccssPassword, insUser, insPassword, userID, TIV) VALUES ('" +
@@ -186,7 +185,7 @@ exports.addBusinessActivity = (activityArray, businessID, activityAmount) => {
       "','" +
       activityArray[0] +
       "')";
-      console.log(query);
+    console.log(query);
     connect.query(query);
   } else {
     for (let i = 0; i < activityAmount; i++) {

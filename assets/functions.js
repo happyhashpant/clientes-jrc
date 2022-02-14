@@ -318,7 +318,7 @@ function editAccountsData() {
   $("#ccssPassword").attr("readonly", false);
   $("#insUser").attr("readonly", false);
   $("#insPassword").attr("readonly", false);
-  $("#userCharge").prop("disabled", false);
+  $("#userCharge").attr("readonly", false);
 
   $(".editAccountData").after(
     "<button class='edit' form='accountData' id='editAccountData'><i class='material-icons'>sd_card</i></button>"
