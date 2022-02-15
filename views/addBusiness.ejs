@@ -268,15 +268,17 @@
         <div class="row">
           <div class="col-md-2">
             <label for="">Agente encargado*</label>
-            <select
-              name="userCharge"
-              class="form-select"
-              aria-label="Default select example"
-            >
+            <input
+              class="form-control"
+              list="datalistUser"
+              id="exampleDataList"
+              autocomplete="off"
+            />
+            <datalist id="datalistUser">
               <% var i=0; user.forEach(function(data){ %>
               <option value="<%=data.id%>"><%=data.userName%></option>
               <% i++; }) %>
-            </select>
+            </datalist>
           </div>
         </div>
       </div>
@@ -287,20 +289,18 @@
             <div class="row" id="activityFrRow1">
               <div class="col-md-6">
                 <label for="">Actividad Económica*</label>
-                <select
-                  name="activity"
-                  class="form-select"
-                  aria-label="Default select example"
-                  required
-                >
+
+                <input
+                  class="form-control"
+                  list="datalistOptions"
+                  id="exampleDataList"
+                  autocomplete="off"
+                />
+                <datalist id="datalistOptions">
                   <% var j=0; activity.forEach(function(datas){ %>
-                  <optgroup>
-                    <option value="<%=datas.id%>">
-                      <%=datas.activityName%>
-                    </option>
-                  </optgroup>
+                  <option value="<%=datas.id%>"><%=datas.activityName%></option>
                   <% j++; }) %>
-                </select>
+                </datalist>
               </div>
             </div>
             <div class="row" id="activitySecRow">

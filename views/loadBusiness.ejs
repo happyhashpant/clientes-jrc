@@ -32,7 +32,7 @@
         id="editGeneralData"
         onclick="editGeneralDataDiv()"
       >
-        <i class="material-icons">mode_edit</i>
+        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
       </button>
       <div class="contentBackground">
         <div class="row">
@@ -81,7 +81,7 @@
         id="editOwner"
         onclick="editOwnerData()"
       >
-        <i class="material-icons">mode_edit</i>
+        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
       </button>
       <div class="contentBackground">
         <% var i=1; owner.forEach(function(data){%>
@@ -167,7 +167,7 @@
         id="editAccountData"
         onclick="editAccountsData()"
       >
-        <i class="material-icons">mode_edit</i>
+        <i class="material-icons" style="font-size: 36px">mode_edit</i>
       </button>
       <div class="contentBackground">
         <div class="row">
@@ -350,11 +350,14 @@
               list="datalistOptions"
               value="<%=user[0].userName%>"
               id="exampleDataList"
+              autocomplete="off"
               readonly
             />
             <datalist id="datalistOptions">
               <% var p=0; totalUsers.forEach(function(totalUsersData){ %>
-              <option value="<%=totalUsersData.userName%>"></option>
+              <option value="<%=totalUsersData.id%>">
+                <%=totalUsersData.userName%>
+              </option>
               <% p++; }) %>
             </datalist>
           </div>
@@ -374,25 +377,25 @@
         id="editActivity"
         onclick="editBusinessActivity()"
       >
-        <i class="material-icons">mode_edit</i>
+        <i class="editIcon material-icons" style="font-size: 2rem">mode_edit</i>
       </button>
       <div class="contentBackground">
-        <div id="activityDIV1">
+        <div id="activityDIV">
           <div class="row-fluid">
             <div class="col-md-6">
               <label for="">Actividad Económica*</label>
-              <% var e=0; activity.forEach(function(activityData){
-                %>
+              <% var e=0; activity.forEach(function(activityData){ %>
               <input
                 name="userCharge"
                 id="userCharge"
                 class="form-control"
-                list="datalistOptions"
+                list="datalistActivities"
                 value="<%=activityData.activityName%>"
+                autocomplete="off"
                 readonly
               />
               <% e++; }) %>
-              <datalist id="datalistOptions">
+              <datalist id="datalistActivities">
                 <% var n=0; totalActivity.forEach(function(totalActivityData){
                 %>
                 <option value="<%=totalActivityData.activityName%>">
@@ -400,6 +403,31 @@
                 </option>
                 <% n++; }) %>
               </datalist>
+            </div>
+          </div>
+        </div>
+        <div id="addActivity">
+          <div id="activityDIV1" class="editAddActivity">
+            <div class="row activityFrRow1" id="activityFrRow1" >
+              <div class="col-md-6">
+                <input
+                  class="form-control"
+                  list="datalistActivities"
+                  id="exampleDataList"
+                  autocomplete="off"
+                />
+                <datalist id="datalistActivities">
+                  <% var n=0; totalActivity.forEach(function(totalActivityData){
+                  %>
+                  <option value="<%=totalActivityData.activityName%>">
+                    <%=totalActivityData.activityName%>
+                  </option>
+                  <% n++; }) %>
+                </datalist>
+              </div>
+            </div>
+            <div class="row" id="activitySecRow">
+              <div class="col-md-6" id="activityDeleteButtonInput"></div>
             </div>
           </div>
         </div>
@@ -418,7 +446,7 @@
         id="editTIV"
         onclick="editBusinessTivData()"
       >
-        <i class="material-icons">mode_edit</i>
+        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
       </button>
       <div class="table-responsive">
         <table class="table table-dark table-striped table-bordered tiv">
@@ -615,7 +643,7 @@
         id="editContactsData"
         onclick="editContactData()"
       >
-        <i class="material-icons">mode_edit</i>
+        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
       </button>
       <div class="contentBackground">
         <% var p=0; contact.forEach(function(contactData){ %>
@@ -672,9 +700,13 @@
       </div> -->
     </form>
   </body>
-  <script type="module">
+  <script>
     var i = 1;
     var j = 1;
+    var z = 1;
+    var newOwnerCount = 1;
+    var newContactCount = 1;
+    var newActivityCount = 1;
 
     window.addEventListener("load", (event) => {
       $("#navBar").load("/assets/navbar.html");

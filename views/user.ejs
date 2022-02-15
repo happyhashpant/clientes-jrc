@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="/assets/bootstrap.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" href="/assets/logo.png">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"
+    ></script>
     <title>Usuarios</title>
   </head>
 
@@ -29,7 +38,7 @@
           id="table"
           class="table table-light table-striped table-bordered table-hover"
         >
-          <thead class="thead-light">
+          <thead class="table-dark">
             <tr>
               <th scope="col">Nombre</th>
               <th scope="col">Numero de telefono</th>
@@ -59,6 +68,12 @@
     $(document).ready(function () {
       $("#navBar").load("/assets/navbar.html");
       // $("#userInfo").load("/assets/loadUserTable.html");
+    });
+    $(document).ready(function () {
+      $("#table").DataTable({
+        searching: false,
+        pageLength: 25
+      });
     });
   </script>
 </html>

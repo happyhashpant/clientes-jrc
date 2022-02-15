@@ -183,7 +183,7 @@ label {
   .bill,
   .ownerName,
   .ownerID {
-    margin-top: 30px;
+    margin-top: 60px;
   }
   .billEmail {
     margin-top: 0;
@@ -198,43 +198,44 @@ label {
   .bill,
   .ownerName,
   .ownerID {
-    margin-top: 0;
+    margin-top: 30px;
   }
   .billEmail {
-    margin-top: 0;
+    margin-top: 60px;
   }
 }
 
 @media only screen and (min-width: 1420px) {
   .ownerName,
   .ownerID {
-    margin-top: 0;
+    margin-top: 30px;
   }
-  .billEmail,
+  .billEmail {
+    margin-top: 60px;
+  }
   .bill,
   .billUser {
     margin-top: 30px;
   }
 }
 
-@media only screen and (min-width: 1720px) {
+@media only screen and (min-width: 1740px) {
   .ownerName,
   .ownerID,
   .bill,
   .billUser {
-    margin-top: 0;
+    margin-top: 30px;
   }
   .billEmail {
-    margin-top: 30px;
+    margin-top: 60px;
   }
 }
 @media only screen and (min-width: 2000px) {
   .ownerName,
   .ownerID,
   .bill,
-  .billUser,
-  .billEmail {
-    margin-top: 0;
+  .billUser {
+    margin-top: 30px;
   }
 }
 img {
@@ -244,7 +245,6 @@ img {
 
 .addButton {
   margin: 20px auto;
-  
 }
 
 .search {
@@ -260,5 +260,15 @@ img {
   outline: none;
   max-width: 100rem;
   margin: 20px auto;
-  font-size: 60px;
+}
+
+#addActivity {
+  display: none;
+}
+
+.editAddActivity {
+  margin: 10px 0 10px 0;
+}
+.activityFrRow1 {
+  margin-top: 10px;
 }

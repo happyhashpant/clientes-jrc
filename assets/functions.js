@@ -287,8 +287,8 @@ function removeActivity(id) {
 function editGeneralDataDiv() {
   $("#businessName").attr("readonly", false);
   $("#editGeneralData").after(
-    "<button class='edit' form='generalData' id='editGeneralData'><i class='material-icons'>sd_card</i></button>"
-  );
+    "<button class='edit' form='generalData' id='editGeneralData'><i class='material-icons' style='font-size:36px'>sd_card</i></button>"
+  );  
   $("#editGeneralData").remove();
 }
 
@@ -299,8 +299,12 @@ function editOwnerData() {
   $(".ownerBirDate").attr("readonly", false);
   $(".ownerAddress").attr("readonly", false);
   $(".editOwner").after(
+    "<button type='button' class='edit' form='generalData' id='editGeneralData' onclick='editAddNewOwner()'><i class='material-icons' style='font-size:36px'>add</i></button>"
+  );
+  $(".editOwner").after(
     "<button class='edit' form='ownerData' id='editOwnerData'><i class='material-icons'>sd_card</i></button>"
   );
+
   $(".editOwner").remove();
 }
 
@@ -328,7 +332,10 @@ function editAccountsData() {
 
 function editBusinessActivity() {
   $(".activity").prop("disabled", false);
-
+  $("#addActivity").css("display", "block");
+  $(".editActivity").after(
+    "<button type='button' class='edit' form='generalData' id='editGeneralData' onclick='cloneActivity()'><i class='material-icons' style='font-size:36px'>add</i></button>"
+  );
   $(".editActivity").after(
     "<button class='edit' form='businessActivity' id='editBusinessActivity'><i class='material-icons'>sd_card</i></button>"
   );
@@ -362,9 +369,23 @@ function editContactData() {
   $("#contactName").attr("readonly", false);
   $("#contactPhone").attr("readonly", false);
   $("#contactEmail").attr("readonly", false);
-
+  $(".editContactsData").after(
+    "<button type='button'class='edit' form='generalData' id='editGeneralData' onclick='editAddNewContact()'><i class='material-icons' style='font-size:36px'>add</i></button>"
+  );
   $(".editContactsData").after(
     "<button class='edit' form='userData' id='editUserData'><i class='material-icons'>sd_card</i></button>"
   );
   $(".editContactsData").remove();
+}
+
+function editAddNewOwner(){
+
+}
+function editAddNewActivity(){  
+  $("#activityDIV1").after(
+    "<button type='button'class='edit' form='generalData' id='editGeneralData' onclick='editAddNewContact()'><i class='material-icons' style='font-size:36px'>add</i></button>"
+  );
+}
+function editAddNewContact(){
+  
 }
