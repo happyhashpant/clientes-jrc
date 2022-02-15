@@ -45,7 +45,8 @@
             <% var i=1; objects.forEach(function(data){%>
             <tr
               class="clickable"
-              onclick="loadBusiness('<%=data.id%>')"
+              onclick=""
+              ondblclick="loadBusiness('<%=data.id%>')"
               onauxclick="loadBusiness2('<%=data.id%>')"
               ;
             >
