@@ -7,7 +7,7 @@
     <script defer src="/assets/functions.js"></script>
     <link rel="stylesheet" href="/assets/bootstrap.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="icon" href="/assets/logo.png">
+    <link rel="icon" href="/assets/logo.png" />
     <link
       rel="stylesheet"
       type="text/css"
@@ -24,15 +24,6 @@
     <div id="navBar"></div>
     <h1>Usuarios</h1>
     <div class="contentBackground">
-      <input
-        type="text"
-        class="search"
-        name="inputSearch"
-        id="inputSearch"
-        placeholder="Buscar"
-        onkeyup="searchTable()"
-      />
-
       <div class="table-responsive">
         <table
           id="table"
@@ -71,8 +62,10 @@
     });
     $(document).ready(function () {
       $("#table").DataTable({
-        searching: false,
-        pageLength: 25
+        language: {
+          url: "//cdn.datatables.net/plug-ins/1.11.4/i18n/es_es.json",
+        },
+        pageLength: 25,
       });
     });
   </script>
