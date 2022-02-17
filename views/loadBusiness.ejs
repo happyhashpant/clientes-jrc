@@ -26,14 +26,16 @@
       method="post"
     >
       <h2>Datos Generales</h2>
-      <button
-        type="button"
-        class="edit"
-        id="editGeneralData"
-        onclick="editGeneralDataDiv()"
-      >
-        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
-      </button>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="edit"
+          id="editGeneralData"
+          onclick="editGeneralDataDiv()"
+        >
+          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+        </button>
+      </div>
       <div class="contentBackground">
         <div class="row">
           <div class="col-md-4">
@@ -75,14 +77,16 @@
       method="post"
     >
       <h2>Representante Legal</h2>
-      <button
-        type="button"
-        class="edit editOwner"
-        id="editOwner"
-        onclick="editOwnerData()"
-      >
-        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
-      </button>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="edit editOwner"
+          id="editOwner"
+          onclick="editOwnerData()"
+        >
+          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+        </button>
+      </div>
       <div class="contentBackground">
         <% var i=1; owner.forEach(function(data){%>
         <div id="ownerDIV1">
@@ -161,14 +165,16 @@
         type="hidden"
         value="<%=business[0].businessID%>"
       />
-      <button
-        type="button"
-        class="edit editAccountData"
-        id="editAccountData"
-        onclick="editAccountsData()"
-      >
-        <i class="material-icons" style="font-size: 36px">mode_edit</i>
-      </button>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="edit editAccountData"
+          id="editAccountData"
+          onclick="editAccountsData()"
+        >
+          <i class="material-icons" style="font-size: 36px">mode_edit</i>
+        </button>
+      </div>
       <div class="contentBackground">
         <div class="row">
           <div class="col-md-6">
@@ -371,46 +377,72 @@
       method="post"
     >
       <h2>Actividad Económica</h2>
-      <button
-        type="button"
-        class="edit editActivity"
-        id="editActivity"
-        onclick="editBusinessActivity()"
-      >
-        <i class="editIcon material-icons" style="font-size: 2rem">mode_edit</i>
-      </button>
+      <input
+        name="businessID"
+        type="hidden"
+        value="<%=business[0].businessID%>"
+      />
+      <div class="editButtons">
+        <button
+          type="button"
+          class="edit editActivity"
+          id="editActivity"
+          onclick="editBusinessActivity()"
+        >
+          <i class="editIcon material-icons" style="font-size: 2rem"
+            >mode_edit</i
+          >
+        </button>
+      </div>
       <div class="contentBackground">
         <div id="activityDIV">
-          <div class="row-fluid">
+          <% var e=0; activity.forEach(function(activityData){ %>
+          <div class="row" id="<%=activityData.businessActivityID%>">
             <div class="col-md-6">
-              <label for="">Actividad Económica*</label>
-              <% var e=0; activity.forEach(function(activityData){ %>
               <input
-                name="userCharge"
-                id="userCharge"
+                name="businessCurrentActivities"
+                id="businessActivity"
                 class="form-control"
                 list="datalistActivities"
-                value="<%=activityData.activityName%>"
                 autocomplete="off"
+                value="<%=activityData.activityName%>"
                 readonly
               />
-              <% e++; }) %>
               <datalist id="datalistActivities">
+                <option value="<%=activityData.activityID%>" selected>
+                  <%=activityData.activityName%>
+                </option>
                 <% var n=0; totalActivity.forEach(function(totalActivityData){
                 %>
-                <option value="<%=totalActivityData.activityName%>">
+                <option value="<%=totalActivityData.id%>">
                   <%=totalActivityData.activityName%>
                 </option>
                 <% n++; }) %>
               </datalist>
             </div>
+            <div class="col-md-6">
+              <div class="divDeleteButton">
+                <button
+                  type="button"
+                  class="edit deleteButton"
+                  id="deleteButton"
+                  onclick="deleteActivityAjx('<%=business[0].businessID%>','<%=activityData.activityID%>','<%=activityData.businessActivityID%>')"
+                >
+                  <i class="editIcon material-icons" style="font-size: 2rem"
+                    >clear</i
+                  >
+                </button>
+              </div>
+            </div>
           </div>
+          <% e++; }) %>
         </div>
         <div id="addActivity">
           <div id="activityDIV1" class="editAddActivity">
-            <div class="row activityFrRow1" id="activityFrRow1" >
+            <div class="row activityFrRow1" id="activityFrRow1">
               <div class="col-md-6">
                 <input
+                  name="businessNewActivities"
                   class="form-control"
                   list="datalistActivities"
                   id="exampleDataList"
@@ -419,7 +451,7 @@
                 <datalist id="datalistActivities">
                   <% var n=0; totalActivity.forEach(function(totalActivityData){
                   %>
-                  <option value="<%=totalActivityData.activityName%>">
+                  <option value="<%=totalActivityData.id%>">
                     <%=totalActivityData.activityName%>
                   </option>
                   <% n++; }) %>
@@ -440,14 +472,16 @@
         type="hidden"
         value="<%=business[0].businessID%>"
       />
-      <button
-        type="button"
-        class="edit editTIV"
-        id="editTIV"
-        onclick="editBusinessTivData()"
-      >
-        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
-      </button>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="edit editTIV"
+          id="editTIV"
+          onclick="editBusinessTivData()"
+        >
+          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+        </button>
+      </div>
       <div class="table-responsive">
         <table class="table table-dark table-striped table-bordered tiv">
           <tr>
@@ -637,14 +671,16 @@
       method="post"
     >
       <h2>Contacto</h2>
-      <button
-        type="button"
-        class="edit"
-        id="editContactsData"
-        onclick="editContactData()"
-      >
-        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
-      </button>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="edit"
+          id="editContactsData"
+          onclick="editContactData()"
+        >
+          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+        </button>
+      </div>
       <div class="contentBackground">
         <% var p=0; contact.forEach(function(contactData){ %>
         <div id="contact">
@@ -689,16 +725,38 @@
         </div>
         <% p++; }) %>
       </div>
-      <!-- <div class="col-md-6">
-        <button
-          class="btn btn-light"
-          type="button"
-          onclick="addContactFields()"
-        >
-          <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
-        </button>
-      </div> -->
     </form>
+    <div
+      class="modal fade"
+      id="businessModal"
+      tabindex="-1"
+      aria-labelledby="businessModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="businessModalTitle">Mensaje:</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="businessModalMessage"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Entiendo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <script>
     var i = 1;

@@ -243,6 +243,33 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
+  app.post("/saveBusinessActivity", function (req, res) {
+    saveBusinessActivities(req, res);
+    loadBusinessTable
+      .loadBusinessTable()
+      .then(function (result) {
+        objects = result;
+        res.redirect("business");
+      })
+      .catch((err) => alert(err));
+  });
+  // ------------------------------------------------------------------ Delete-------------------------
+
+  app.post("/deleteActivity", function (req, res) {
+    saveBusiness.deleteBusinessActivity(
+      req.body.businessID,
+      req.body.activityID
+    );
+    res.send("Success");
+  });
+  app.post("/deleteOwner", function (req, res) {
+    console.log(req.body);
+    res.send("Success");
+  });
+  app.post("/deleteContact", function (req, res) {
+    console.log(req.body);
+    res.send("Success");
+  });
   async function loadBusinessSync(req, res) {
     var business = await loadBusiness.loadBusinessAsy(req.query.businessID);
     var user = await loadUser.loadUser(business[0].userID);
@@ -272,7 +299,7 @@ module.exports = function (app) {
   }
 
   async function addNewBusiness(req) {
-    formData = req.body;
+    var formData = req.body;
     var ownerArray = [];
     var businessArray = [];
     var contactArray = [];
@@ -400,5 +427,22 @@ module.exports = function (app) {
       var err = new Error("Not logged in!");
       res.render("index");
     }
+  }
+
+  async function saveBusinessActivities(req, res) {
+    var formData = req.body;
+    console.log(formData);
+    var j = 0;
+    var arrayNewActivities = [];
+    for (const property in formData) {
+      if (`${property}` === "businessNewActivities") {
+        arrayNewActivities[j] = formData[property];
+        j++;
+      }
+    }
+    await saveBusiness.saveBusinessActivity(
+      formData.businessID,
+      arrayNewActivities
+    );
   }
 };

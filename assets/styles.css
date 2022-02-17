@@ -7,9 +7,9 @@ h1 {
 h2 {
   border-bottom: black;
   border-bottom-style: groove;
-  font-size: 30px;
-  max-width: 120rem;
-  margin: 40px auto;
+  font-size: 20px;
+  max-width: 100rem;
+  margin: 40px auto 10px auto;
 }
 
 body {
@@ -35,12 +35,14 @@ input {
 }
 
 .contentBackground {
-  background-color: #737373;
+  background-color: #363636;
   padding: 10px;
   margin: 5px;
   border-radius: 10px;
-  max-width: 120rem;
+  max-width: 100rem;
   margin: 0 auto;
+  border-style: solid;
+  border-color: rgb(212, 0, 255);
 }
 
 .hide {
@@ -53,38 +55,38 @@ input {
 
 .tiv {
   text-align: center;
-  width: 100%;
-  max-width: 100rem;
+  max-width: 60rem;
   margin: 0 auto;
+  border-style: solid;
+  border-color: rgb(212, 0, 255);
 }
 
 input[type="text"] {
-  font-size: 20px;
+  font-size: 15px;
   letter-spacing: 3px;
 }
 
 input[type="date"] {
-  font-size: 20px;
+  font-size: 15px;
   letter-spacing: 3px;
 }
 input[type="number"] {
-  font-size: 20px;
+  font-size: 15px;
   letter-spacing: 3px;
 }
-optgroup {
-  font-size: 15px;
-}
+
 select {
   height: 40px;
+  width: 100%;
   margin-bottom: 10px;
 }
 
 input[type="password"] {
-  font-size: 20px;
+  font-size: 15px;
   letter-spacing: 3px;
 }
 input[type="email"] {
-  font-size: 20px;
+  font-size: 15px;
   letter-spacing: 3px;
 }
 
@@ -129,45 +131,6 @@ th > input:read-only {
   border-top-style: groove;
 }
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  text-align: center;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .tokenInvalid {
   text-align: center;
 }
@@ -175,7 +138,8 @@ th > input:read-only {
 label {
   font-weight: bold;
   font-size: 20px;
-  margin: 30px 0 30px 0;
+  margin: 30px 0 5px 0;
+  color: white;
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -251,7 +215,17 @@ img {
   width: 100%;
 }
 .edit {
-  display: flex;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  max-width: 100rem;
+  margin: 20px auto;
+}
+.save {
+  display: inline;
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;
@@ -262,6 +236,13 @@ img {
   margin: 20px auto;
 }
 
+.editButtons {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 100rem;
+  margin: 0 auto;
+}
 #addActivity {
   display: none;
 }
@@ -271,4 +252,17 @@ img {
 }
 .activityFrRow1 {
   margin-top: 10px;
+}
+
+.deleteButton {
+  margin: 0;
+}
+
+.divDeleteButton {
+  display: none;
+}
+
+.loginScreen{
+  margin: 0;
+  color: black;
 }

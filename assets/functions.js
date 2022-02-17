@@ -288,7 +288,7 @@ function editGeneralDataDiv() {
   $("#businessName").attr("readonly", false);
   $("#editGeneralData").after(
     "<button class='edit' form='generalData' id='editGeneralData'><i class='material-icons' style='font-size:36px'>sd_card</i></button>"
-  );  
+  );
   $("#editGeneralData").remove();
 }
 
@@ -304,7 +304,6 @@ function editOwnerData() {
   $(".editOwner").after(
     "<button class='edit' form='ownerData' id='editOwnerData'><i class='material-icons'>sd_card</i></button>"
   );
-
   $(".editOwner").remove();
 }
 
@@ -331,13 +330,13 @@ function editAccountsData() {
 }
 
 function editBusinessActivity() {
-  $(".activity").prop("disabled", false);
+  $(".divDeleteButton").css("display", "block");
   $("#addActivity").css("display", "block");
   $(".editActivity").after(
     "<button type='button' class='edit' form='generalData' id='editGeneralData' onclick='cloneActivity()'><i class='material-icons' style='font-size:36px'>add</i></button>"
   );
   $(".editActivity").after(
-    "<button class='edit' form='businessActivity' id='editBusinessActivity'><i class='material-icons'>sd_card</i></button>"
+    "<button class='edit' type='button' form='businessActivity' id='editBusinessActivity' onclick='saveActivityAjx()'><i class='material-icons'>sd_card</i></button>"
   );
   $(".editActivity").remove();
 }
@@ -370,22 +369,37 @@ function editContactData() {
   $("#contactPhone").attr("readonly", false);
   $("#contactEmail").attr("readonly", false);
   $(".editContactsData").after(
-    "<button type='button'class='edit' form='generalData' id='editGeneralData' onclick='editAddNewContact()'><i class='material-icons' style='font-size:36px'>add</i></button>"
+    "<button type='button' class='edit' form='generalData' id='editGeneralData' onclick='editAddNewContact()'><i class='material-icons' style='font-size:36px'>add</i></button>"
   );
   $(".editContactsData").after(
-    "<button class='edit' form='userData' id='editUserData'><i class='material-icons'>sd_card</i></button>"
+    "<button class='edit' type='button' form='userData' id='editUserData' onclick=''><i class='material-icons'>sd_card</i></button>"
   );
   $(".editContactsData").remove();
 }
 
-function editAddNewOwner(){
+function editAddNewOwner() {}
 
+function editAddNewContact() {}
+
+function deleteActivityAjx(businessID, activityID, businesActivityID) {
+  $.ajax({
+    type: "POST",
+    url: "/deleteActivity",
+    data: {
+      businessID: businessID,
+      activityID: activityID,
+    },
+    success: function (data, status) {
+      $("#" + businesActivityID).css("display", "none");
+      $("#businessModal").modal("show");
+      $("#businessModalMessage").text("Has Eliminado una actividad");
+    },
+  });
 }
-function editAddNewActivity(){  
-  $("#activityDIV1").after(
-    "<button type='button'class='edit' form='generalData' id='editGeneralData' onclick='editAddNewContact()'><i class='material-icons' style='font-size:36px'>add</i></button>"
-  );
-}
-function editAddNewContact(){
+
+function saveActivityAjx() {
+  var formData = JSON.stringify($("#businessActivity").serializeArray());
   
+  console.log(formData);
+  console.log(formData.name);
 }

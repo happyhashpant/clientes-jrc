@@ -86,7 +86,7 @@ exports.loadActivity = function loadActivity(businessID) {
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   var query =
-    "SELECT activityID, activityName FROM activity LEFT JOIN businesactivity ON activity.id = businesactivity.activityID WHERE businesactivity.businessID = " +
+    "SELECT activityID, activityName, businessActivityID FROM activity LEFT JOIN businesactivity ON activity.id = businesactivity.activityID WHERE businesactivity.businessID = " +
     businessID;
   return new Promise((resolve, reject) => {
     connect.query(query, (err, result, fields) => {
