@@ -244,14 +244,8 @@ module.exports = function (app) {
   });
 
   app.post("/saveBusinessActivity", function (req, res) {
-    saveBusinessActivities(req, res);
-    loadBusinessTable
-      .loadBusinessTable()
-      .then(function (result) {
-        objects = result;
-        res.redirect("business");
-      })
-      .catch((err) => alert(err));
+    addNewActivities(req);
+    res.send("Success");
   });
   // ------------------------------------------------------------------ Delete-------------------------
 
@@ -270,6 +264,7 @@ module.exports = function (app) {
     console.log(req.body);
     res.send("Success");
   });
+
   async function loadBusinessSync(req, res) {
     var business = await loadBusiness.loadBusinessAsy(req.query.businessID);
     var user = await loadUser.loadUser(business[0].userID);
@@ -278,6 +273,7 @@ module.exports = function (app) {
     var totalActivity = await loadActivity.loadActivityMenu();
     var contact = await loadBusiness.loadContacts(business[0].businessID);
     var activity = await loadBusiness.loadActivity(business[0].businessID);
+    console.log(business);
     res.render("loadBusiness", {
       business: business,
       user: user,
@@ -344,29 +340,24 @@ module.exports = function (app) {
       }
     }
     await insertBusiness.addBusiness(businessArray, formData);
-    console.log(formData.inputBusinessID);
-    var businessID;
     setTimeout(async function () {
       businessID = await loadBusiness.loadMyBusiness(formData.inputBusinessID);
-      console.log(businessID);
-      console.log(businessID);
+      await insertBusiness.addBusinessOwner(
+        ownerArray,
+        req.body.inputBusinessID,
+        ownerArray[0].length
+      );
+      await insertBusiness.addBusinessContact(
+        contactArray,
+        req.body.inputBusinessID,
+        contactArray[0].length
+      );
+      await insertBusiness.addBusinessActivity(
+        activityArray,
+        req.body.inputBusinessID,
+        activityArray[0].length
+      );
     }, 2000);
-
-    // await insertBusiness.addBusinessOwner(
-    //   ownerArray,
-    //   req.body.inputBusinessID,
-    //   ownerArray[0].length
-    // );
-    // await insertBusiness.addBusinessContact(
-    //   contactArray,
-    //   req.body.inputBusinessID,
-    //   contactArray[0].length
-    // );
-    // await insertBusiness.addBusinessActivity(
-    //   activityArray,
-    //   req.body.inputBusinessID,
-    //   activityArray[0].length
-    // );
   }
 
   async function loadUserEmail(req, res) {
@@ -414,35 +405,20 @@ module.exports = function (app) {
     }
   }
 
-  async function test(req, res) {
-    if (req.session.user) {
-      await loadBusinessTable
-        .loadBusinessTable()
-        .then(function (result) {
-          objects = result;
-          res.render("business");
-        })
-        .catch((err) => alert(err));
-    } else {
-      var err = new Error("Not logged in!");
-      res.render("index");
-    }
-  }
-
-  async function saveBusinessActivities(req, res) {
-    var formData = req.body;
-    console.log(formData);
+  async function addNewActivities(req) {
+    let formData = req.body;
+    var newActivitiesArray = [];
+    var oldActivitiesArray = [];
+    var k = 0;
     var j = 0;
-    var arrayNewActivities = [];
-    for (const property in formData) {
-      if (`${property}` === "businessNewActivities") {
-        arrayNewActivities[j] = formData[property];
-        j++;
+    console.log(formData.formData);
+    console.log(formData.formData.length);
+    for (i = 0; i < formData.formData.length; i++) {
+      if (formData.formData[i].name == businessNewActivities) {
+        newActivitiesArray[k] = formData.formData[i].value;
+      } else if (formData.formData[i].name == businessNewActivities) {
+        oldActivitiesArray[j] = formData.formData[i].value;
       }
     }
-    await saveBusiness.saveBusinessActivity(
-      formData.businessID,
-      arrayNewActivities
-    );
   }
 };

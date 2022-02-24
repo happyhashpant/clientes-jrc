@@ -66,25 +66,20 @@ exports.addBusiness = function (businessArray, formData) {
     "/" +
     businessArray[30] +
     "')";
-  console.log(query);
-  connect.query(query);
   connect.end();
 };
 
 exports.verifiedBusiness = (businessID) => {
   var credentials = require("./connection");
   var mysql = require("mysql2");
-  console.log(connect);
   var connect = mysql.createConnection(credentials);
   return new Promise(function (resolve, reject) {
     var query =
       "SELECT id FROM business WHERE businessID = '" + businessID + "';";
-    console.log(query);
     connect.query(query, function (err, result, fields) {
       if (err) {
         return reject(err);
       }
-      console.log(result);
       return resolve(result);
     });
     connect.end();
@@ -95,7 +90,6 @@ exports.addBusinessOwner = (ownerArray, businessID, ownerAmount) => {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  console.log(ownerArray[0]);
   if (ownerAmount <= 6) {
     var query =
       "INSERT into legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES ('" +
@@ -111,7 +105,6 @@ exports.addBusinessOwner = (ownerArray, businessID, ownerAmount) => {
       "','" +
       ownerArray[4] +
       "')";
-    console.log(query);
     connect.query(query);
   } else {
     for (let i = 0; i < ownerAmount; i++) {
@@ -129,7 +122,6 @@ exports.addBusinessOwner = (ownerArray, businessID, ownerAmount) => {
         "','" +
         ownerArray[4][i] +
         "')";
-      console.log(query);
       connect.query(query);
     }
   }
@@ -140,7 +132,6 @@ exports.addBusinessContact = (contactArray, businessID, contactAmount) => {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  console.log(contactAmount);
   if (contactAmount == 19) {
     var query =
       "INSERT into businessContact (businessID, contactName, contactPhone, contactEmail) VALUES ('" +
@@ -152,7 +143,6 @@ exports.addBusinessContact = (contactArray, businessID, contactAmount) => {
       "','" +
       contactArray[2] +
       "')";
-    console.log(query);
     connect.query(query);
   } else {
     for (let i = 0; i < contactAmount; i++) {
@@ -167,7 +157,6 @@ exports.addBusinessContact = (contactArray, businessID, contactAmount) => {
         contactArray[2][i] +
         "')";
       connect.query(query);
-      console.log(query);
     }
   }
   connect.end();
@@ -185,7 +174,7 @@ exports.addBusinessActivity = (activityArray, businessID, activityAmount) => {
       "','" +
       activityArray[0] +
       "')";
-    console.log(query);
+
     connect.query(query);
   } else {
     for (let i = 0; i < activityAmount; i++) {
@@ -196,7 +185,6 @@ exports.addBusinessActivity = (activityArray, businessID, activityAmount) => {
         activityArray[0][i] +
         "')";
       connect.query(query);
-      console.log(query);
     }
   }
   connect.end();

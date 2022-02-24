@@ -18,7 +18,13 @@
     </script>
     <h1>Agregar Sociedad</h1>
 
-    <form id="businessForm" action="/addBusiness" method="post" novalidate>
+    <form
+      id="businessForm"
+      action="/addBusiness"
+      class="needs-validation"
+      method="post"
+      novalidate
+    >
       <h2>Datos Generales</h2>
       <div class="contentBackground">
         <div class="row">
@@ -269,10 +275,12 @@
           <div class="col-md-2">
             <label for="">Agente encargado*</label>
             <input
+              name="userCharge"
               class="form-control"
               list="datalistUser"
               id="exampleDataList"
               autocomplete="off"
+              required
             />
             <datalist id="datalistUser">
               <% var i=0; user.forEach(function(data){ %>
@@ -291,10 +299,12 @@
                 <label for="">Actividad Económica*</label>
 
                 <input
+                  name="activity"
                   class="form-control"
                   list="datalistOptions"
                   id="exampleDataList"
                   autocomplete="off"
+                  required
                 />
                 <datalist id="datalistOptions">
                   <% var j=0; activity.forEach(function(datas){ %>

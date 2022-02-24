@@ -73,7 +73,10 @@ function cloneContact() {
   j++;
   console.log(j);
   $("#contactDIV" + j + " #contactRow1").attr("id", "contactRow" + j);
-  $("#contactDIV" + j).attr("style", "border-top-style: solid;");
+  $("#contactDIV" + j).attr(
+    "style",
+    "border-top-style: solid; border-color: white;"
+  );
 
   //Clone contactNameInput
   $("#contactRow" + j + " #inputContactName1").attr(
@@ -161,7 +164,10 @@ function clonOwner() {
   i++;
 
   $("#ownerDIV" + i + " #ownerRow1").attr("id", "ownerRow" + i);
-  $("#ownerDIV" + i).attr("style", "border-top-style: solid;");
+  $("#ownerDIV" + i).attr(
+    "style",
+    "border-top-style: solid; border-color: white;"
+  );
 
   //Clone ownerNameInput
   $("#ownerRow" + i + " #ownerNameInput1").attr("id", "ownerNameInput" + i);
@@ -262,7 +268,10 @@ function cloneActivity() {
     "id",
     "activityDeleteButtonInput" + z
   );
-  $("#activityDIV" + z).attr("style", "border-top-style: solid;");
+  $("#activityDIV" + z).attr(
+    "style",
+    "border-top-style: solid; border-color: white;"
+  );
 
   $("#activityDeleteButtonInput" + z).append(
     "<button class='btn btn btn-light deleteButton' type='button' id='activityDeleteButton'>Eliminar</button>"
@@ -399,7 +408,17 @@ function deleteActivityAjx(businessID, activityID, businesActivityID) {
 
 function saveActivityAjx() {
   var formData = JSON.stringify($("#businessActivity").serializeArray());
-  
-  console.log(formData);
-  console.log(formData.name);
+  formData = JSON.parse(formData);
+  $.ajax({
+    type: "POST",
+    url: "/saveBusinessActivity",
+    data: {
+      formData: formData,
+    },
+    success: function (data, status) {
+      $("#" + formData.businesActivityID).css("display", "none");
+      $("#businessModal").modal("show");
+      $("#businessModalMessage").text("Has Eliminado una actividad");
+    },
+  });
 }

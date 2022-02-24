@@ -42,7 +42,6 @@ input {
   max-width: 100rem;
   margin: 0 auto;
   border-style: solid;
-  border-color: rgb(212, 0, 255);
 }
 
 .hide {
@@ -55,10 +54,9 @@ input {
 
 .tiv {
   text-align: center;
-  max-width: 60rem;
+  max-width: 40rem;
   margin: 0 auto;
   border-style: solid;
-  border-color: rgb(212, 0, 255);
 }
 
 input[type="text"] {
@@ -101,21 +99,6 @@ th > input {
 }
 th > input:read-only {
   background-color: #cacaca;
-}
-/* Tooltip text */
-.tooltipText {
-  visibility: hidden;
-  font-size: 80%;
-  width: 200px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 5px;
-  border-radius: 6px;
-
-  /* Position the tooltip text - see examples below! */
-  position: absolute;
-  z-index: 1;
 }
 
 .deleteButton {
@@ -262,7 +245,7 @@ img {
   display: none;
 }
 
-.loginScreen{
+.loginScreen {
   margin: 0;
   color: black;
 }
