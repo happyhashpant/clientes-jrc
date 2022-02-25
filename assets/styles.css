@@ -249,3 +249,10 @@ img {
   margin: 0;
   color: black;
 }
+
+.currentActivities {
+  border-bottom-style: solid;
+  border-color: white;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}

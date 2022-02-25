@@ -270,6 +270,46 @@ function cloneActivity() {
   );
   $("#activityDIV" + z).attr(
     "style",
+    "border-top-style: solid; border-color: white; padding-top: 5px; padding-bottom: 5px"
+  );
+
+  $("#activityDeleteButtonInput" + z).append(
+    "<button class='btn btn btn-light deleteButton' type='button' id='activityDeleteButton'>Eliminar</button>"
+  );
+
+  $("#activityDeleteButtonInput" + z + " #activityDeleteButton").attr(
+    "id",
+    "activityDeleteButton" + z
+  );
+  $("#activityDeleteButton" + z).attr(
+    "onclick",
+    "removeActivity('activityDIV" + z + "')"
+  );
+}
+function cloneActivity2() {
+  newActivityCount++;
+  $("#activityDIV1")
+    .clone()
+    .attr("id", "activityDIV" + newActivityCount)
+    .appendTo("#addActivity");
+  z++;
+  $("#activityDIV" + z + " #activitySecRow").attr("id", "activitySecRow" + z);
+  $("#activitySecRow" + z + " #activityDeleteButtonInput").attr(
+    "id",
+    "activityDeleteButtonInput" + z
+  );
+
+  $("#activityDIV" + z + " #activityFrRow1 #activityColum #newActivity").attr(
+    "id",
+    "newActivity2"
+  );
+  $("#newActivity2").attr("readonly", false);
+  $("#newActivity2").attr("id", "newActivity3");
+  $("#newActivity3").attr("class", "form-control businessNewActivities");
+  $("#newActivity3").attr("name", "businessNewActivities");
+  $("#newActivity3").attr("id", "newActivity4");
+  $("#activityDIV" + z).attr(
+    "style",
     "border-top-style: solid; border-color: white;"
   );
 
@@ -286,7 +326,6 @@ function cloneActivity() {
     "removeActivity('activityDIV" + z + "')"
   );
 }
-
 function removeActivity(id) {
   $("#" + id).remove();
   z--;
@@ -341,13 +380,14 @@ function editAccountsData() {
 function editBusinessActivity() {
   $(".divDeleteButton").css("display", "block");
   $("#addActivity").css("display", "block");
+  $(".businessNewActivities").attr("readonly", false);
   $(".editActivity").after(
-    "<button type='button' class='edit' form='generalData' id='editGeneralData' onclick='cloneActivity()'><i class='material-icons' style='font-size:36px'>add</i></button>"
+    "<button type='button' class='edit' form='generalData' id='editCloneActivity' onclick='cloneActivity2()'><i class='material-icons' style='font-size:36px'>add</i></button>"
   );
   $(".editActivity").after(
-    "<button class='edit' type='button' form='businessActivity' id='editBusinessActivity' onclick='saveActivityAjx()'><i class='material-icons'>sd_card</i></button>"
+    "<button class='edit' type='button' form='businessActivity' id='editSaveBusinessActivity' onclick='saveActivityAjx()'><i class='material-icons'>sd_card</i></button>"
   );
-  $(".editActivity").remove();
+  $(".editActivity").css("display", "none");
 }
 
 function editBusinessTivData() {
@@ -416,9 +456,42 @@ function saveActivityAjx() {
       formData: formData,
     },
     success: function (data, status) {
-      $("#" + formData.businesActivityID).css("display", "none");
+      $("#editCloneActivity").css("display", "none");
+      $("#editSaveBusinessActivity").css("display", "none");
+      $(".deleteButton").css("display", "none");
+      $(".businessNewActivities").attr("readonly", true);
+      $(".businessNewActivities").attr("name", "businessCurrentActivities");
+      $(".businessNewActivities").attr(
+        "class",
+        "form-control  currentActivity"
+      );
+      $("#newActivity3").attr("id", "newActivity4");
+      $(".divDeleteButton").css("display", "none");
+      $("#editActivity").css("display", "inline");
       $("#businessModal").modal("show");
-      $("#businessModalMessage").text("Has Eliminado una actividad");
+      $("#businessModalMessage").text("Actividades guardadas");
     },
   });
+
+  function saveGeneralDataAjx() {
+    var formData = JSON.stringify($("#businessActivity").serializeArray());
+    formData = JSON.parse(formData);
+    $.ajax({
+      type: "POST",
+      url: "/saveBusinessActivity",
+      data: {
+        formData: formData,
+      },
+      success: function (data, status) {
+        window.location.reload;
+        // $("#editCloneActivity").css("display", "none");
+        // $("#editSaveBusinessActivity").css("display", "none");
+        // $(".businessNewActivities").attr("readonly", true);
+        // $(".divDeleteButton").css("display", "none");
+        // $("#editActivity").css("display", "inline");
+        // $("#businessModal").modal("show");
+        // $("#businessModalMessage").text("Actividades guardadas");
+      },
+    });
+  }
 }

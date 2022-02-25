@@ -395,18 +395,23 @@
         </button>
       </div>
       <div class="contentBackground">
-        <div id="activityDIV">
-          <% var e=0; activity.forEach(function(activityData){ %>
+        <% var e=0; activity.forEach(function(activityData){ %>
+        <div id="activityDIV" class="currentActivities">
           <div class="row" id="<%=activityData.businessActivityID%>">
             <div class="col-md-6">
               <input
                 name="businessCurrentActivities"
                 id="businessActivity"
-                class="form-control"
+                class="form-control currentActivity"
                 list="datalistActivities"
                 autocomplete="off"
                 value="<%=activityData.activityName%>"
                 readonly
+              />
+              <input
+                name="businessCurrentActivitiesID"
+                type="hidden"
+                value="<%=activityData.businessActivityID%>"
               />
               <datalist id="datalistActivities">
                 <option value="<%=activityData.activityID%>" selected>
@@ -428,24 +433,24 @@
                   id="deleteButton"
                   onclick="deleteActivityAjx('<%=business[0].businessID%>','<%=activityData.activityID%>','<%=activityData.businessActivityID%>')"
                 >
-                  <i class="editIcon material-icons" style="font-size: 2rem"
+                  <i class="editIcon material-icons" style="font-size: 2reml; color: white;"
                     >clear</i
                   >
                 </button>
               </div>
             </div>
           </div>
-          <% e++; }) %>
         </div>
-        <div id="addActivity">
+        <% e++; }) %>
+        <div id="addActivity" class="addActivity">
           <div id="activityDIV1" class="editAddActivity">
             <div class="row activityFrRow1" id="activityFrRow1">
-              <div class="col-md-6">
+              <div class="col-md-6" id="activityColum">
                 <input
                   name="businessNewActivities"
-                  class="form-control"
+                  class="form-control businessNewActivities"
                   list="datalistActivities"
-                  id="exampleDataList"
+                  id="newActivity"
                   autocomplete="off"
                   required
                 />
@@ -459,7 +464,7 @@
                 </datalist>
               </div>
             </div>
-            <div class="row" id="activitySecRow">
+            <div class="row" id="activitySecRow" class="activitySecRow">
               <div class="col-md-6" id="activityDeleteButtonInput"></div>
             </div>
           </div>

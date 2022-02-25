@@ -66,6 +66,7 @@ exports.addBusiness = function (businessArray, formData) {
     "/" +
     businessArray[30] +
     "')";
+  connect.query(query);
   connect.end();
 };
 

@@ -216,7 +216,7 @@ module.exports = function (app) {
       .loadBusinessTable()
       .then(function (result) {
         objects = result;
-        res.redirect("business");
+        res.redirect(req.get("referer"));
       })
       .catch((err) => alert(err));
   });
@@ -227,7 +227,7 @@ module.exports = function (app) {
       .loadBusinessTable()
       .then(function (result) {
         objects = result;
-        res.redirect("business");
+        res.redirect(req.get("referer"));
       })
       .catch((err) => alert(err));
   });
@@ -238,14 +238,14 @@ module.exports = function (app) {
       .loadBusinessTable()
       .then(function (result) {
         objects = result;
-        res.redirect("business");
+        res.redirect(req.get("referer"));
       })
       .catch((err) => alert(err));
   });
 
   app.post("/saveBusinessActivity", function (req, res) {
     addNewActivities(req);
-    res.send("Success");
+    res.redirect(req.get("referer"));
   });
   // ------------------------------------------------------------------ Delete-------------------------
 
@@ -411,14 +411,26 @@ module.exports = function (app) {
     var oldActivitiesArray = [];
     var k = 0;
     var j = 0;
-    console.log(formData.formData);
+    console.log(formData.formData[0].value);
     console.log(formData.formData.length);
     for (i = 0; i < formData.formData.length; i++) {
-      if (formData.formData[i].name == businessNewActivities) {
+      if (
+        formData.formData[i].name == "businessNewActivities" &&
+        formData.formData[i].value != ""
+      ) {
         newActivitiesArray[k] = formData.formData[i].value;
-      } else if (formData.formData[i].name == businessNewActivities) {
+        k++;
+      } else if (
+        formData.formData[i].name == "businessCurrentActivitiesID" &&
+        formData.formData[i].value != ""
+      ) {
         oldActivitiesArray[j] = formData.formData[i].value;
+        j++;
       }
     }
+    saveBusiness.saveBusinessActivity(
+      formData.formData[0].value,
+      newActivitiesArray
+    );
   }
 };

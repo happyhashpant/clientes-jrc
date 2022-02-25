@@ -137,17 +137,18 @@ exports.saveTIVData = function (req) {
   connect.end();
 };
 
-exports.saveBusinessActivity = function (businessID, newActivities) {
+exports.saveBusinessActivity = function (businessId, newActivities) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-   for (const property in newActivities[0]) {
-      console.log(newActivities[0][property])
+  console.log(newActivities[0]);
+  for (const property in newActivities) {
+    console.log(newActivities[property]);
     var query =
       " INSERT into businesactivity (businessID, activityID) VALUES ('" +
       businessId +
       "','" +
-      newActivities[0][property] +
+      newActivities[property] +
       "')";
     console.log(query);
     connect.query(query);
