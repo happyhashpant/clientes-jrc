@@ -4,9 +4,9 @@ exports.saveGeneralData = function (req) {
   var connect = mysql.createConnection(credentials);
   var query =
     "UPDATE business SET businessName='" +
-    req.body.businessName +
-    "' WHERE businessID='" +
-    req.body.businessID +
+    req.body.formData[0].value +
+    "' WHERE id='" +
+    req.body.formData[1].value +
     "';";
   connect.query(query);
   console.log(query);
@@ -53,41 +53,42 @@ exports.saveAccountsData = function (req) {
   console.log(query);
   connect.end();
 };
+
 exports.saveAccountsData = function (req) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   var query =
     "UPDATE business SET atvUser='" +
-    req.body.atvUser +
+    req.body.formData[1].value +
     "', atvPassword='" +
-    req.body.atvPassword +
+    req.body.formData[2].value +
     "', billSystem='" +
-    req.body.billSystem +
+    req.body.formData[3].value +
     "', billSystemUser='" +
-    req.body.billSystemUser +
+    req.body.formData[4].value +
     "', billSystemPassword='" +
-    req.body.billSystemPassword +
+    req.body.formData[5].value +
     "', billEmail='" +
-    req.body.billEmail +
+    req.body.formData[6].value +
     "', billEmailPassword='" +
-    req.body.billEmailPassword +
+    req.body.formData[7].value +
     "', traviUser='" +
-    req.body.traviUser +
+    req.body.formData[8].value +
     "', traviPassword='" +
-    req.body.traviPassword +
+    req.body.formData[9].value +
     "', ccssUser='" +
-    req.body.ccssUser +
+    req.body.formData[10].value +
     "', ccssPassword='" +
-    req.body.ccssPassword +
+    req.body.formData[11].value +
     "', insUser='" +
-    req.body.insUser +
+    req.body.formData[12].value +
     "', insPassword='" +
-    req.body.insPassword +
+    req.body.formData[13].value +
     "', userID='" +
-    req.body.userCharge +
+    req.body.formData[14].value +
     "' WHERE businessID='" +
-    req.body.businessID +
+    req.body.formData[0].value +
     "';";
   connect.query(query);
   console.log(query);

@@ -241,6 +241,7 @@ function clonOwner() {
     "removeOwner('ownerDIV" + i + "')"
   );
 }
+
 function clonOwner2() {
   newOwnerCount++;
   $("#ownerDIV1")
@@ -250,76 +251,65 @@ function clonOwner2() {
 
   i++;
 
-  $("#ownerDIV" + i + " #ownerRow")
-
   //Clone ownerNameInput
-  $("#ownerRow" + i + " #ownerRow #ownerNameInput");
-  $("#newbusinessOwnerName" + i).val("");
-  $("#newbusinessOwnerName" + i).attr("name", "newBusinessOwner");
-  $("#newbusinessOwnerName" + i).attr("class", "form-control newInput");
+  $("#ownerDIV" + i + " #ownerRow #ownerNameInput #businessOwnerName").val("");
+  $("#ownerDIV" + i + " #ownerRow #ownerNameInput #businessOwnerName").attr(
+    "class",
+    "form-control newBusinessOwnerName"
+  );
+  $("#ownerDIV" + i + " #ownerRow #ownerNameInput #businessOwnerName").attr(
+    "name",
+    "newBusinessOwner"
+  );
 
   //Clone ownerIDInput
-  $("#ownerRow" + i + " #ownerIDInput").attr("id", "ownerIDInput" + i);
-  $("#ownerIDInput" + i + " #businessOwnerID").attr(
-    "id",
-    "businessOwnerID" + i
+  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #businessOwnerID").val("");
+  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #businessOwnerID").attr(
+    "class",
+    "form-control newBusinessOwnerID"
   );
-  $("#businessOwnerID" + i).val("");
-  $("#businessOwnerID" + i).attr("name", "newBusinessOwnerID");
-  $("#businessOwnerID" + i).attr("class", "form-control newBusinessOwnerID");
+  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #businessOwnerID").attr(
+    "name",
+    "newBusinessOwnerID"
+  );
 
   //Clone ownerIDExpDateInput
-  $("#ownerRow" + i + " #ownerIDExpDateInput").attr(
-    "id",
-    "ownerIDExpDateInput" + i
+  $("#ownerDIV" + i + " #ownerRow #ownerIDExpDateInput #ownerIDExpDate").val(
+    ""
   );
-  $("#ownerIDExpDateInput" + i + " #ownerIDExpDate").attr(
-    "id",
-    "ownerIDExpDate" + i
+  $("#ownerDIV" + i + " #ownerRow #ownerIDExpDateInput #ownerIDExpDate").attr(
+    "class",
+    "form-control newOwnerIDExpDate"
   );
-  $("#ownerIDExpDate" + i).val("");
-  $("#ownerIDExpDate" + i).attr("name", "newOwnerIDExpDate");
-
-  $("#ownerDIV" + i + " #ownerSecRow").attr("id", "ownerSecRow" + i);
+  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #ownerIDExpDate").attr(
+    "name",
+    "newOwnerIDExpDate"
+  );
 
   //Clone ownerBirDateToolInput
-  $("#ownerSecRow" + i + " #ownerBirDateToolInput").attr(
-    "id",
-    "ownerBirDateToolInput" + i
+  $("#ownerDIV" + i + " #ownerSecRow #ownerBirDateToolInput #ownerBirDate").val(
+    ""
   );
-  $("#ownerBirDateToolInput" + i + " #ownerBirDate").attr(
-    "id",
-    "ownerBirDate" + i
+  $(
+    "#ownerDIV" + i + " #ownerSecRow #ownerBirDateToolInput #ownerBirDate"
+  ).attr("class", "form-control newOwnerBirDate");
+  $("#ownerDIV" + i + " #ownerSecRow #ownerIDInput #ownerBirDate").attr(
+    "name",
+    "newOwnerBirDate"
   );
-  $("#ownerBirDate" + i).val("");
-  $("#ownerBirDate" + i).attr("name", "newOwnerBirDate");
 
   //Clone ownerAddressInput
-  $("#ownerSecRow" + i + " #ownerAddressInput").attr(
-    "id",
-    "ownerAddressInput" + i
+  $("#ownerDIV" + i + " #ownerSecRow #ownerAddressInput #ownerAddress").val("");
+  $("#ownerDIV" + i + " #ownerSecRow #ownerAddressInput #ownerAddress").attr(
+    "class",
+    "form-control newOwnerAddress"
   );
-  $("#ownerAddressInput" + i + " #ownerAddress").attr("id", "ownerAddress" + i);
-  $("#ownerAddress" + i).val("");
-  $("#ownerAddress" + i).attr("name", "newOwnerAddress");
-
+  $("#ownerDIV" + i + " #ownerSecRow #ownerAddressInput #ownerAddress").attr(
+    "name",
+    "newOwnerAddress"
+  );
   //Add delete button
-  $("#ownerDIV" + i + " #ownerThrRow").attr("id", "ownerThrRow" + i);
-
-  $("#ownerThrRow" + i + " #ownerDeleteButtonInput").attr(
-    "id",
-    "ownerDeleteButtonInput" + i
-  );
-
-  $("#ownerDeleteButtonInput" + i).append(
-    "<button class='btn btn btn-light deleteButtonOwner' type='button' id='ownerDeleteButton'>Eliminar</button>"
-  );
-
-  $("#ownerDeleteButtonInput" + i + " #ownerDeleteButton").attr(
-    "id",
-    "ownerDeleteButton" + i
-  );
-  $("#ownerDeleteButton" + i).attr(
+  $("#ownerDIV" + i + " #divDeleteButtonOwner #deleteButtonOwner").attr(
     "onclick",
     "removeOwner('ownerDIV" + i + "')"
   );
@@ -328,8 +318,6 @@ function clonOwner2() {
 //Remove Owner
 function removeOwner(id) {
   $("#" + id).remove();
-  i--;
-  newOwnerCount--;
 }
 
 function loadBusiness(business) {
@@ -419,10 +407,8 @@ function removeActivity(id) {
 
 function editGeneralDataDiv() {
   $("#businessName").attr("readonly", false);
-  $("#editGeneralData").after(
-    "<button class='edit' form='generalData' id='editGeneralData'><i class='material-icons' style='font-size:36px'>sd_card</i></button>"
-  );
   $("#editGeneralData").css("display", "none");
+  $("#saveGeneralData").css("display", "inline-flex");
 }
 
 function editOwnerData() {
@@ -432,13 +418,9 @@ function editOwnerData() {
   $(".ownerBirDate").attr("readonly", false);
   $(".ownerAddress").attr("readonly", false);
   $(".divDeleteButtonOwner").css("display", "block");
-  $(".editOwner").after(
-    "<button type='button' class='edit' form='generalData' id='addGeneralDataButton' onclick='clonOwner2()'><i class='material-icons' style='font-size:36px'>add</i></button>"
-  );
-  $(".editOwner").after(
-    "<button class='edit' type='submit' form='ownerData' id='saveOwnerDataButton'><i class='material-icons'>sd_card</i></button>"
-  );
-  $(".editOwner").css("display", "none");
+  $("#editOwner").css("display", "none");
+  $("#saveOwnerDataButton").css("display", "inline-flex");
+  $("#addOwnerButton").css("display", "inline-flex");
 }
 
 function editAccountsData() {
@@ -456,11 +438,8 @@ function editAccountsData() {
   $("#insUser").attr("readonly", false);
   $("#insPassword").attr("readonly", false);
   $("#userCharge").attr("readonly", false);
-
-  $(".editAccountData").after(
-    "<button class='edit' form='accountData' id='editAccountData'><i class='material-icons'>sd_card</i></button>"
-  );
-  $(".editAccountData").remove();
+  $("#editAccountData").css("display", "none");
+  $("#saveAccountData").css("display", "inline-flex");
 }
 
 function editBusinessActivity() {
@@ -513,10 +492,6 @@ function editContactData() {
   $(".editContactsData").remove();
 }
 
-function editAddNewOwner() {}
-
-function editAddNewContact() {}
-
 function deleteOwnerAjx(businessID, businesOwnerID) {
   $.ajax({
     type: "POST",
@@ -544,29 +519,7 @@ function deleteActivityAjx(businessID, businesActivityID, businessActivityID) {
     success: function (data, status) {
       $("#" + businessActivityID).remove();
       $("#businessModal").modal("show");
-      $("#businessModalMessage").text("Has eliminado una actividad");
-    },
-  });
-}
-
-function saveGeneralDataAjx() {
-  var formData = JSON.stringify($("#businessActivity").serializeArray());
-  formData = JSON.parse(formData);
-  $.ajax({
-    type: "POST",
-    url: "/saveBusinessActivity",
-    data: {
-      formData: formData,
-    },
-    success: function (data, status) {
-      window.location.reload;
-      // $("#editCloneActivity").css("display", "none");
-      // $("#editSaveBusinessActivity").css("display", "none");
-      // $(".businessNewActivities").attr("readonly", true);
-      // $(".divDeleteButton").css("display", "none");
-      // $("#editActivity").css("display", "inline");
-      // $("#businessModal").modal("show");
-      // $("#businessModalMessage").text("Actividades guardadas");
+      $("#businessModalMessage").text("Has Eliminado una actividad");
     },
   });
 }

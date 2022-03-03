@@ -187,24 +187,12 @@ module.exports = function (app) {
   ////////////////////////////////////////// edit Business Post Handling/////////////////////////////////////////
   app.post("/saveGeneralData", function (req, res) {
     saveBusiness.saveGeneralData(req);
-    loadBusinessTable
-      .loadBusinessTable()
-      .then(function (result) {
-        objects = result;
-        res.redirect(req.get("referer"));
-      })
-      .catch((err) => alert(err));
+    res.send("Success");
   });
 
   app.post("/saveAccountsData", function (req, res) {
     saveBusiness.saveAccountsData(req);
-    loadBusinessTable
-      .loadBusinessTable()
-      .then(function (result) {
-        objects = result;
-        res.redirect(req.get("referer"));
-      })
-      .catch((err) => alert(err));
+    res.send("Success");
   });
 
   app.post("/saveTivData", function (req, res) {

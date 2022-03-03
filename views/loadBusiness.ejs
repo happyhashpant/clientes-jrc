@@ -9,31 +9,30 @@
     <link rel="stylesheet" href="/assets/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" href="/assets/logo.png" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+
     <title><%=business[0].businessName%></title>
   </head>
   <body>
     <div id="navBar"></div>
     <h1><%=business[0].businessName%></h1>
 
-    <form
-      id="generalData"
-      class="addUserForm"
-      action="/saveGeneralData"
-      method="post"
-    >
+    <form id="generalData" class="addUserForm" method="post">
       <h2>Datos Generales</h2>
       <div class="editButtons">
         <button
           type="button"
-          class="edit"
+          class="button"
           id="editGeneralData"
           onclick="editGeneralDataDiv()"
         >
-          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+          <i class="material-icons">mode_edit</i>
+          <span class="text">Editar</span>
+        </button>
+      </div>
+      <div class="editButtons">
+        <button type="submit" class="button hiddenButton" id="saveGeneralData">
+          <i class="material-icons">sd_card</i>
+          <span class="text">Guardar</span>
         </button>
       </div>
       <div class="contentBackground">
@@ -55,7 +54,7 @@
             <input
               name="businessID2"
               type="hidden"
-              value="<%=business[0].businessID%>"
+              value="<%=business[0].id%>"
             />
             <input
               id="businessID"
@@ -83,34 +82,57 @@
       />
       <h2>Representante Legal</h2>
       <div class="editButtons">
+        <div class="editButtons">
+          <button
+            type="button"
+            class="button"
+            id="editOwner"
+            onclick="editOwnerData()"
+          >
+            <i class="material-icons">mode_edit</i>
+            <span class="text">Editar</span>
+          </button>
+        </div>
+      </div>
+      <div class="editButtons">
+        <button
+          type="submit"
+          class="button hiddenButton"
+          id="saveOwnerDataButton"
+        >
+          <i class="material-icons">sd_card</i>
+          <span class="text">Guardar</span>
+        </button>
+      </div>
+      <div class="editButtons">
         <button
           type="button"
-          class="edit editOwner"
-          id="editOwner"
-          onclick="editOwnerData()"
+          class="button hiddenButton"
+          id="addOwnerButton"
+          onclick="clonOwner2()"
         >
-          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+          <i class="material-icons">add</i>
+          <span class="text">Agregar representante</span>
         </button>
       </div>
       <div class="contentBackground">
         <div id="addOwner">
           <% var i=1; owner.forEach(function(data){%>
           <div id="ownerDIV1" class="ownerDIV <%=data.idLegal%>">
-            <div class="col-md-6">
-              <div class="divDeleteButtonOwner">
-                <button
-                  type="button"
-                  class="edit"
-                  id="deleteButton"
-                  onclick="deleteOwnerAjx('<%=business[0].businessID%>','<%=data.idLegal%>')"
+            <div
+              class="col-md-6 divDeleteButtonOwner"
+              id="divDeleteButtonOwner"
+            >
+              <button
+                type="button"
+                class="edit"
+                id="deleteButtonOwner"
+                onclick="deleteOwnerAjx('<%=business[0].businessID%>','<%=data.idLegal%>')"
+              >
+                <i class="material-icons" style="color: rgb(78, 78, 78)"
+                  >clear</i
                 >
-                  <i
-                    class="editIcon material-icons"
-                    style="font-size: 2reml; color: white"
-                    >clear</i
-                  >
-                </button>
-              </div>
+              </button>
             </div>
             <div class="row" id="ownerRow">
               <div class="col-md-4" id="ownerNameInput">
@@ -189,12 +211,7 @@
         </div>
       </div>
     </form>
-    <form
-      id="accountData"
-      class="addUserForm"
-      action="/saveAccountsData"
-      method="post"
-    >
+    <form id="accountData" class="addUserForm">
       <h2>Datos contables</h2>
       <input
         name="businessID"
@@ -204,11 +221,18 @@
       <div class="editButtons">
         <button
           type="button"
-          class="edit editAccountData"
+          class="button"
           id="editAccountData"
           onclick="editAccountsData()"
         >
-          <i class="material-icons" style="font-size: 36px">mode_edit</i>
+          <i class="material-icons">mode_edit</i>
+          <span class="text">Editar</span>
+        </button>
+      </div>
+      <div class="editButtons">
+        <button type="submit" class="button hiddenButton" id="saveAccountData">
+          <i class="material-icons">sd_card</i>
+          <span class="text">Guardar</span>
         </button>
       </div>
       <div class="contentBackground">
@@ -386,15 +410,20 @@
           <div class="col-md-2">
             <label for="">Agente encargado*</label>
             <input
+              name="userChargeID"
+              value="<%=user[0].id%>"
+              type="hidden"              
+            />
+            <input
               name="userCharge"
               id="userCharge"
               class="form-control"
               list="datalistOptions"
               value="<%=user[0].userName%>"
-              id="exampleDataList"
               autocomplete="off"
               readonly
             />
+            <%=user[0].userName%>
             <datalist id="datalistOptions">
               <% var p=0; totalUsers.forEach(function(totalUsersData){ %>
               <option value="<%=totalUsersData.id%>">
@@ -839,24 +868,62 @@
                   formData: formData,
                 },
                 success: function (data, status) {
-                  $(".deleteButtonOwner").remove();
+                  $(".businessOwnerName").attr("readonly", true);
                   $(".businessOwnerID").attr("readonly", true);
                   $(".ownerIDExpDate").attr("readonly", true);
                   $(".ownerBirDate").attr("readonly", true);
                   $(".ownerAddress").attr("readonly", true);
-                  $(".businessOwnerName").attr("readonly", true);
-                  $(".newBusinessOwner").attr("readonly", true);
-                  $(".newBusinessOwner").attr("name", "currentBusinessOwner");
-                  setTimeout(
-                    $(".newBusinessOwner").attr("class", "form-control businessOwnerName"),
-                    300
-                  );
-
+                  $(".newBusinessOwnerName").attr("readonly", true);
+                  $(".newBusinessOwnerID").attr("readonly", true);
+                  $(".newOwnerIDExpDate").attr("readonly", true);
+                  $(".newOwnerBirDate").attr("readonly", true);
+                  $(".newOwnerAddress").attr("readonly", true);
+                  setTimeout(() => {
+                    $(".newBusinessOwnerName").attr(
+                      "name",
+                      "currentBusinessOwnerName"
+                    );
+                    $(".newBusinessOwnerName").attr(
+                      "class",
+                      "form-control businessOwnerName"
+                    );
+                    $(".newBusinessOwnerID").attr(
+                      "name",
+                      "currentBusinessOwnerID"
+                    );
+                    $(".newBusinessOwnerID").attr(
+                      "class",
+                      "form-control businessOwnerID"
+                    );
+                    $(".newOwnerIDExpDate").attr(
+                      "name",
+                      "currentOwnerIDExpDate"
+                    );
+                    $(".newOwnerIDExpDate").attr(
+                      "class",
+                      "form-control ownerIDExpDate"
+                    );
+                    $(".newOwnerBirDate").attr("name", "currentOwnerBirDate");
+                    $(".newOwnerBirDate").attr(
+                      "class",
+                      "form-control ownerBirDate"
+                    );
+                    $(".newOwnerAddress").attr("name", "currentOwnerAddress");
+                    $(".newOwnerAddress").attr(
+                      "class",
+                      "form-control ownerAddress"
+                    );
+                  }, 300);
+                  console.log(formData);
                   $(".editOwner").css("display", "inline");
                   $("#saveOwnerDataButton").css("display", "none");
-                  $("#addGeneralDataButton").css("display", "none");
+                  $("#addOwnerButton").css("display", "none");
+                  $("#editOwner").css("display", "inline-flex");
                   $("#businessModal").modal("show");
-                  $("#businessModalMessage").text("Contactos Guardados");
+                  $(".divDeleteButtonOwner").css("display", "none");
+                  $("#businessModalMessage").text(
+                    "Representante(s) Legal Guardados"
+                  );
                 },
               });
             }
@@ -907,6 +974,90 @@
                   $("#editActivity").css("display", "inline");
                   $("#businessModal").modal("show");
                   $("#businessModalMessage").text("Actividades guardadas");
+                },
+              });
+            }
+            form.classList.add("was-validated");
+            event.preventDefault();
+          },
+          false
+        );
+      });
+      var generalData = $("#generalData");
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(generalData).forEach(function (form) {
+        form.addEventListener(
+          "submit",
+          function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            if (form.checkValidity()) {
+              var formData = JSON.stringify($("#generalData").serializeArray());
+              formData = JSON.parse(formData);
+              $.ajax({
+                type: "POST",
+                url: "/saveGeneralData",
+                data: {
+                  formData: formData,
+                },
+                success: function (data, status) {
+                  $("#businessName").attr("readonly", true);
+                  $("#editGeneralData").css("display", "inline-flex");
+                  $("#saveGeneralData").css("display", "none");
+                  $("#businessModal").modal("show");
+                  $("#businessModalMessage").text("Datos Generales guardados");
+                },
+              });
+            }
+            form.classList.add("was-validated");
+            event.preventDefault();
+          },
+          false
+        );
+      });
+
+      var accountData = $("#accountData");
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(accountData).forEach(function (form) {
+        form.addEventListener(
+          "submit",
+          function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            if (form.checkValidity()) {
+              var formData = JSON.stringify($("#accountData").serializeArray());
+              formData = JSON.parse(formData);
+              $.ajax({
+                type: "POST",
+                url: "/saveAccountsData",
+                data: {
+                  formData: formData,
+                },
+                success: function (data, status) {
+                  $("#atvUser").attr("readonly", true);
+                  $("#atvPassword").attr("readonly", true);
+                  $("#billSystem").attr("readonly", true);
+                  $("#billSystemUser").attr("readonly", true);
+                  $("#billSystemPassword").attr("readonly", true);
+                  $("#billEmail").attr("readonly", true);
+                  $("#billEmailPassword").attr("readonly", true);
+                  $("#traviUser").attr("readonly", true);
+                  $("#traviPassword").attr("readonly", true);
+                  $("#ccssUser").attr("readonly", true);
+                  $("#ccssPassword").attr("readonly", true);
+                  $("#insUser").attr("readonly", true);
+                  $("#insPassword").attr("readonly", true);
+                  $("#userCharge").attr("readonly", true);
+                  $("#editAccountData").css("display", "inline-flex");
+                  $("#saveAccountData").css("display", "none");
+                  $("#businessModal").modal("show");
+                  $("#businessModalMessage").text("Datos Contables Guardados");
                 },
               });
             }

@@ -11,14 +11,19 @@ h2 {
   max-width: 100rem;
   margin: 40px auto 10px auto;
 }
+html {
+  min-height: 100%;
+}
+
 
 body {
-  background-color: white;
+  background: linear-gradient(#ffffff 0%, #666666 100%);
+  background-repeat: no-repeat;
+  height: 100%;
   color: black;
   letter-spacing: 3px;
   font-family: "Open Sans Condensed", sans-serif;
 }
-
 input {
   margin-bottom: 20px;
   margin-right: 10px;
@@ -33,11 +38,9 @@ input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
 .contentBackground {
-  background-color: #363636;
+  background-color: #d8d7d7;
   padding: 10px;
-  margin: 5px;
   border-radius: 10px;
   max-width: 100rem;
   margin: 0 auto;
@@ -59,33 +62,10 @@ input {
   border-style: solid;
 }
 
-input[type="text"] {
-  font-size: 15px;
-  letter-spacing: 3px;
-}
-
-input[type="date"] {
-  font-size: 15px;
-  letter-spacing: 3px;
-}
-input[type="number"] {
-  font-size: 15px;
-  letter-spacing: 3px;
-}
-
 select {
   height: 40px;
   width: 100%;
   margin-bottom: 10px;
-}
-
-input[type="password"] {
-  font-size: 15px;
-  letter-spacing: 3px;
-}
-input[type="email"] {
-  font-size: 15px;
-  letter-spacing: 3px;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -104,6 +84,7 @@ th > input:read-only {
 .deleteButton {
   margin-top: 5px;
   margin-bottom: 5px;
+  padding-bottom: 10px;
 }
 
 .editUser {
@@ -122,7 +103,7 @@ label {
   font-weight: bold;
   font-size: 20px;
   margin: 0px 0 5px 0;
-  color: white;
+  color: rgb(66, 66, 66);
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -220,7 +201,6 @@ img {
 }
 
 .editButtons {
-  padding: 10px;
   margin: 5px;
   border-radius: 10px;
   max-width: 100rem;
@@ -268,4 +248,63 @@ img {
   display: none;
   margin: 0;
   padding: 0;
+}
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v125/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2)
+    format("woff2");
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+.button {
+  background-color: rgb(71, 71, 71);
+  color: white;
+  text-decoration: none;
+  border-radius: 60px;
+  border-color: transparent;
+  height: 32px;
+  padding: 1px;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  width: auto;
+  max-width: 35px; /** I'm animating max-width because width needs to be auto, and auto can't be animated **/
+  -webkit-transition: max-width 0.5s;
+  transition: max-width 0.5s;
+}
+
+.button:hover {
+  max-width: 300px;
+}
+
+.icon {
+  font-family: "Font Awesome 5 Free";
+  font-size: 16px;
+  margin-right: 15px;
+  padding: 0px 8px;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  white-space: nowrap;
+  padding-right: 15px;
+}
+.hiddenButton {
+  display: none;
 }

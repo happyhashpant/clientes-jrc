@@ -1897,6 +1897,7 @@ progress {
 }
 .form-control:read-only {
   background-color: #cacaca;
+  border-color: #000;
   opacity: 1;
 }
 .form-control::-webkit-file-upload-button {
