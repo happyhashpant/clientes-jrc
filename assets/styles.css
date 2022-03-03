@@ -20,7 +20,7 @@ body {
 }
 
 input {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   margin-right: 10px;
 }
 
@@ -121,7 +121,7 @@ th > input:read-only {
 label {
   font-weight: bold;
   font-size: 20px;
-  margin: 30px 0 5px 0;
+  margin: 0px 0 5px 0;
   color: white;
 }
 
@@ -255,4 +255,17 @@ img {
   border-color: white;
   margin-bottom: 5px;
   margin-top: 5px;
+}
+
+.ownerDIV {
+  border-bottom-style: solid;
+  border-color: white;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.divDeleteButtonOwner {
+  display: none;
+  margin: 0;
+  padding: 0;
 }

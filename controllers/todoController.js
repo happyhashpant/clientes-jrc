@@ -5,54 +5,28 @@ const { DATETIME } = require("mysql/lib/protocol/constants/types");
 const { loadavg } = require("os");
 const { join } = require("path");
 const { nextTick } = require("process");
+var path = require("path");
+const ownerObject = require(path.join(__dirname, "../assets/ownerObject.js"));
+var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
+var loadUserTable = require(path.join(__dirname, "../assets/loadUserTable.js"));
 
-var business = {
-  business: [
-    {
-      businessName: "",
-      businessID: "",
-      atvUser: "",
-      atvPassword: "",
-      billSystem: "",
-      billSystemPassword: "",
-      billEmail: "",
-      billEmaillPassword: "",
-      traviUser: "",
-      traviPassword: "",
-      ccssUser: "",
-      ccssPassword: "",
-      insUser: "",
-      insPassword: "",
-      userID: "",
-      tiv: "",
-      logo: "",
-    },
-  ],
-};
+var loadUser = require(path.join(__dirname, "../assets/loadUser.js"));
+var saveUser = require(path.join(__dirname, "../assets/saveUser.js"));
+var saveBusiness = require(path.join(__dirname, "../assets/saveBusiness.js"));
+var insertBusiness = require(path.join(
+  __dirname,
+  "../assets/insertNewBusiness.js"
+));
+var loadBusinessTable = require(path.join(
+  __dirname,
+  "../assets/loadBusinessTable.js"
+));
+var loadBusiness = require(path.join(__dirname, "../assets/loadBusiness.js"));
+
+var loadActivity = require(path.join(__dirname, "../assets/loadActivity.js"));
+var bodyParser = require("body-parser");
+
 module.exports = function (app) {
-  var path = require("path");
-  var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
-  var loadUserTable = require(path.join(
-    __dirname,
-    "../assets/loadUserTable.js"
-  ));
-
-  var loadUser = require(path.join(__dirname, "../assets/loadUser.js"));
-  var saveUser = require(path.join(__dirname, "../assets/saveUser.js"));
-  var saveBusiness = require(path.join(__dirname, "../assets/saveBusiness.js"));
-  var insertBusiness = require(path.join(
-    __dirname,
-    "../assets/insertNewBusiness.js"
-  ));
-  var loadBusinessTable = require(path.join(
-    __dirname,
-    "../assets/loadBusinessTable.js"
-  ));
-  var loadBusiness = require(path.join(__dirname, "../assets/loadBusiness.js"));
-
-  var loadActivity = require(path.join(__dirname, "../assets/loadActivity.js"));
-  var bodyParser = require("body-parser");
-
   app.use(bodyParser.urlencoded({ extended: true }));
 
   function checkSignIn(req, res, next) {
@@ -209,7 +183,8 @@ module.exports = function (app) {
   });
 
   app.delete("/todo", function (req, res) {});
-  ////////////////////////////////////////// editBusinessPostHandling/////////////////////////////////////////
+
+  ////////////////////////////////////////// edit Business Post Handling/////////////////////////////////////////
   app.post("/saveGeneralData", function (req, res) {
     saveBusiness.saveGeneralData(req);
     loadBusinessTable
@@ -247,21 +222,29 @@ module.exports = function (app) {
     addNewActivities(req);
     res.redirect(req.get("referer"));
   });
+
+  app.post("/saveBusinessOwner", function (req, res) {
+    addNewOwners(req, res);
+    res.send("Success");
+  });
+
   // ------------------------------------------------------------------ Delete-------------------------
 
   app.post("/deleteActivity", function (req, res) {
     saveBusiness.deleteBusinessActivity(
       req.body.businessID,
-      req.body.activityID
+      req.body.businessActivityID
     );
     res.send("Success");
   });
   app.post("/deleteOwner", function (req, res) {
-    console.log(req.body);
+    saveBusiness.deleteBusinessOwner(
+      req.body.businessID,
+      req.body.businesOwnerID
+    );
     res.send("Success");
   });
   app.post("/deleteContact", function (req, res) {
-    console.log(req.body);
     res.send("Success");
   });
 
@@ -273,7 +256,6 @@ module.exports = function (app) {
     var totalActivity = await loadActivity.loadActivityMenu();
     var contact = await loadBusiness.loadContacts(business[0].businessID);
     var activity = await loadBusiness.loadActivity(business[0].businessID);
-    console.log(business);
     res.render("loadBusiness", {
       business: business,
       user: user,
@@ -304,7 +286,6 @@ module.exports = function (app) {
     var j = 0;
     var i = 0;
     var z = 0;
-    console.log(formData);
 
     for (const property in formData) {
       if (`${property}` === "businessOwnerName") {
@@ -411,8 +392,6 @@ module.exports = function (app) {
     var oldActivitiesArray = [];
     var k = 0;
     var j = 0;
-    console.log(formData.formData[0].value);
-    console.log(formData.formData.length);
     for (i = 0; i < formData.formData.length; i++) {
       if (
         formData.formData[i].name == "businessNewActivities" &&
@@ -432,5 +411,52 @@ module.exports = function (app) {
       formData.formData[0].value,
       newActivitiesArray
     );
+  }
+
+  async function addNewOwners(req, res) {
+    var ownerArrayCurrent = [];
+    var ownerArrayNew = [];
+    formData = req.body;
+    var businessID = formData.formData[0].value;
+    tempOwnerArray = new Object();
+    for (i = 0; i < formData.formData.length; i++) {
+      switch (formData.formData[i].name) {
+        case "currentBusinessOwnerName":
+          tempOwnerArray.ownerName = formData.formData[i].value;
+          break;
+        case "currentBusinessOwnerID":
+          tempOwnerArray.ownerID = formData.formData[i].value;
+          break;
+        case "currentOwnerIDExpDate":
+          tempOwnerArray.IDExpDate = formData.formData[i].value;
+          break;
+        case "currentOwnerBirDate":
+          tempOwnerArray.ownerBirthDate = formData.formData[i].value;
+          break;
+        case "currentOwnerAddress":
+          tempOwnerArray.ownerAddress = formData.formData[i].value;
+          ownerArrayCurrent.push(tempOwnerArray);
+          tempOwnerArray = new Object();
+          break;
+        case "newBusinessOwner":
+          tempOwnerArray.ownerName = formData.formData[i].value;
+          break;
+        case "newBusinessOwnerID":
+          tempOwnerArray.ownerID = formData.formData[i].value;
+          break;
+        case "newOwnerIDExpDate":
+          tempOwnerArray.IDExpDate = formData.formData[i].value;
+          break;
+        case "newOwnerBirDate":
+          tempOwnerArray.ownerBirthDate = formData.formData[i].value;
+          break;
+        case "newOwnerAddress":
+          tempOwnerArray.ownerAddress = formData.formData[i].value;
+          ownerArrayNew.push(tempOwnerArray);
+          tempOwnerArray = new Object();
+          break;
+      }
+    }
+    saveBusiness.saveOwnerData(businessID, ownerArrayCurrent, ownerArrayNew);
   }
 };

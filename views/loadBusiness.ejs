@@ -72,10 +72,15 @@
     </form>
     <form
       id="ownerData"
-      class="addUserForm"
-      action="/saveOwnerData"
+      class="addUserForm needs-validation"
       method="post"
+      novalidate
     >
+      <input
+        name="businessID"
+        type="hidden"
+        value="<%=business[0].businessID%>"
+      />
       <h2>Representante Legal</h2>
       <div class="editButtons">
         <button
@@ -88,69 +93,100 @@
         </button>
       </div>
       <div class="contentBackground">
-        <% var i=1; owner.forEach(function(data){%>
-        <div id="ownerDIV1">
-          <div class="row">
-            <div class="col-md-4">
-              <label for="">Nombre del Representante</label>
-              <input
-                type="text"
-                class="form-control businessOwnerName"
-                name="businessOwnerName"
-                placeholder="Nombre del Representante"
-                value="<%=data.nameLegal%>"
-                readonly
-              />
+        <div id="addOwner">
+          <% var i=1; owner.forEach(function(data){%>
+          <div id="ownerDIV1" class="ownerDIV <%=data.idLegal%>">
+            <div class="col-md-6">
+              <div class="divDeleteButtonOwner">
+                <button
+                  type="button"
+                  class="edit"
+                  id="deleteButton"
+                  onclick="deleteOwnerAjx('<%=business[0].businessID%>','<%=data.idLegal%>')"
+                >
+                  <i
+                    class="editIcon material-icons"
+                    style="font-size: 2reml; color: white"
+                    >clear</i
+                  >
+                </button>
+              </div>
             </div>
-            <div class="col-md-4">
-              <label for="">Cedula del Representante</label>
-              <input
-                type="text"
-                class="form-control businessOwnerID"
-                name="businessOwnerID"
-                value="<%=data.idLegal%>"
-                placeholder="Cedula del Representante"
-                readonly
-              />
+            <div class="row" id="ownerRow">
+              <div class="col-md-4" id="ownerNameInput">
+                <label for="">Nombre del Representante</label>
+                <input
+                  type="text"
+                  class="form-control businessOwnerName"
+                  id="businessOwnerName"
+                  name="currentBusinessOwnerName"
+                  placeholder="Nombre del Representante"
+                  value="<%=data.nameLegal%>"
+                  readonly
+                  required
+                />
+              </div>
+              <div class="col-md-4" id="ownerIDInput">
+                <label for="">Cedula del Representante</label>
+                <input
+                  type="text"
+                  class="form-control businessOwnerID"
+                  name="currentBusinessOwnerID"
+                  id="businessOwnerID"
+                  value="<%=data.idLegal%>"
+                  placeholder="Cedula del Representante"
+                  readonly
+                  required
+                />
+              </div>
+              <div class="col-md-4" id="ownerIDExpDateInput">
+                <label for="">Fecha de expiracion de la Cedula</label>
+                <input
+                  type="date"
+                  class="form-control ownerIDExpDate"
+                  id="ownerIDExpDate"
+                  name="currentOwnerIDExpDate"
+                  value="<%=data.dateIdExpiration%>"
+                  placeholder="Fecha de expiracion de la Cedula"
+                  readonly
+                  required
+                />
+              </div>
             </div>
-            <div class="col-md-4">
-              <label for="">Fecha de expiracion de la Cedula</label>
-              <input
-                type="date"
-                class="form-control ownerIDExpDate"
-                name="ownerIDExpDate"
-                value="<%=data.dateIdExpiration%>"
-                placeholder="Fecha de expiracion de la Cedula"
-                readonly
-              />
+            <div class="row" id="ownerSecRow">
+              <div class="col-md-4" id="ownerBirDateToolInput">
+                <label for="">Fecha de nacimiento</label>
+                <input
+                  type="date"
+                  class="form-control ownerBirDate"
+                  name="currentOwnerBirDate"
+                  id="ownerBirDate"
+                  value="<%=data.dateBirthLegal%>"
+                  placeholder="Fecha de nacimiento"
+                  readonly
+                  required
+                />
+              </div>
+              <div class="col-md-4" id="ownerAddressInput">
+                <label for="">Domicilio</label>
+                <input
+                  type="text"
+                  class="form-control ownerAddress"
+                  id="ownerAddress"
+                  name="currentOwnerAddress"
+                  value="<%=data.address%>"
+                  placeholder="Domicilio"
+                  readonly
+                  required
+                />
+              </div>
+            </div>
+            <div class="row" id="ownerThrRow">
+              <div class="col-md-6" id="ownerDeleteButtonInput"></div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <label for="">Fecha de nacimiento</label>
-              <input
-                type="date"
-                class="form-control ownerBirDate"
-                name="ownerBirDate"
-                value="<%=data.dateBirthLegal%>"
-                placeholder="Fecha de nacimiento"
-                readonly
-              />
-            </div>
-            <div class="col-md-4">
-              <label for="">Domicilio</label>
-              <input
-                type="text"
-                class="form-control ownerAddress"
-                name="ownerAddress"
-                value="<%=data.address%>"
-                placeholder="Domicilio"
-                readonly
-              />
-            </div>
-          </div>
+          <% i++; }) %>
         </div>
-        <% i++; }) %>
       </div>
     </form>
     <form
@@ -372,9 +408,9 @@
     </form>
     <form
       id="businessActivity"
-      class="addUserForm"
-      action="/saveBusinessActivity"
+      class="addUserForm needs-validation"
       method="post"
+      novalidate
     >
       <h2>Actividad Económica</h2>
       <input
@@ -433,7 +469,9 @@
                   id="deleteButton"
                   onclick="deleteActivityAjx('<%=business[0].businessID%>','<%=activityData.activityID%>','<%=activityData.businessActivityID%>')"
                 >
-                  <i class="editIcon material-icons" style="font-size: 2reml; color: white;"
+                  <i
+                    class="editIcon material-icons"
+                    style="font-size: 2reml; color: white"
                     >clear</i
                   >
                 </button>
@@ -775,5 +813,109 @@
     window.addEventListener("load", (event) => {
       $("#navBar").load("/assets/navbar.html");
     });
+
+    (function () {
+      "use strict";
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var ownerDataValidation = $("#ownerData");
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(ownerDataValidation).forEach(function (form) {
+        form.addEventListener(
+          "submit",
+          function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            if (form.checkValidity()) {
+              var formData = JSON.stringify($("#ownerData").serializeArray());
+              formData = JSON.parse(formData);
+              $.ajax({
+                type: "POST",
+                url: "/saveBusinessOwner",
+                data: {
+                  formData: formData,
+                },
+                success: function (data, status) {
+                  $(".deleteButtonOwner").remove();
+                  $(".businessOwnerID").attr("readonly", true);
+                  $(".ownerIDExpDate").attr("readonly", true);
+                  $(".ownerBirDate").attr("readonly", true);
+                  $(".ownerAddress").attr("readonly", true);
+                  $(".businessOwnerName").attr("readonly", true);
+                  $(".newBusinessOwner").attr("readonly", true);
+                  $(".newBusinessOwner").attr("name", "currentBusinessOwner");
+                  setTimeout(
+                    $(".newBusinessOwner").attr("class", "form-control businessOwnerName"),
+                    300
+                  );
+
+                  $(".editOwner").css("display", "inline");
+                  $("#saveOwnerDataButton").css("display", "none");
+                  $("#addGeneralDataButton").css("display", "none");
+                  $("#businessModal").modal("show");
+                  $("#businessModalMessage").text("Contactos Guardados");
+                },
+              });
+            }
+            form.classList.add("was-validated");
+            event.preventDefault();
+          },
+          false
+        );
+      });
+
+      var businessActivity = $("#businessActivity");
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(businessActivity).forEach(function (form) {
+        form.addEventListener(
+          "submit",
+          function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            if (form.checkValidity()) {
+              var formData = JSON.stringify(
+                $("#businessActivity").serializeArray()
+              );
+              formData = JSON.parse(formData);
+              $.ajax({
+                type: "POST",
+                url: "/saveBusinessActivity",
+                data: {
+                  formData: formData,
+                },
+                success: function (data, status) {
+                  $("#editCloneActivity").css("display", "none");
+                  $("#editSaveBusinessActivity").css("display", "none");
+                  $(".deleteButton").css("display", "none");
+                  $(".businessNewActivities").attr("readonly", true);
+                  $(".businessNewActivities").attr(
+                    "name",
+                    "businessCurrentActivities"
+                  );
+                  $(".businessNewActivities").attr(
+                    "class",
+                    "form-control  currentActivity"
+                  );
+                  $("#newActivity3").attr("id", "newActivity4");
+                  $(".divDeleteButton").css("display", "none");
+                  $("#editActivity").css("display", "inline");
+                  $("#businessModal").modal("show");
+                  $("#businessModalMessage").text("Actividades guardadas");
+                },
+              });
+            }
+            form.classList.add("was-validated");
+            event.preventDefault();
+          },
+          false
+        );
+      });
+    })();
   </script>
 </html>

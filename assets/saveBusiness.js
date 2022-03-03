@@ -157,15 +157,60 @@ exports.saveBusinessActivity = function (businessId, newActivities) {
   connect.end();
 };
 
-exports.deleteBusinessActivity = function (businessId, activityID) {
+exports.deleteBusinessActivity = function (businessId, businesActivityID) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   var query =
     "DELETE FROM businesactivity WHERE businessID= " +
     businessId +
-    " AND activityID = " +
-    activityID;
+    " AND businessActivityID = " +
+    businesActivityID;
+  connect.query(query);
+  connect.end();
+};
+
+exports.saveOwnerData = function (
+  businessID,
+  currentOwnerArray,
+  newOwnerArray
+) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var newInsert =
+    "INSERT INTO legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES";
+  var sql = "";
+  currentOwnerArray.map((owner, i) => {
+    sql = `UPDATE legalbusinessrep SET nameLegal = '${owner.ownerName}', idLegal = ${owner.ownerID}, dateBirthLegal = '${owner.ownerBirthDate}', dateIdExpiration = '${owner.IDExpDate}', address = '${owner.ownerAddress}' WHERE businessID = ${businessID} AND idLegal = ${owner.ownerID};`;
+    console.log(sql);
+    connect.query(sql);
+    sql = "";
+  });
+
+  newOwnerArray.map((owner, i) => {
+    sql = `(${businessID},'${owner.ownerName}', ${owner.ownerID}, '${owner.IDExpDate}', '${owner.ownerBirthDate}', '${owner.ownerAddress}');`;
+    newInsert = newInsert + sql;
+    console.log(newInsert);
+    connect.query(newInsert);
+    newInsert =
+      "INSERT INTO legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES";
+    sql = " ";
+  });
+
+  connect.end();
+};
+
+exports.deleteBusinessOwner = function (businessId, businessOwerID) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query =
+    "DELETE FROM legalbusinessrep WHERE businessID= " +
+    businessId +
+    " AND idLegal = " +
+    businessOwerID;
+  console.log(query);
   connect.query(query);
   connect.end();
 };

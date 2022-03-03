@@ -241,6 +241,89 @@ function clonOwner() {
     "removeOwner('ownerDIV" + i + "')"
   );
 }
+function clonOwner2() {
+  newOwnerCount++;
+  $("#ownerDIV1")
+    .clone()
+    .attr("id", "ownerDIV" + newOwnerCount)
+    .appendTo("#addOwner");
+
+  i++;
+
+  $("#ownerDIV" + i + " #ownerRow")
+
+  //Clone ownerNameInput
+  $("#ownerRow" + i + " #ownerRow #ownerNameInput");
+  $("#newbusinessOwnerName" + i).val("");
+  $("#newbusinessOwnerName" + i).attr("name", "newBusinessOwner");
+  $("#newbusinessOwnerName" + i).attr("class", "form-control newInput");
+
+  //Clone ownerIDInput
+  $("#ownerRow" + i + " #ownerIDInput").attr("id", "ownerIDInput" + i);
+  $("#ownerIDInput" + i + " #businessOwnerID").attr(
+    "id",
+    "businessOwnerID" + i
+  );
+  $("#businessOwnerID" + i).val("");
+  $("#businessOwnerID" + i).attr("name", "newBusinessOwnerID");
+  $("#businessOwnerID" + i).attr("class", "form-control newBusinessOwnerID");
+
+  //Clone ownerIDExpDateInput
+  $("#ownerRow" + i + " #ownerIDExpDateInput").attr(
+    "id",
+    "ownerIDExpDateInput" + i
+  );
+  $("#ownerIDExpDateInput" + i + " #ownerIDExpDate").attr(
+    "id",
+    "ownerIDExpDate" + i
+  );
+  $("#ownerIDExpDate" + i).val("");
+  $("#ownerIDExpDate" + i).attr("name", "newOwnerIDExpDate");
+
+  $("#ownerDIV" + i + " #ownerSecRow").attr("id", "ownerSecRow" + i);
+
+  //Clone ownerBirDateToolInput
+  $("#ownerSecRow" + i + " #ownerBirDateToolInput").attr(
+    "id",
+    "ownerBirDateToolInput" + i
+  );
+  $("#ownerBirDateToolInput" + i + " #ownerBirDate").attr(
+    "id",
+    "ownerBirDate" + i
+  );
+  $("#ownerBirDate" + i).val("");
+  $("#ownerBirDate" + i).attr("name", "newOwnerBirDate");
+
+  //Clone ownerAddressInput
+  $("#ownerSecRow" + i + " #ownerAddressInput").attr(
+    "id",
+    "ownerAddressInput" + i
+  );
+  $("#ownerAddressInput" + i + " #ownerAddress").attr("id", "ownerAddress" + i);
+  $("#ownerAddress" + i).val("");
+  $("#ownerAddress" + i).attr("name", "newOwnerAddress");
+
+  //Add delete button
+  $("#ownerDIV" + i + " #ownerThrRow").attr("id", "ownerThrRow" + i);
+
+  $("#ownerThrRow" + i + " #ownerDeleteButtonInput").attr(
+    "id",
+    "ownerDeleteButtonInput" + i
+  );
+
+  $("#ownerDeleteButtonInput" + i).append(
+    "<button class='btn btn btn-light deleteButtonOwner' type='button' id='ownerDeleteButton'>Eliminar</button>"
+  );
+
+  $("#ownerDeleteButtonInput" + i + " #ownerDeleteButton").attr(
+    "id",
+    "ownerDeleteButton" + i
+  );
+  $("#ownerDeleteButton" + i).attr(
+    "onclick",
+    "removeOwner('ownerDIV" + i + "')"
+  );
+}
 
 //Remove Owner
 function removeOwner(id) {
@@ -305,9 +388,11 @@ function cloneActivity2() {
   );
   $("#newActivity2").attr("readonly", false);
   $("#newActivity2").attr("id", "newActivity3");
+  $("#newActivity3").val("");
   $("#newActivity3").attr("class", "form-control businessNewActivities");
   $("#newActivity3").attr("name", "businessNewActivities");
   $("#newActivity3").attr("id", "newActivity4");
+
   $("#activityDIV" + z).attr(
     "style",
     "border-top-style: solid; border-color: white;"
@@ -337,7 +422,7 @@ function editGeneralDataDiv() {
   $("#editGeneralData").after(
     "<button class='edit' form='generalData' id='editGeneralData'><i class='material-icons' style='font-size:36px'>sd_card</i></button>"
   );
-  $("#editGeneralData").remove();
+  $("#editGeneralData").css("display", "none");
 }
 
 function editOwnerData() {
@@ -346,13 +431,14 @@ function editOwnerData() {
   $(".ownerIDExpDate").attr("readonly", false);
   $(".ownerBirDate").attr("readonly", false);
   $(".ownerAddress").attr("readonly", false);
+  $(".divDeleteButtonOwner").css("display", "block");
   $(".editOwner").after(
-    "<button type='button' class='edit' form='generalData' id='editGeneralData' onclick='editAddNewOwner()'><i class='material-icons' style='font-size:36px'>add</i></button>"
+    "<button type='button' class='edit' form='generalData' id='addGeneralDataButton' onclick='clonOwner2()'><i class='material-icons' style='font-size:36px'>add</i></button>"
   );
   $(".editOwner").after(
-    "<button class='edit' form='ownerData' id='editOwnerData'><i class='material-icons'>sd_card</i></button>"
+    "<button class='edit' type='submit' form='ownerData' id='saveOwnerDataButton'><i class='material-icons'>sd_card</i></button>"
   );
-  $(".editOwner").remove();
+  $(".editOwner").css("display", "none");
 }
 
 function editAccountsData() {
@@ -381,11 +467,12 @@ function editBusinessActivity() {
   $(".divDeleteButton").css("display", "block");
   $("#addActivity").css("display", "block");
   $(".businessNewActivities").attr("readonly", false);
+  $(".deleteButton").css("display", "block");
   $(".editActivity").after(
     "<button type='button' class='edit' form='generalData' id='editCloneActivity' onclick='cloneActivity2()'><i class='material-icons' style='font-size:36px'>add</i></button>"
   );
   $(".editActivity").after(
-    "<button class='edit' type='button' form='businessActivity' id='editSaveBusinessActivity' onclick='saveActivityAjx()'><i class='material-icons'>sd_card</i></button>"
+    "<button class='edit' type='submit' form='businessActivity' id='editSaveBusinessActivity'><i class='material-icons'>sd_card</i></button>"
   );
   $(".editActivity").css("display", "none");
 }
@@ -430,23 +517,39 @@ function editAddNewOwner() {}
 
 function editAddNewContact() {}
 
-function deleteActivityAjx(businessID, activityID, businesActivityID) {
+function deleteOwnerAjx(businessID, businesOwnerID) {
+  $.ajax({
+    type: "POST",
+    url: "/deleteOwner",
+    data: {
+      businessID: businessID,
+      businesOwnerID: businesOwnerID,
+    },
+    success: function (data, status) {
+      $("." + businesOwnerID).remove();
+      $("#businessModal").modal("show");
+      $("#businessModalMessage").text("Has eliminado unx representante legal");
+    },
+  });
+}
+function deleteActivityAjx(businessID, businesActivityID, businessActivityID) {
   $.ajax({
     type: "POST",
     url: "/deleteActivity",
     data: {
       businessID: businessID,
-      activityID: activityID,
+      businessActivityID: businessActivityID,
+      businesActivityID: businesActivityID,
     },
     success: function (data, status) {
-      $("#" + businesActivityID).css("display", "none");
+      $("#" + businessActivityID).remove();
       $("#businessModal").modal("show");
-      $("#businessModalMessage").text("Has Eliminado una actividad");
+      $("#businessModalMessage").text("Has eliminado una actividad");
     },
   });
 }
 
-function saveActivityAjx() {
+function saveGeneralDataAjx() {
   var formData = JSON.stringify($("#businessActivity").serializeArray());
   formData = JSON.parse(formData);
   $.ajax({
@@ -456,42 +559,14 @@ function saveActivityAjx() {
       formData: formData,
     },
     success: function (data, status) {
-      $("#editCloneActivity").css("display", "none");
-      $("#editSaveBusinessActivity").css("display", "none");
-      $(".deleteButton").css("display", "none");
-      $(".businessNewActivities").attr("readonly", true);
-      $(".businessNewActivities").attr("name", "businessCurrentActivities");
-      $(".businessNewActivities").attr(
-        "class",
-        "form-control  currentActivity"
-      );
-      $("#newActivity3").attr("id", "newActivity4");
-      $(".divDeleteButton").css("display", "none");
-      $("#editActivity").css("display", "inline");
-      $("#businessModal").modal("show");
-      $("#businessModalMessage").text("Actividades guardadas");
+      window.location.reload;
+      // $("#editCloneActivity").css("display", "none");
+      // $("#editSaveBusinessActivity").css("display", "none");
+      // $(".businessNewActivities").attr("readonly", true);
+      // $(".divDeleteButton").css("display", "none");
+      // $("#editActivity").css("display", "inline");
+      // $("#businessModal").modal("show");
+      // $("#businessModalMessage").text("Actividades guardadas");
     },
   });
-
-  function saveGeneralDataAjx() {
-    var formData = JSON.stringify($("#businessActivity").serializeArray());
-    formData = JSON.parse(formData);
-    $.ajax({
-      type: "POST",
-      url: "/saveBusinessActivity",
-      data: {
-        formData: formData,
-      },
-      success: function (data, status) {
-        window.location.reload;
-        // $("#editCloneActivity").css("display", "none");
-        // $("#editSaveBusinessActivity").css("display", "none");
-        // $(".businessNewActivities").attr("readonly", true);
-        // $(".divDeleteButton").css("display", "none");
-        // $("#editActivity").css("display", "inline");
-        // $("#businessModal").modal("show");
-        // $("#businessModalMessage").text("Actividades guardadas");
-      },
-    });
-  }
 }
