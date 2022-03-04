@@ -2,7 +2,7 @@ var path = require("path");
 var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
 var loadUserTable = require(path.join(__dirname, "../assets/loadUserTable.js"));
 
-const loadUser = require("/NodejsApp/assets/loadUser.js");
+const loadUser = require(path.join(__dirname, "../assets/loadUser.js"));
 var saveUser = require(path.join(__dirname, "../assets/saveUser.js"));
 var saveBusiness = require(path.join(__dirname, "../assets/saveBusiness.js"));
 var insertBusiness = require(path.join(
