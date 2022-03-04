@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/assets/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" href="/assets/logo.png" />
-
     <title><%=business[0].businessName%></title>
   </head>
   <body>
@@ -129,9 +128,7 @@
                 id="deleteButtonOwner"
                 onclick="deleteOwnerAjx('<%=business[0].businessID%>','<%=data.idLegal%>')"
               >
-                <i class="material-icons" style="color: rgb(78, 78, 78)"
-                  >clear</i
-                >
+                <i class="deleteIcon material-icons">clear</i>
               </button>
             </div>
             <div class="row" id="ownerRow">
@@ -409,28 +406,23 @@
         <div class="row">
           <div class="col-md-2">
             <label for="">Agente encargado*</label>
-            <input
-              name="userChargeID"
-              value="<%=user[0].id%>"
-              type="hidden"              
-            />
-            <input
+            <select
               name="userCharge"
               id="userCharge"
-              class="form-control"
+              class="form-select"
               list="datalistOptions"
-              value="<%=user[0].userName%>"
               autocomplete="off"
-              readonly
-            />
-            <%=user[0].userName%>
-            <datalist id="datalistOptions">
+              disabled="true"
+            >
+              <option value="<%=user[0].id%>" selected>
+                <%=user[0].userName%>
+              </option>
               <% var p=0; totalUsers.forEach(function(totalUsersData){ %>
               <option value="<%=totalUsersData.id%>">
                 <%=totalUsersData.userName%>
               </option>
               <% p++; }) %>
-            </datalist>
+            </select>
           </div>
         </div>
       </div>
@@ -450,35 +442,58 @@
       <div class="editButtons">
         <button
           type="button"
-          class="edit editActivity"
+          class="button"
           id="editActivity"
           onclick="editBusinessActivity()"
         >
-          <i class="editIcon material-icons" style="font-size: 2rem"
-            >mode_edit</i
-          >
+          <i class="material-icons">mode_edit</i>
+          <span class="text">Editar</span>
+        </button>
+      </div>
+      <div class="editButtons">
+        <button type="submit" class="button hiddenButton" id="saveActivityData">
+          <i class="material-icons">sd_card</i>
+          <span class="text">Guardar</span>
+        </button>
+      </div>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="button hiddenButton"
+          id="addActivityButton"
+          onclick="cloneActivity2()"
+        >
+          <i class="material-icons">add</i>
+          <span class="text">Agregar Actividad</span>
         </button>
       </div>
       <div class="contentBackground">
         <% var e=0; activity.forEach(function(activityData){ %>
         <div id="activityDIV" class="currentActivities">
+          <div class="col-md-6 divDeleteButton" id="divDeleteButton">
+            <button
+              type="button"
+              class="edit deleteButton"
+              id="deleteButton"
+              onclick="deleteActivityAjx('<%=business[0].businessID%>','<%=activityData.activityID%>','<%=activityData.businessActivityID%>')"
+            >
+              <i class="deleteIcon material-icons">clear</i>
+            </button>
+          </div>
           <div class="row" id="<%=activityData.businessActivityID%>">
-            <div class="col-md-6">
-              <input
-                name="businessCurrentActivities"
-                id="businessActivity"
-                class="form-control currentActivity"
-                list="datalistActivities"
-                autocomplete="off"
-                value="<%=activityData.activityName%>"
-                readonly
-              />
+            <div class="col-md-6" id="businessActivityInput">
               <input
                 name="businessCurrentActivitiesID"
                 type="hidden"
                 value="<%=activityData.businessActivityID%>"
               />
-              <datalist id="datalistActivities">
+              <select
+                name="businessCurrentActivities"
+                id="businessActivity"
+                class="form-select currentActivity"
+                disabled
+                required
+              >
                 <option value="<%=activityData.activityID%>" selected>
                   <%=activityData.activityName%>
                 </option>
@@ -488,54 +503,12 @@
                   <%=totalActivityData.activityName%>
                 </option>
                 <% n++; }) %>
-              </datalist>
-            </div>
-            <div class="col-md-6">
-              <div class="divDeleteButton">
-                <button
-                  type="button"
-                  class="edit deleteButton"
-                  id="deleteButton"
-                  onclick="deleteActivityAjx('<%=business[0].businessID%>','<%=activityData.activityID%>','<%=activityData.businessActivityID%>')"
-                >
-                  <i
-                    class="editIcon material-icons"
-                    style="font-size: 2reml; color: white"
-                    >clear</i
-                  >
-                </button>
-              </div>
+              </select>
             </div>
           </div>
         </div>
         <% e++; }) %>
-        <div id="addActivity" class="addActivity">
-          <div id="activityDIV1" class="editAddActivity">
-            <div class="row activityFrRow1" id="activityFrRow1">
-              <div class="col-md-6" id="activityColum">
-                <input
-                  name="businessNewActivities"
-                  class="form-control businessNewActivities"
-                  list="datalistActivities"
-                  id="newActivity"
-                  autocomplete="off"
-                  required
-                />
-                <datalist id="datalistActivities">
-                  <% var n=0; totalActivity.forEach(function(totalActivityData){
-                  %>
-                  <option value="<%=totalActivityData.id%>">
-                    <%=totalActivityData.activityName%>
-                  </option>
-                  <% n++; }) %>
-                </datalist>
-              </div>
-            </div>
-            <div class="row" id="activitySecRow" class="activitySecRow">
-              <div class="col-md-6" id="activityDeleteButtonInput"></div>
-            </div>
-          </div>
-        </div>
+        <div id="addActivity" class="addActivity"></div>
       </div>
     </form>
     <form id="tivData" class="addUserForm" action="/saveTivData" method="post">
@@ -957,8 +930,11 @@
                   formData: formData,
                 },
                 success: function (data, status) {
-                  $("#editCloneActivity").css("display", "none");
-                  $("#editSaveBusinessActivity").css("display", "none");
+                  $(".divDeleteButton").css("display", "none");
+                  $(".currentActivity").prop("disabled", true);
+                  $("#saveActivityData").css("display", "none");
+                  $("#addActivityButton").css("display", "none");
+                  $("#editActivity").css("display", "inline-flex");
                   $(".deleteButton").css("display", "none");
                   $(".businessNewActivities").attr("readonly", true);
                   $(".businessNewActivities").attr(
@@ -970,8 +946,6 @@
                     "form-control  currentActivity"
                   );
                   $("#newActivity3").attr("id", "newActivity4");
-                  $(".divDeleteButton").css("display", "none");
-                  $("#editActivity").css("display", "inline");
                   $("#businessModal").modal("show");
                   $("#businessModalMessage").text("Actividades guardadas");
                 },
@@ -1053,7 +1027,7 @@
                   $("#ccssPassword").attr("readonly", true);
                   $("#insUser").attr("readonly", true);
                   $("#insPassword").attr("readonly", true);
-                  $("#userCharge").attr("readonly", true);
+                  $("#userCharge").prop("disabled", true);
                   $("#editAccountData").css("display", "inline-flex");
                   $("#saveAccountData").css("display", "none");
                   $("#businessModal").modal("show");

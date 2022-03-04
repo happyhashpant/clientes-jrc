@@ -142,7 +142,6 @@ exports.saveBusinessActivity = function (businessId, newActivities) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  console.log(newActivities[0]);
   for (const property in newActivities) {
     console.log(newActivities[property]);
     var query =
@@ -151,7 +150,6 @@ exports.saveBusinessActivity = function (businessId, newActivities) {
       "','" +
       newActivities[property] +
       "')";
-    console.log(query);
     connect.query(query);
   }
 

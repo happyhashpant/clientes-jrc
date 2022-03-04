@@ -341,7 +341,7 @@ select {
   cursor: pointer;
 }
 select {
-  word-wrap: normal;
+  word-wrap: normal;  
 }
 select:disabled {
   opacity: 1;
@@ -2105,6 +2105,7 @@ textarea.form-control-lg {
 }
 .form-select:disabled {
   background-color: #cacaca;
+  border-color: black;
 }
 .form-select:-moz-focusring {
   color: transparent;

@@ -359,44 +359,18 @@ function cloneActivity() {
 }
 function cloneActivity2() {
   newActivityCount++;
-  $("#activityDIV1")
+  $("#activityDIV")
     .clone()
     .attr("id", "activityDIV" + newActivityCount)
     .appendTo("#addActivity");
   z++;
-  $("#activityDIV" + z + " #activitySecRow").attr("id", "activitySecRow" + z);
-  $("#activitySecRow" + z + " #activityDeleteButtonInput").attr(
-    "id",
-    "activityDeleteButtonInput" + z
-  );
 
-  $("#activityDIV" + z + " #activityFrRow1 #activityColum #newActivity").attr(
-    "id",
-    "newActivity2"
+  $("#activityDIV" + z + " .row #businessActivityInput #businessActivity").val(
+    ""
   );
-  $("#newActivity2").attr("readonly", false);
-  $("#newActivity2").attr("id", "newActivity3");
-  $("#newActivity3").val("");
-  $("#newActivity3").attr("class", "form-control businessNewActivities");
-  $("#newActivity3").attr("name", "businessNewActivities");
-  $("#newActivity3").attr("id", "newActivity4");
-
-  $("#activityDIV" + z).attr(
-    "style",
-    "border-top-style: solid; border-color: white;"
-  );
-
-  $("#activityDeleteButtonInput" + z).append(
-    "<button class='btn btn btn-light deleteButton' type='button' id='activityDeleteButton'>Eliminar</button>"
-  );
-
-  $("#activityDeleteButtonInput" + z + " #activityDeleteButton").attr(
-    "id",
-    "activityDeleteButton" + z
-  );
-  $("#activityDeleteButton" + z).attr(
-    "onclick",
-    "removeActivity('activityDIV" + z + "')"
+  $("#activityDIV" + z + " .row #businessActivityInput #businessActivity").attr(
+    "name",
+    "newBusinessActivity"
   );
 }
 function removeActivity(id) {
@@ -437,23 +411,20 @@ function editAccountsData() {
   $("#ccssPassword").attr("readonly", false);
   $("#insUser").attr("readonly", false);
   $("#insPassword").attr("readonly", false);
-  $("#userCharge").attr("readonly", false);
+  $("#userCharge").prop("disabled", false);
   $("#editAccountData").css("display", "none");
   $("#saveAccountData").css("display", "inline-flex");
 }
 
 function editBusinessActivity() {
   $(".divDeleteButton").css("display", "block");
+  $(".currentActivity").prop("disabled", false);
   $("#addActivity").css("display", "block");
   $(".businessNewActivities").attr("readonly", false);
   $(".deleteButton").css("display", "block");
-  $(".editActivity").after(
-    "<button type='button' class='edit' form='generalData' id='editCloneActivity' onclick='cloneActivity2()'><i class='material-icons' style='font-size:36px'>add</i></button>"
-  );
-  $(".editActivity").after(
-    "<button class='edit' type='submit' form='businessActivity' id='editSaveBusinessActivity'><i class='material-icons'>sd_card</i></button>"
-  );
-  $(".editActivity").css("display", "none");
+  $("#saveActivityData").css("display", "inline-flex");
+  $("#addActivityButton").css("display", "inline-flex");
+  $("#editActivity").css("display", "none");
 }
 
 function editBusinessTivData() {
@@ -515,6 +486,35 @@ function deleteActivityAjx(businessID, businesActivityID, businessActivityID) {
       businessID: businessID,
       businessActivityID: businessActivityID,
       businesActivityID: businesActivityID,
+    },
+    success: function (data, status) {
+      $("#" + businessActivityID).remove();
+      $("#businessModal").modal("show");
+      $("#businessModalMessage").text("Has Eliminado una actividad");
+    },
+  });
+}
+
+function validateNewActivity(activity) {
+  $.ajax({
+    type: "POST",
+    url: "/validateActivity",
+    data: {
+      activity, activity
+    },
+    success: function (data, status) {
+      $("#" + businessActivityID).remove();
+      $("#businessModal").modal("show");
+      $("#businessModalMessage").text("Has Eliminado una actividad");
+    },
+  });
+}
+function validateNewOwner(activity) {
+  $.ajax({
+    type: "POST",
+    url: "/validateActivity",
+    data: {
+      activity, activity
     },
     success: function (data, status) {
       $("#" + businessActivityID).remove();

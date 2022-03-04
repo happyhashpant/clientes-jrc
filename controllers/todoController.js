@@ -378,19 +378,20 @@ module.exports = function (app) {
     let formData = req.body;
     var newActivitiesArray = [];
     var oldActivitiesArray = [];
+    tempActivity = new Object();
+    console.log(formData);
     var k = 0;
     var j = 0;
     for (i = 0; i < formData.formData.length; i++) {
-      if (
-        formData.formData[i].name == "businessNewActivities" &&
-        formData.formData[i].value != ""
-      ) {
+      switch (formData.formData[i].name) {
+        case "businessCurrentActivities":
+          tempActivity.activityID = formData.formData[i].value;
+          break;
+      }
+      if (formData.formData[i].name == "businessNewActivities") {
         newActivitiesArray[k] = formData.formData[i].value;
         k++;
-      } else if (
-        formData.formData[i].name == "businessCurrentActivitiesID" &&
-        formData.formData[i].value != ""
-      ) {
+      } else if (formData.formData[i].name == "businessCurrentActivitiesID") {
         oldActivitiesArray[j] = formData.formData[i].value;
         j++;
       }
