@@ -14,7 +14,7 @@ var loadBusinessTable = require(path.join(
   "../assets/loadBusinessTable.js"
 ));
 var loadBusiness = require(path.join(__dirname, "../assets/loadBusiness.js"));
-const loadActivity = require(path.join("/NodejsApp/assets/loadActivity.js"));
+const loadActivity = require(path.join(__dirname, "../assets/loadActivity.js"));
 var bodyParser = require("body-parser");
 
 async function loadBusinessSync(req, res) {
