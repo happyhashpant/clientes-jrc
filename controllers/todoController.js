@@ -1,5 +1,5 @@
 var path = require("path");
-const APIFunction = require("/NodejsApp/assets/asyncFunction.js");
+const APIFunction = require(path.join(__dirname, "../assets/asyncFunction.js"));
 var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
 var loadUserTable = require(path.join(__dirname, "../assets/loadUserTable.js"));
 
@@ -178,7 +178,7 @@ module.exports = function (app) {
   });
 
   app.get("/validateOwner", function (req, res) {
-    loadBusiness.validateNewOwner()
+    loadBusiness.validateNewOwner();
     res.send("Success");
   });
 

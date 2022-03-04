@@ -440,6 +440,8 @@
         </div>
       </div>
     </form>
+
+    <!------------------------------------------- Business Activity ----------------------------------------->
     <form
       id="businessActivity"
       class="addUserForm needs-validation"
@@ -452,6 +454,8 @@
         type="hidden"
         value="<%=business[0].businessID%>"
       />
+
+      <!------------------------------------------- Edit Buttons Business Activity ----------------------------------------->
       <div class="editButtons">
         <button
           type="button"
@@ -480,6 +484,8 @@
           <span class="text">Agregar Actividad</span>
         </button>
       </div>
+      <!------------------------------------------- END Buttons Business Activity ----------------------------------------->
+
       <div class="contentBackground">
         <% var e=0; activity.forEach(function(activityData){ %>
         <div id="activityDIV" class="currentActivities">
@@ -524,6 +530,8 @@
         <div id="addActivity" class="addActivity"></div>
       </div>
     </form>
+
+    <!------------------------------------------- TIV ----------------------------------------->
     <form id="tivData" class="addUserForm" action="/saveTivData" method="post">
       <h2>TIV</h2>
       <input
@@ -531,16 +539,19 @@
         type="hidden"
         value="<%=business[0].businessID%>"
       />
+      <!------------------------------------------- Edit Buttons TIV ----------------------------------------->
       <div class="editButtons">
         <button
           type="button"
-          class="edit editTIV"
+          class="button"
           id="editTIV"
           onclick="editBusinessTivData()"
         >
-          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+          <i class="material-icons">mode_edit</i>
+          <span class="text">Editar</span>
         </button>
       </div>
+      <!------------------------------------------- END Buttons TIV ----------------------------------------->
       <div class="table-responsive">
         <table class="table table-dark table-striped table-bordered tiv">
           <tr>
@@ -729,7 +740,9 @@
           </tr>
         </table>
       </div>
-      <!-- <h2>Logo</h2>
+    </form>
+    <!------------------------------------------- Business Picture ----------------------------------------->
+    <!-- <h2>Logo</h2>
       <div class="contentBackground">
         <div class="row">
           <div class="col-md-6">
@@ -737,7 +750,7 @@
           </div>
         </div>
       </div> -->
-    </form>
+    <!------------------------------------------- Business Contact ----------------------------------------->
     <form
       id="userData"
       class="addUserForm"
@@ -745,16 +758,37 @@
       method="post"
     >
       <h2>Contacto</h2>
+      <!------------------------------------------- Edit Buttons Bussiness Contact ----------------------------------------->
       <div class="editButtons">
         <button
           type="button"
-          class="edit"
+          class="button"
           id="editContactsData"
           onclick="editContactData()"
         >
           <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+          <span class="text">Editar</span>
         </button>
       </div>
+      <div class="editButtons">
+        <button type="submit" class="button hiddenButton" id="saveActivityData">
+          <i class="material-icons">sd_card</i>
+          <span class="text">Guardar</span>
+        </button>
+      </div>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="button hiddenButton"
+          id="addActivityButton"
+          onclick="cloneActivity2()"
+        >
+          <i class="material-icons">add</i>
+          <span class="text">Agregar Actividad</span>
+        </button>
+      </div>
+
+      <!------------------------------------------- END Buttons Bussiness Contact ----------------------------------------->
       <div class="contentBackground">
         <% var p=0; contact.forEach(function(contactData){ %>
         <div id="contact">
@@ -836,6 +870,131 @@
     <!----------------------------------------------------------------- Closing Messages Modal ---------------------------------------------->
 
     <!------------------------------------------------------------- Form Modals ------------------------------------------------------------->
+
+    <!------------------------------------------------------------- Owner Modal -------------------------->
+    <div
+      class="modal fade"
+      tabindex="-1"
+      id="ownerFormModal"
+      aria-labelledby="ownerFormModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="businessModalTitle">
+              Agregar Nuevo Representante Legal:
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="businessModalMessage">
+            <form
+              class="addUserForm needs-validation"
+              id="newOwnerForm"
+              method="post"
+              novalidate
+            >
+              <input
+                name="businessID"
+                type="hidden"
+                value="<%=business[0].businessID%>"
+              />
+              <div id="addOwner">
+                <div id="ownerDIV">
+                  <div class="row" id="ownerRow">
+                    <div class="col-md-4 form-floating" id="ownerNameInput">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="businessOwnerName"
+                        name="businessOwnerName"
+                        placeholder="Nombre del Representante"
+                        required
+                      />
+                      <label for="businessOwnerName">Nombre*</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerIDInput">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="businessOwnerID"
+                        name="businessOwnerID"
+                        placeholder="Cédula"
+                        onkeypress="limit(event,this.value,10)"
+                        onblur="validateNewOwner(this.value)"
+                        required
+                      />
+                      <label for="businessOwnerID">Cédula*</label>
+                    </div>
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerIDExpDateInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ownerIDExpDate"
+                        name="ownerIDExpDate"
+                        placeholder="Fecha de expiración de la Cédula"
+                        required
+                      />
+                      <label for="ownerIDExpDate"
+                        >Expiración de la Cédula*</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row" id="ownerSecRow">
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerBirDateToolInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ownerBirDate"
+                        name="ownerBirDate"
+                        placeholder="Fecha de Nacimiento"
+                        required
+                      />
+                      <label for="ownerBirDate">Fecha de Nacimiento*</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerAddressInput">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="ownerAddress"
+                        name="ownerAddress"
+                        placeholder="Domicilio"
+                        required
+                      />
+                      <label for="ownerAddress">Domicilio*</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" form="newOwnerForm" class="btn btn-secondary">
+              Agregar Representante
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+        <!------------------------------------------------------------- Contact Modal ------------------------------------------------------------->
     <div
       class="modal fade"
       tabindex="-1"
@@ -959,7 +1118,7 @@
       </div>
     </div>
 
-    <!----------------------------------------------------------------- Closing Messages Modal ---------------------------------------------->
+    <!----------------------------------------------------------------- Closing Form ModalS ---------------------------------------------->
   </body>
   <script type="text/javascript" src="/assets/businessFunctions.js"></script>
 </html>
