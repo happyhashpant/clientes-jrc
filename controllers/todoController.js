@@ -36,7 +36,7 @@ module.exports = function (app) {
   });
 
   app.post("/login", function (req, res) {
-    login(req, res);
+    APIFunction.login(req, res);
   });
 
   app.get("/logout", APIFunction.checkSignIn, function (req, res) {

@@ -7,7 +7,7 @@
     <script defer src="/assets/functions.js"></script>
     <link rel="stylesheet" href="/assets/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="icon" href="/assets/logo.png">
+    <link rel="icon" href="/assets/logo.png" />
     <title><%=userInfo[0].userName%></title>
   </head>
 
@@ -19,8 +19,7 @@
       <form class="addUserForm" action="/saveUser" method="post">
         <input name="userID" type="hidden" value="<%=userInfo[0].id%>" />
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Nombre</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
@@ -30,10 +29,10 @@
               value="<%=userInfo[0].userName%>"
               readonly
             />
+            <label for="inputUserName">Nombre</label>
           </div>
 
-          <div class="col-md-4">
-            <label for="">Correo Electronico</label>
+          <div class="col-md-4 form-floating">
             <input
               type="email"
               class="form-control"
@@ -43,11 +42,11 @@
               value="<%=userInfo[0].userEmail%>"
               readonly
             />
+            <label for="inputUserEmail">Correo Electronico</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Numero Telefonico</label>
+          <div class="col-md-4 form-floating">
             <input
-              type="tel"
+              type="number"
               class="form-control"
               name="inputPhone"
               id="inputPhone"
@@ -55,6 +54,7 @@
               value="<%=userInfo[0].userPhone%>"
               readonly
             />
+            <label for="inputPhone">Numero Telefonico</label>
           </div>
         </div>
         <button
