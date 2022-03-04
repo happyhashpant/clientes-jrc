@@ -98,3 +98,23 @@ exports.loadActivity = function loadActivity(businessID) {
     connect.end();
   });
 };
+
+exports.validateNewOwner = function (businessId, newOwner) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query =
+    "DELETE FROM legalbusinessrep WHERE businessID= " +
+    businessId +
+    " AND idLegal = " +
+    businessOwerID;
+  return new Promise((resolve, reject) => {
+    connect.query(query, (err, result, fields) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+    connect.end();
+  });
+};

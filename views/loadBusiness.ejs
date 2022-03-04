@@ -729,14 +729,14 @@
           </tr>
         </table>
       </div>
-      <h2>Logo</h2>
+      <!-- <h2>Logo</h2>
       <div class="contentBackground">
         <div class="row">
           <div class="col-md-6">
             <input type="file" class="form-control" name="picture" />
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
     <form
       id="userData"
@@ -890,6 +890,7 @@
                         name="businessOwnerID"
                         placeholder="Cédula"
                         onkeypress="limit(event,this.value,10)"
+                        onblur="validateNewOwner(this.value)"
                         required
                       />
                       <label for="businessOwnerID">Cédula*</label>

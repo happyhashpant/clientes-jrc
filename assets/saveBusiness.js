@@ -217,3 +217,4 @@ exports.deleteBusinessOwner = function (businessId, businessOwerID) {
   connect.query(query);
   connect.end();
 };
+

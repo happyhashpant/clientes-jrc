@@ -511,13 +511,12 @@ function validateNewActivity(activity) {
     },
   });
 }
-function validateNewOwner(activity) {
+function validateNewOwner(ownerID) {
   $.ajax({
-    type: "POST",
-    url: "/validateActivity",
+    type: "GET",
+    url: "/validateOwner",
     data: {
-      activity,
-      activity,
+      ownerID: ownerID,
     },
     success: function (data, status) {
       $("#" + businessActivityID).remove();

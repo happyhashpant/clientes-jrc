@@ -177,6 +177,11 @@ module.exports = function (app) {
     res.send("Success");
   });
 
+  app.get("/validateOwner", function (req, res) {
+    loadBusiness.validateNewOwner()
+    res.send("Success");
+  });
+
   // ------------------------------------------------------------------ Delete-------------------------
 
   app.post("/deleteActivity", function (req, res) {

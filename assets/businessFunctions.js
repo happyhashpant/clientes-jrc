@@ -160,6 +160,7 @@ window.addEventListener("load", (event) => {
                 `${this.sendData.formData[2].value}`
               );
               $("#newOwners").attr("id", "ownerDIV");
+              $("#newOwnerForm")[0].reset();
             },
           });
         }
