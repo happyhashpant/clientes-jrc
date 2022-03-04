@@ -6,6 +6,7 @@ const { loadavg } = require("os");
 const { join } = require("path");
 const { nextTick } = require("process");
 var path = require("path");
+const APIFunction = require("/NodejsApp/assets/asyncFunction.js");
 const ownerObject = require(path.join(__dirname, "../assets/ownerObject.js"));
 var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
 var loadUserTable = require(path.join(__dirname, "../assets/loadUserTable.js"));
@@ -29,15 +30,7 @@ var bodyParser = require("body-parser");
 module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  function checkSignIn(req, res, next) {
-    if (req.session.user) {
-      next();
-    } else {
-      var err = new Error("Not logged in!");
-      res.render("index");
-    }
-  }
-
+ 
   app.get("/", function (req, res) {
     res.render("index");
   });
@@ -54,7 +47,7 @@ module.exports = function (app) {
     login(req, res);
   });
 
-  app.get("/logout", checkSignIn, function (req, res) {
+  app.get("/logout", APIFunction.checkSignIn, function (req, res) {
     req.session.destroy(function () {
       console.log("user logged out.");
     });
@@ -62,35 +55,7 @@ module.exports = function (app) {
   });
 
   app.post("/resetPasswordEmail", function (req, res) {
-    var date = new Date().toISOString().slice(0, 10);
-    insertUser.tokenInsert(req.body.email, date);
-    var nodemailer = require("nodemailer");
-
-    var transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "ihangcf64@gmail.com",
-        pass: "apehihthlmidjbhf",
-      },
-    });
-
-    var mailOptions = {
-      from: "ihangcf64@gmail.com",
-      to: req.body.email,
-      subject: "Se me olvido la contrasenha",
-      text:
-        "https://jrcclient.herokuapp.com/setNewPassword?userEmail=" +
-        req.body.email,
-    };
-
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Email sent: " + info.response);
-      }
-    });
-    res.redirect("back");
+    APIFunction.passwordResetEmail(req, res);
   });
 
   app.get("/setNewPassword", function (req, res) {
@@ -106,7 +71,7 @@ module.exports = function (app) {
     loadUserEmail(req, res);
   });
 
-  app.get("/business", checkSignIn, function (req, res) {
+  app.get("/business", APIFunction.checkSignIn, function (req, res) {
     loadBusinessTable
       .loadBusinessTable()
       .then(function (result) {
@@ -127,15 +92,15 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
-  app.get("/addBusiness", checkSignIn, function (req, res) {
+  app.get("/addBusiness", APIFunction.checkSignIn, function (req, res) {
     addBusinessSync(req, res);
   });
 
   app.get("/loadBusiness*", (req, res) => {
-    loadBusinessSync(req, res);
+    APIFunction.loadBusinessSync(req, res);
   });
 
-  app.get("/user", checkSignIn, function (req, res) {
+  app.get("/user", APIFunction.checkSignIn, function (req, res) {
     loadUserTable
       .loadUserTable()
       .then(function (result) {
@@ -146,7 +111,7 @@ module.exports = function (app) {
       });
   });
 
-  app.get("/loadUser*", checkSignIn, function (req, res) {
+  app.get("/loadUser*", APIFunction.checkSignIn, function (req, res) {
     loadUser
       .loadUser(req.query.userID)
       .then(function (result) {
@@ -235,25 +200,6 @@ module.exports = function (app) {
   app.post("/deleteContact", function (req, res) {
     res.send("Success");
   });
-
-  async function loadBusinessSync(req, res) {
-    var business = await loadBusiness.loadBusinessAsy(req.query.businessID);
-    var user = await loadUser.loadUser(business[0].userID);
-    var owner = await loadBusiness.loadOwners(business[0].businessID);
-    var totalUsers = await loadUser.loadUserMenu();
-    var totalActivity = await loadActivity.loadActivityMenu();
-    var contact = await loadBusiness.loadContacts(business[0].businessID);
-    var activity = await loadBusiness.loadActivity(business[0].businessID);
-    res.render("loadBusiness", {
-      business: business,
-      user: user,
-      activity: activity,
-      owner: owner,
-      contact: contact,
-      totalUsers: totalUsers,
-      totalActivity: totalActivity,
-    });
-  }
 
   async function addBusinessSync(req, res) {
     var user = await loadUser.loadUserMenu();
@@ -357,7 +303,7 @@ module.exports = function (app) {
     const bcrypt = require("bcrypt");
     var trunkEmail = req.body.userEmail.replace(/\s+/g, "");
     trunkEmail = trunkEmail.toLowerCase();
-    console.log(trunkEmail)
+    console.log(trunkEmail);
     var password = await loadUser.loginUser(trunkEmail);
     if (password.length == 1) {
       await bcrypt
@@ -381,21 +327,19 @@ module.exports = function (app) {
     var newActivitiesArray = [];
     var oldActivitiesArray = [];
     tempActivity = new Object();
-    console.log(formData);
-    var k = 0;
-    var j = 0;
     for (i = 0; i < formData.formData.length; i++) {
       switch (formData.formData[i].name) {
         case "businessCurrentActivities":
           tempActivity.activityID = formData.formData[i].value;
+          oldActivitiesArray.push(tempActivity);
+          tempActivity = new Object();
           break;
-      }
-      if (formData.formData[i].name == "businessNewActivities") {
-        newActivitiesArray[k] = formData.formData[i].value;
-        k++;
-      } else if (formData.formData[i].name == "businessCurrentActivitiesID") {
-        oldActivitiesArray[j] = formData.formData[i].value;
-        j++;
+
+        case "newBusinessActivity":
+          tempActivity.activityID = formData.formData[i].value;
+          newActivitiesArray.push(tempActivity);
+          tempActivity = new Object();
+          break;
       }
     }
     saveBusiness.saveBusinessActivity(

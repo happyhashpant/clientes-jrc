@@ -138,25 +138,19 @@ exports.saveTIVData = function (req) {
   connect.end();
 };
 
-exports.saveBusinessActivity = function (businessId, newActivities) {
+exports.saveBusinessActivity = function (businessId, newActivitiesArray) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  for (const property in newActivities) {
-    console.log(newActivities[property]);
-    var query =
-      " INSERT into businesactivity (businessID, activityID) VALUES ('" +
-      businessId +
-      "','" +
-      newActivities[property] +
-      "')";
+  newActivitiesArray.map((activity, i) => {
+    query = `INSERT into businesactivity (businessID, activityID) VALUES (${businessId}, ${activity.activityID});`;
+    console.log(query);
     connect.query(query);
-  }
-
+  });
   connect.end();
 };
 
-exports.deleteBusinessActivity = function (businessId, businesActivityID) {
+exports.deleteBusinessActivity = function (businessId, newActivitiesArray) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
