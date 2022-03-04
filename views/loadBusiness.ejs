@@ -17,6 +17,7 @@
 
     <form id="generalData" class="addUserForm" method="post">
       <h2>Datos Generales</h2>
+      <!------------------------------------------- Edit Buttons General Data ----------------------------------------->
       <div class="editButtons">
         <button
           type="button"
@@ -34,10 +35,12 @@
           <span class="text">Guardar</span>
         </button>
       </div>
+
+      <!------------------------------------------- END Edit Buttons General Data ----------------------------------------->
+
       <div class="contentBackground">
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Nombre de la sociedad</label>
+          <div class="col-md-4 form-floating">
             <input
               id="businessName"
               type="text"
@@ -47,14 +50,10 @@
               value="<%=business[0].businessName%>"
               readonly
             />
+            <label for="businessName">Nombre de la sociedad</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Cedula Juridica</label>
-            <input
-              name="businessID2"
-              type="hidden"
-              value="<%=business[0].id%>"
-            />
+          <input name="businessID2" type="hidden" value="<%=business[0].id%>" />
+          <div class="col-md-4 form-floating">
             <input
               id="businessID"
               type="number"
@@ -64,10 +63,13 @@
               value="<%=business[0].businessID%>"
               readonly
             />
+            <label for="businessID">Cedula Juridica</label>
           </div>
         </div>
       </div>
     </form>
+
+    <!------------------------------------------- Legal Owner ----------------------------------------->
     <form
       id="ownerData"
       class="addUserForm needs-validation"
@@ -79,19 +81,20 @@
         type="hidden"
         value="<%=business[0].businessID%>"
       />
+
       <h2>Representante Legal</h2>
+
+      <!------------------------------------------- Edit Buttons Legal Owner ----------------------------------------->
       <div class="editButtons">
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="editOwner"
-            onclick="editOwnerData()"
-          >
-            <i class="material-icons">mode_edit</i>
-            <span class="text">Editar</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          class="button"
+          id="editOwner"
+          onclick="editOwnerData()"
+        >
+          <i class="material-icons">mode_edit</i>
+          <span class="text">Editar</span>
+        </button>
       </div>
       <div class="editButtons">
         <button
@@ -114,6 +117,8 @@
           <span class="text">Agregar representante</span>
         </button>
       </div>
+
+      <!------------------------------------------- END Edit Buttons Legal Owner ----------------------------------------->
       <div class="contentBackground">
         <div id="addOwner">
           <% var i=1; owner.forEach(function(data){%>
@@ -132,8 +137,7 @@
               </button>
             </div>
             <div class="row" id="ownerRow">
-              <div class="col-md-4" id="ownerNameInput">
-                <label for="">Nombre del Representante</label>
+              <div class="col-md-4 form-floating" id="ownerNameInput">
                 <input
                   type="text"
                   class="form-control businessOwnerName"
@@ -144,9 +148,9 @@
                   readonly
                   required
                 />
+                <label for="businessOwnerName">Nombre del Representante</label>
               </div>
-              <div class="col-md-4" id="ownerIDInput">
-                <label for="">Cedula del Representante</label>
+              <div class="col-md-4 form-floating" id="ownerIDInput">
                 <input
                   type="number"
                   class="form-control businessOwnerID"
@@ -155,12 +159,13 @@
                   value="<%=data.idLegal%>"
                   placeholder="Cedula del Representante"
                   onkeypress="limit(event,this.value,8)"
+                  onchange="limit(event,this.value,8)"
                   readonly
                   required
                 />
+                <label for="businessOwnerID">Cedula del Representante</label>
               </div>
-              <div class="col-md-4" id="ownerIDExpDateInput">
-                <label for="">Fecha de expiracion de la Cedula</label>
+              <div class="col-md-4 form-floating" id="ownerIDExpDateInput">
                 <input
                   type="date"
                   class="form-control ownerIDExpDate"
@@ -171,11 +176,13 @@
                   readonly
                   required
                 />
+                <label for="ownerIDExpDate"
+                  >Fecha de expiracion de la Cedula</label
+                >
               </div>
             </div>
             <div class="row" id="ownerSecRow">
-              <div class="col-md-4" id="ownerBirDateToolInput">
-                <label for="">Fecha de nacimiento</label>
+              <div class="col-md-4 form-floating" id="ownerBirDateToolInput">
                 <input
                   type="date"
                   class="form-control ownerBirDate"
@@ -186,9 +193,9 @@
                   readonly
                   required
                 />
+                <label for="ownerBirDate">Fecha de nacimiento</label>
               </div>
-              <div class="col-md-4" id="ownerAddressInput">
-                <label for="">Domicilio</label>
+              <div class="col-md-4 form-floating" id="ownerAddressInput">
                 <input
                   type="text"
                   class="form-control ownerAddress"
@@ -199,6 +206,7 @@
                   readonly
                   required
                 />
+                <label for="ownerAddress">Domicilio</label>
               </div>
             </div>
             <div class="row" id="ownerThrRow">
@@ -209,6 +217,8 @@
         </div>
       </div>
     </form>
+    <!------------------------------------------- Account Details ----------------------------------------->
+
     <form id="accountData" class="addUserForm">
       <h2>Datos contables</h2>
       <input
@@ -216,6 +226,7 @@
         type="hidden"
         value="<%=business[0].businessID%>"
       />
+      <!------------------------------------------- Edit Buttons Account Details ----------------------------------------->
       <div class="editButtons">
         <button
           type="button"
@@ -233,10 +244,11 @@
           <span class="text">Guardar</span>
         </button>
       </div>
+      <!------------------------------------------- END Edit Buttons Account Details ----------------------------------------->
+
       <div class="contentBackground">
         <div class="row">
-          <div class="col-md-6">
-            <label for="">Usuario ATV</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -246,9 +258,9 @@
               value="<%=business[0].atvUser%>"
               readonly
             />
+            <label for="atvUser">Usuario ATV</label>
           </div>
-          <div class="col-md-6">
-            <label for="">Contraseña ATV</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -258,11 +270,11 @@
               value="<%=business[0].atvPassword%>"
               readonly
             />
+            <label for="atvPassword">Contraseña ATV</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Sistema de Facturacion</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
@@ -272,9 +284,9 @@
               value="<%=business[0].billSystem%>"
               readonly
             />
+            <label for="billSystem">Sistema de Facturacion</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Usuario del Sistema de Facturacion</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
@@ -284,9 +296,11 @@
               value="<%=business[0].billSystemUser%>"
               readonly
             />
+            <label for="billSystemUser"
+              >Usuario del Sistema de Facturacion</label
+            >
           </div>
-          <div class="col-md-4">
-            <label for="">Contraseña del Sistema de Facturacion</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
@@ -296,11 +310,13 @@
               value="<%=business[0].billSystemPassword%>"
               readonly
             />
+            <label for="billSystemPassword"
+              >Contraseña del Sistema de Facturacion</label
+            >
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <label for="">Correo para recepcion de Facturas</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -310,25 +326,25 @@
               value="<%=business[0].billEmail%>"
               readonly
             />
+            <label for="billEmail">Correo de Facturas</label>
           </div>
-          <div class="col-md-6">
-            <label for=""
-              >Contraseña del Correo para recepcion de Facturas</label
-            >
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
               id="billEmailPassword"
               name="billEmailPassword"
-              placeholder="Contraseña del Correo para recepcion de Facturas"
+              placeholder="Contraseña del Correo de Facturas"
               value="<%=business[0].billEmailPassword%>"
               readonly
             />
+            <label for="billEmailPassword"
+              >Contraseña del Correo de Facturas</label
+            >
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <label for="">Usuario Travi</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -338,9 +354,9 @@
               value="<%=business[0].traviUser%>"
               readonly
             />
+            <label for="traviUser">Usuario Travi</label>
           </div>
-          <div class="col-md-6">
-            <label for="">Contraseña Travi</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -350,11 +366,11 @@
               value="<%=business[0].traviPassword%>"
               readonly
             />
+            <label for="traviPassword">Contraseña Travi</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <label for="">Usuario CCSS</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -364,9 +380,9 @@
               value="<%=business[0].ccssUser%>"
               readonly
             />
+            <label for="ccssUser">Usuario CCSS</label>
           </div>
-          <div class="col-md-6">
-            <label for="">Contraseña CCSS</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -376,11 +392,11 @@
               value="<%=business[0].ccssPassword%>"
               readonly
             />
+            <label for="ccssPassword">Contraseña CCSS</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <label for="">Usuario INS</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -390,9 +406,9 @@
               value="<%=business[0].insUser%>"
               readonly
             />
+            <label for="insUser">Usuario INS</label>
           </div>
-          <div class="col-md-6">
-            <label for="">Contraseña INS</label>
+          <div class="col-md-6 form-floating">
             <input
               type="text"
               class="form-control"
@@ -402,11 +418,11 @@
               value="<%=business[0].insPassword%>"
               readonly
             />
+            <label for="insPassword">Contraseña INS</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-2">
-            <label for="">Agente encargado*</label>
+          <div class="col-md-2 form-floating">
             <select
               name="userCharge"
               id="userCharge"
@@ -424,6 +440,7 @@
               </option>
               <% p++; }) %>
             </select>
+            <label for="userCharge">Agente encargado*</label>
           </div>
         </div>
       </div>
@@ -494,8 +511,6 @@
                 class="form-select currentActivity"
                 disabled
                 required
-                onfocusout='"validateNewActivity("+this+")"'
-                ;
               >
                 <option value="<%=activityData.activityID%>" selected>
                   <%=activityData.activityName%>
@@ -790,6 +805,8 @@
         <% p++; }) %>
       </div>
     </form>
+
+    <!------------------------------------------------------------- Messages Modal -------------------------------------------------->
     <div
       class="modal fade"
       id="businessModal"
@@ -797,7 +814,7 @@
       aria-labelledby="businessModal"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="businessModalTitle">Mensaje:</h5>
@@ -821,6 +838,44 @@
         </div>
       </div>
     </div>
+    <!----------------------------------------------------------------- Closing Messages Modal ---------------------------------------------->
+
+    <!------------------------------------------------------------- Form Modals ------------------------------------------------------------->
+    <div
+      class="modal fade"
+      id="ownerFormModal"
+      tabindex="-1"
+      aria-labelledby="ownerFormModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="businessModalTitle">Mensaje:</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="businessModalMessage">
+            <form action=""></form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Entiendo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!----------------------------------------------------------------- Closing Messages Modal ---------------------------------------------->
   </body>
   <script type="text/javascript" src="/assets/businessFunctions.js"></script>
 </html>
