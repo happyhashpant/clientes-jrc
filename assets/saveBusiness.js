@@ -163,6 +163,16 @@ exports.deleteBusinessActivity = function (businessId, newActivitiesArray) {
   connect.end();
 };
 
+exports.saveNewOwnerData = function (formData) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var sql = `INSERT INTO legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES (${formData.formData[0].value},'${formData.formData[1].value}',${formData.formData[2].value}, '${formData.formData[3].value}','${formData.formData[4].value}','${formData.formData[5].value}');`;
+  connect.query(sql);
+  console.log(sql);
+  connect.end();
+};
+
 exports.saveOwnerData = function (
   businessID,
   currentOwnerArray,

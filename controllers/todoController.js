@@ -22,7 +22,6 @@ var bodyParser = require("body-parser");
 module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: true }));
 
- 
   app.get("/", function (req, res) {
     res.render("index");
   });
@@ -173,6 +172,11 @@ module.exports = function (app) {
     res.send("Success");
   });
 
+  app.post("/saveNewOwner", function (req, res) {
+    saveBusiness.saveNewOwnerData(req.body);
+    res.send("Success");
+  });
+
   // ------------------------------------------------------------------ Delete-------------------------
 
   app.post("/deleteActivity", function (req, res) {
@@ -192,5 +196,4 @@ module.exports = function (app) {
   app.post("/deleteContact", function (req, res) {
     res.send("Success");
   });
- 
 };

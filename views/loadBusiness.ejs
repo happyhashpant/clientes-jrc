@@ -111,7 +111,8 @@
           type="button"
           class="button hiddenButton"
           id="addOwnerButton"
-          onclick="clonOwner2()"
+          data-bs-toggle="modal"
+          data-bs-target="#ownerFormModal"
         >
           <i class="material-icons">add</i>
           <span class="text">Agregar representante</span>
@@ -122,7 +123,7 @@
       <div class="contentBackground">
         <div id="addOwner">
           <% var i=1; owner.forEach(function(data){%>
-          <div id="ownerDIV1" class="ownerDIV <%=data.idLegal%>">
+          <div id="ownerDIV" class="ownerDIV <%=data.idLegal%>">
             <div
               class="col-md-6 divDeleteButtonOwner"
               id="divDeleteButtonOwner"
@@ -176,9 +177,7 @@
                   readonly
                   required
                 />
-                <label for="ownerIDExpDate"
-                  >Fecha de expiracion de la Cedula</label
-                >
+                <label for="ownerIDExpDate">Expiración de la Cedula</label>
               </div>
             </div>
             <div class="row" id="ownerSecRow">
@@ -284,7 +283,7 @@
               value="<%=business[0].billSystem%>"
               readonly
             />
-            <label for="billSystem">Sistema de Facturacion</label>
+            <label for="billSystem">Facturacion</label>
           </div>
           <div class="col-md-4 form-floating">
             <input
@@ -296,9 +295,7 @@
               value="<%=business[0].billSystemUser%>"
               readonly
             />
-            <label for="billSystemUser"
-              >Usuario del Sistema de Facturacion</label
-            >
+            <label for="billSystemUser">Usuario de Facturacion</label>
           </div>
           <div class="col-md-4 form-floating">
             <input
@@ -310,9 +307,7 @@
               value="<%=business[0].billSystemPassword%>"
               readonly
             />
-            <label for="billSystemPassword"
-              >Contraseña del Sistema de Facturacion</label
-            >
+            <label for="billSystemPassword">Contraseña de Facturacion</label>
           </div>
         </div>
         <div class="row">
@@ -843,15 +838,17 @@
     <!------------------------------------------------------------- Form Modals ------------------------------------------------------------->
     <div
       class="modal fade"
-      id="ownerFormModal"
       tabindex="-1"
+      id="ownerFormModal"
       aria-labelledby="ownerFormModal"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="businessModalTitle">Mensaje:</h5>
+            <h5 class="modal-title" id="businessModalTitle">
+              Agregar Nuevo Representante Legal:
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -860,15 +857,101 @@
             ></button>
           </div>
           <div class="modal-body" id="businessModalMessage">
-            <form action=""></form>
+            <form
+              class="addUserForm needs-validation"
+              id="newOwnerForm"
+              method="post"
+              novalidate
+            >
+              <input
+                name="businessID"
+                type="hidden"
+                value="<%=business[0].businessID%>"
+              />
+              <div id="addOwner">
+                <div id="ownerDIV">
+                  <div class="row" id="ownerRow">
+                    <div class="col-md-4 form-floating" id="ownerNameInput">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="businessOwnerName"
+                        name="businessOwnerName"
+                        placeholder="Nombre del Representante"
+                        required
+                      />
+                      <label for="businessOwnerName">Nombre*</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerIDInput">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="businessOwnerID"
+                        name="businessOwnerID"
+                        placeholder="Cédula"
+                        onkeypress="limit(event,this.value,10)"
+                        required
+                      />
+                      <label for="businessOwnerID">Cédula*</label>
+                    </div>
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerIDExpDateInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ownerIDExpDate"
+                        name="ownerIDExpDate"
+                        placeholder="Fecha de expiración de la Cédula"
+                        required
+                      />
+                      <label for="ownerIDExpDate"
+                        >Expiración de la Cédula*</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row" id="ownerSecRow">
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerBirDateToolInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ownerBirDate"
+                        name="ownerBirDate"
+                        placeholder="Fecha de Nacimiento"
+                        required
+                      />
+                      <label for="ownerBirDate">Fecha de Nacimiento*</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerAddressInput">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="ownerAddress"
+                        name="ownerAddress"
+                        placeholder="Domicilio"
+                        required
+                      />
+                      <label for="ownerAddress">Domicilio*</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
+            <button type="submit" form="newOwnerForm" class="btn btn-secondary">
+              Agregar Representante
+            </button>
             <button
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Entiendo
+              Cerrar
             </button>
           </div>
         </div>

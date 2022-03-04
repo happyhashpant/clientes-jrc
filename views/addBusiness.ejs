@@ -28,18 +28,18 @@
       <h2>Datos Generales</h2>
       <div class="contentBackground">
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Nombre*</label>
+          <div class="col-md-4 form-floating">
             <input
               name="businessName"
+              id="businessName"
               type="text"
               class="form-control"
               placeholder="Nombre de la sociedad"
               required
             />
+            <label for="businessName">Nombre*</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Cédula Jurídica*</label>
+          <div class="col-md-4 form-floating">
             <input
               type="number"
               id="inputBusinessID"
@@ -48,6 +48,7 @@
               placeholder="Cédula Jurídica"
               required
             />
+            <label for="inputBusinessID">Cédula Jurídica*</label>
           </div>
         </div>
       </div>
@@ -56,63 +57,65 @@
         <div id="addOwner">
           <div id="ownerDIV1">
             <div class="row" id="ownerRow1">
-              <div class="col-md-4" id="ownerNameInput1">
-                <label class="ownerName" for="">Nombre*</label>
+              <div class="col-md-4 form-floating" id="ownerNameInput">
                 <input
                   type="text"
                   class="form-control"
-                  id="businessOwnerName1"
+                  id="businessOwnerName"
                   name="businessOwnerName"
                   placeholder="Nombre del Representante"
                   required
                 />
+                <label for="businessOwnerName">Nombre*</label>
               </div>
-              <div class="col-md-4" id="ownerIDInput1">
-                <label class="ownerID" for="">Cédula*</label>
+              <div class="col-md-4 form-floating" id="ownerIDInput">
                 <input
                   type="number"
                   class="form-control"
-                  id="businessOwnerID1"
+                  id="businessOwnerID"
                   name="businessOwnerID"
                   placeholder="Cédula"
                   onkeypress="limit(event,this.value,10)"
                   required
                 />
+                <label for="businessOwnerID">Cédula*</label>
               </div>
-              <div class="col-md-4" id="ownerIDExpDateInput1">
-                <label for="">Fecha de expiración de la Cédula*</label>
+              <div class="col-md-4 form-floating" id="ownerIDExpDateInput">
                 <input
                   type="date"
                   class="form-control"
-                  id="ownerIDExpDate1"
+                  id="ownerIDExpDate"
                   name="ownerIDExpDate"
                   placeholder="Fecha de expiración de la Cédula"
                   required
                 />
+                <label for="ownerIDExpDate"
+                  >Fecha de expiración de la Cédula*</label
+                >
               </div>
             </div>
             <div class="row" id="ownerSecRow1">
-              <div class="col-md-4" id="ownerBirDateToolInput1">
-                <label for="">Fecha de Nacimiento*</label>
+              <div class="col-md-4 form-floating" id="ownerBirDateToolInput">
                 <input
                   type="date"
                   class="form-control"
-                  id="ownerBirDate1"
+                  id="ownerBirDate"
                   name="ownerBirDate"
                   placeholder="Fecha de Nacimiento"
                   required
                 />
+                <label for="ownerBirDate">Fecha de Nacimiento*</label>
               </div>
-              <div class="col-md-4" id="ownerAddressInput1">
-                <label for="">Domicilio*</label>
+              <div class="col-md-4 form-floating" id="ownerAddressInput">
                 <input
                   type="text"
                   class="form-control"
-                  id="ownerAddress1"
+                  id="ownerAddress"
                   name="ownerAddress"
                   placeholder="Domicilio"
                   required
                 />
+                <label for="ownerAddress">Domicilio*</label>
               </div>
             </div>
             <div class="row" id="ownerThrRow">
@@ -133,8 +136,7 @@
 
       <div class="contentBackground">
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Usuario ATV*</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
@@ -142,138 +144,150 @@
               placeholder="Usuario ATV"
               required
             />
+            <label for="atvUser">Usuario ATV*</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Contraseña ATV*</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
+              id="atvPassword"
               name="atvPassword"
               placeholder="Contraseña ATV"
               required
             />
+            <label for="atvPassword">Contraseña ATV*</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <label class="bill" for="">Sistema de Facturación</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="billSystem"
+              id="billSystem"
               placeholder="Sistema de Facturación"
             />
+            <label for="billSystem">Sistema de Facturación</label>
           </div>
-          <div class="col-md-4">
-            <label class="billUser" for=""
-              >Usuario del Sistema de Facturación</label
-            >
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="billSystemUser"
+              id="billSystemUser"
               placeholder="Usuario del Sistema de Facturación"
             />
+            <label for="billSystemUser"
+              >Usuario del Sistema de Facturación</label
+            >
           </div>
-          <div class="col-md-4">
-            <label for="">Contraseña del Sistema de Facturación</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="billSystemPassword"
+              id="billSystemPassword"
               placeholder="Contraseña del Sistema de Facturación"
             />
+            <label for="billSystemPassword"
+              >Contraseña del Sistema de Facturación</label
+            >
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <label class="billEmail" for=""
-              >Correo para recepción de Facturas*</label
-            >
+          <div class="col-md-4 form-floating">
             <input
               type="email"
               class="form-control"
               name="billEmail"
-              placeholder="Correo para recepción de Facturas"
+              id="billEmail"
+              placeholder="Correo de Facturas"
               required
             />
+            <label for="billEmail">Correo de Facturas*</label>
           </div>
-          <div class="col-md-4">
-            <label for=""
-              >Contraseña del Correo para recepción de Facturas*</label
-            >
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="billEmailPassword"
+              id="billEmailPassword"
               placeholder="Contraseña del Correo para recepción de Facturas"
               required
             />
+            <label for="billEmailPassword"
+              >Contraseña del Correo de Facturas*</label
+            >
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Usuario Travi</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="traviUser"
+              id="traviUser"
               placeholder="Usuario Travi"
             />
+            <label for="traviUser">Usuario Travi</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Contraseña Travi</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="traviPassword"
+              id="traviPassword"
               placeholder="Contraseña Travi"
             />
+            <label for="traviPassword">Contraseña Travi</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Usuario CCSS</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="ccssUser"
+              id="ccssUser"
               placeholder="Usuario CCSS"
             />
+            <label for="">Usuario CCSS</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Contraseña CCSS</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="ccssPassword"
+              id="ccssPassword"
               placeholder="Contraseña CCSS"
             />
+            <label for="ccssPassword">Contraseña CCSS</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
-            <label for="">Usuario INS</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="insUser"
+              id="insUser"
               placeholder="Usuario INS"
             />
+            <label for="">Usuario INS</label>
           </div>
-          <div class="col-md-4">
-            <label for="">Contraseña INS</label>
+          <div class="col-md-4 form-floating">
             <input
               type="text"
               class="form-control"
               name="insPassword"
+              id="insPassword"
               placeholder="Contraseña INS"
             />
+            <label for="insPassword">Contraseña INS</label>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-2">
-            <label for="">Agente encargado*</label>
+          <div class="col-md-2 form-floating">
             <input
               name="userCharge"
               class="form-control"
@@ -282,6 +296,7 @@
               autocomplete="off"
               required
             />
+            <label for="exampleDataList">Agente encargado*</label>
             <datalist id="datalistUser">
               <% var i=0; user.forEach(function(data){ %>
               <option value="<%=data.id%>"><%=data.userName%></option>
@@ -514,39 +529,39 @@
         <div id="contact">
           <div id="contactDIV1">
             <div class="row" id="contactRow1">
-              <div class="col-md-4" id="inputContactName1">
-                <label for="">Nombre</label>
+              <div class="col-md-4 form-floating" id="inputContactName">
                 <input
                   type="text"
                   class="form-control"
                   name="contactName"
-                  id="contactName1"
+                  id="contactName"
                   placeholder="Nombre"
                   required
                 />
+                <label for="contactName">Nombre</label>
               </div>
-              <div class="col-md-4" id="inputContactPhone1">
-                <label for="">Número Telefónico</label>
+              <div class="col-md-4 form-floating" id="inputContactPhone">
                 <input
                   type="number"
                   class="form-control"
                   name="contactPhone"
-                  id="contactPhone1"
+                  id="contactPhone"
                   onkeypress="limit(event,this.value,8)"
                   placeholder="Número Telefónico"
                   required
                 />
+                <label for="contactPhone">Número Telefónico</label>
               </div>
-              <div class="col-md-4" id="inputContactEmail1">
-                <label for="">Correo Electrónico</label>
+              <div class="col-md-4 form-floating" id="inputContactEmail">
                 <input
                   type="text"
                   class="form-control"
                   name="contactEmail"
-                  id="contactEmail1"
+                  id="contactEmail"
                   placeholder="Correo Electrónico"
                   required
                 />
+                <label for="contactEmail">Correo Electrónico</label>
               </div>
             </div>
             <div class="row" id="contactSecRow1">

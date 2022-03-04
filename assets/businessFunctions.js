@@ -4,10 +4,10 @@ var z = 1;
 var newOwnerCount = 1;
 var newContactCount = 1;
 var newActivityCount = 1;
-
 window.addEventListener("load", (event) => {
   $("#navBar").load("/assets/navbar.html");
 });
+
 (function () {
   "use strict";
 
@@ -93,6 +93,83 @@ window.addEventListener("load", (event) => {
     );
   });
 
+  var newOwner = $("#newOwnerForm");
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(newOwner).forEach(function (form) {
+    form.addEventListener(
+      "submit",
+      function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        if (form.checkValidity()) {
+          let formData = JSON.stringify($("#newOwnerForm").serializeArray());
+          formData = JSON.parse(formData);
+          $.ajax({
+            type: "POST",
+            url: "/saveNewOwner",
+            data: {
+              formData: formData,
+            },
+            sendData: {
+              formData: formData,
+            },
+            success: function (data, status) {
+              console.log(this.sendData.formData[1].value);
+              $("#ownerDIV")
+                .clone()
+                .attr("id", "newOwners")
+                .appendTo("#addOwner");
+
+              //Clone ownerNameInput
+              $("#newOwners #divDeleteButtonOwner #deleteButtonOwner").attr(
+                "onclick",
+                "deleteOwnerAjx('" +
+                  this.sendData.formData[0].value +
+                  "','" +
+                  this.sendData.formData[2].value +
+                  "')"
+              );
+              $("#newOwners #ownerRow #ownerNameInput #businessOwnerName").val(
+                this.sendData.formData[1].value
+              );
+
+              //Clone ownerIDInput
+              $("#newOwners #ownerRow #ownerIDInput #businessOwnerID").val(
+                this.sendData.formData[2].value
+              );
+
+              //Clone ownerIDExpDateInput
+              $(
+                "#newOwners #ownerRow #ownerIDExpDateInput #ownerIDExpDate"
+              ).val(this.sendData.formData[3].value);
+
+              //Clone ownerBirDateToolInput
+              $(
+                "#newOwners #ownerSecRow #ownerBirDateToolInput #ownerBirDate"
+              ).val(this.sendData.formData[4].value);
+
+              //Clone ownerAddressInput
+              $("#newOwners #ownerSecRow #ownerAddressInput #ownerAddress").val(
+                this.sendData.formData[5].value
+              );
+              $("#newOwners").attr(
+                "class",
+                `${this.sendData.formData[2].value}`
+              );
+              $("#newOwners").attr("id", "ownerDIV");
+            },
+          });
+        }
+        form.classList.add("was-validated");
+        event.preventDefault();
+      },
+      false
+    );
+  });
+
   var businessActivity = $("#businessActivity");
 
   // Loop over them and prevent submission
@@ -143,6 +220,7 @@ window.addEventListener("load", (event) => {
       false
     );
   });
+
   var generalData = $("#generalData");
 
   // Loop over them and prevent submission

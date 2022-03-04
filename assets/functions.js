@@ -373,6 +373,7 @@ function cloneActivity2() {
     "newBusinessActivity"
   );
 }
+
 function removeActivity(id) {
   $("#" + id).remove();
   z--;
@@ -500,7 +501,8 @@ function validateNewActivity(activity) {
     type: "POST",
     url: "/validateActivity",
     data: {
-      activity, activity
+      activity,
+      activity,
     },
     success: function (data, status) {
       $("#" + businessActivityID).remove();
@@ -514,7 +516,8 @@ function validateNewOwner(activity) {
     type: "POST",
     url: "/validateActivity",
     data: {
-      activity, activity
+      activity,
+      activity,
     },
     success: function (data, status) {
       $("#" + businessActivityID).remove();

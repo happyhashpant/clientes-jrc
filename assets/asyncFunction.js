@@ -179,7 +179,6 @@ async function login(req, res) {
   const bcrypt = require("bcrypt");
   var trunkEmail = req.body.userEmail.replace(/\s+/g, "");
   trunkEmail = trunkEmail.toLowerCase();
-  console.log(trunkEmail);
   var password = await loadUser.loginUser(trunkEmail);
   if (password.length == 1) {
     await bcrypt
