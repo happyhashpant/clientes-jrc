@@ -25,8 +25,12 @@ async function loadBusinessSync(req, res) {
   var totalActivity = await loadActivity.loadActivityMenu();
   var contact = await loadBusiness.loadContacts(business[0].businessID);
   var activity = await loadBusiness.loadActivity(business[0].businessID);
-  var businessPictures = await loadBusiness.loadBusinessPictures(business[0].businessID)
-  var businessContract = await loadBusiness.loadBusinessContract(business[0].businessID)
+  var businessPictures = await loadBusiness.loadBusinessPictures(
+    business[0].businessID
+  );
+  var businessContract = await loadBusiness.loadBusinessContract(
+    business[0].businessID
+  );
   res.render("loadBusiness", {
     business: business,
     user: user,
@@ -35,14 +39,14 @@ async function loadBusinessSync(req, res) {
     contact: contact,
     totalUsers: totalUsers,
     totalActivity: totalActivity,
-    businessPictures:businessPictures,
-    businessContract : businessContract
+    businessPictures: businessPictures,
+    businessContract: businessContract,
   });
 }
 
-function passwordResetEmail(req, res) {
+function passwordResetEmail(req) {  
   var date = new Date().toISOString().slice(0, 10);
-  insertUser.tokenInsert(req.body.email, date);
+  insertUser.tokenInsert(req.body.formData[0].value, date);
   var nodemailer = require("nodemailer");
 
   var transporter = nodemailer.createTransport({
@@ -55,11 +59,11 @@ function passwordResetEmail(req, res) {
 
   var mailOptions = {
     from: "ihangcf64@gmail.com",
-    to: req.body.email,
-    subject: "Se me olvido la contrasenha",
+    to: req.body.formData[0].value,
+    subject: "Se me olvido el PIN",
     text:
       "https://jrcclient.herokuapp.com/setNewPassword?userEmail=" +
-      req.body.email,
+      req.body.formData[0].value,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -69,7 +73,6 @@ function passwordResetEmail(req, res) {
       console.log("Email sent: " + info.response);
     }
   });
-  res.redirect("back");
 }
 
 function checkSignIn(req, res, next) {

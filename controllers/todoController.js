@@ -37,7 +37,11 @@ const uploadPicture = multer({
       const ext = path.extname(file.originalname);
       var fileName = `${uuid()}.${req.body.businessID}.${file.originalname}`;
       var shortName = `${file.originalname}`;
-      saveBusiness.saveBusinessPictureURL(req.body.businessID, fileName, shortName);
+      saveBusiness.saveBusinessPictureURL(
+        req.body.businessID,
+        fileName,
+        shortName
+      );
       cb(null, fileName);
     },
   }),
@@ -52,7 +56,11 @@ const uploadContract = multer({
       const ext = path.extname(file.originalname);
       var fileName = `${uuid()}.${req.body.businessID}.${file.originalname}`;
       var shortName = `${file.originalname}`;
-      saveBusiness.saveBusinessContractURL(req.body.businessID, fileName, shortName);
+      saveBusiness.saveBusinessContractURL(
+        req.body.businessID,
+        fileName,
+        shortName
+      );
       cb(null, fileName);
     },
   }),
@@ -85,8 +93,7 @@ module.exports = function (app) {
   });
 
   app.post("/resetPasswordEmail", function (req, res) {
-    APIFunction.passwordResetEmail(req, res);
-    res.send("Sucess")
+    APIFunction.passwordResetEmail(req);
   });
 
   app.get("/setNewPassword", function (req, res) {

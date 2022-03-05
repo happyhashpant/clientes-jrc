@@ -388,7 +388,6 @@ function editGeneralDataDiv() {
 
 function editOwnerData() {
   $(".businessOwnerName").attr("readonly", false);
-  $(".businessOwnerID").attr("readonly", false);
   $(".ownerIDExpDate").attr("readonly", false);
   $(".ownerBirDate").attr("readonly", false);
   $(".ownerAddress").attr("readonly", false);
@@ -467,15 +466,15 @@ function editContactData() {
 function editBusinessLogo() {
   $("#businessPicture").prop("disabled", false);
   $("#editBusinessPicture").css("display", "none");
-  $("#saveBusinessPicture").css("display", "inline-flex");  
-  $(".deleteButtonPictures").css("display", "inline-flex"); 
+  $("#saveBusinessPicture").css("display", "inline-flex");
+  $(".deleteButtonPictures").css("display", "inline-flex");
 }
 
 function editBusinessContract() {
   $("#businessContact").prop("disabled", false);
   $("#editBusinessContract").css("display", "none");
-  $("#saveBusinessContract").css("display", "inline-flex");  
-  $(".deleteButtonContract").css("display", "inline-flex"); 
+  $("#saveBusinessContract").css("display", "inline-flex");
+  $(".deleteButtonContract").css("display", "inline-flex");
 }
 
 function deleteOwnerAjx(businessID, businesOwnerID) {
