@@ -15,7 +15,7 @@
     <div id="navBar"></div>
     <h1><%=business[0].businessName%></h1>
 
-    <form id="generalData" class="addUserForm" method="post">
+    <form id="generalData" class="needs-validation" method="post" novalidate>
       <h2>Datos Generales</h2>
       <!------------------------------------------- Edit Buttons General Data ----------------------------------------->
       <div class="editButtons">
@@ -49,10 +49,10 @@
               placeholder="Nombre de la sociedad"
               value="<%=business[0].businessName%>"
               readonly
+              required
             />
             <label for="businessName">Nombre de la sociedad</label>
           </div>
-          <input name="businessID2" type="hidden" value="<%=business[0].id%>" />
           <div class="col-md-4 form-floating">
             <input
               id="businessID"
@@ -70,12 +70,7 @@
     </form>
 
     <!------------------------------------------- Legal Owner ----------------------------------------->
-    <form
-      id="ownerData"
-      class="addUserForm needs-validation"
-      method="post"
-      novalidate
-    >
+    <form id="ownerData" class="needs-validation" method="post" novalidate>
       <input
         name="businessID"
         type="hidden"
@@ -218,7 +213,7 @@
     </form>
     <!------------------------------------------- Account Details ----------------------------------------->
 
-    <form id="accountData" class="addUserForm">
+    <form id="accountData" class="needs-validation" novalidate>
       <h2>Datos contables</h2>
       <input
         name="businessID"
@@ -256,6 +251,7 @@
               placeholder="Usuario ATV"
               value="<%=business[0].atvUser%>"
               readonly
+              required
             />
             <label for="atvUser">Usuario ATV</label>
           </div>
@@ -268,6 +264,7 @@
               placeholder="Contraseña ATV"
               value="<%=business[0].atvPassword%>"
               readonly
+              required
             />
             <label for="atvPassword">Contraseña ATV</label>
           </div>
@@ -317,9 +314,10 @@
               class="form-control"
               id="billEmail"
               name="billEmail"
-              placeholder="Correo para recepcion de Facturas"
+              placeholder="Correo de Facturas"
               value="<%=business[0].billEmail%>"
               readonly
+              required
             />
             <label for="billEmail">Correo de Facturas</label>
           </div>
@@ -332,6 +330,7 @@
               placeholder="Contraseña del Correo de Facturas"
               value="<%=business[0].billEmailPassword%>"
               readonly
+              required
             />
             <label for="billEmailPassword"
               >Contraseña del Correo de Facturas</label
@@ -425,6 +424,7 @@
               list="datalistOptions"
               autocomplete="off"
               disabled="true"
+              required
             >
               <option value="<%=user[0].id%>" selected>
                 <%=user[0].userName%>
@@ -741,7 +741,51 @@
         </table>
       </div>
     </form>
+    <!-------------------------------------------  ENDTIV ----------------------------------------->
+
     <!------------------------------------------- Business Picture ----------------------------------------->
+    <form method="post" action="/saveBusinessPicture" id="businessPictureForm" enctype="multipart/form-data">
+      <h2>Logo</h2>
+      <!------------------------------------------- Edit Buttons Business Picture ----------------------------------------->
+      <div class="editButtons">
+        <button
+          type="button"
+          class="button"
+          id="editBusinessPicture"
+          onclick="editBusinessLogo()"
+        >
+          <i class="material-icons">mode_edit</i>
+          <span class="text">Editar</span>
+        </button>
+      </div>
+      <div class="editButtons">
+        <button
+          type="submit"
+          class="button hiddenButton"
+          id="saveBusinessPicture"
+        >
+          <i class="material-icons">sd_card</i>
+          <span class="text">Guardar</span>
+        </button>
+      </div>
+      <!------------------------------------------- END Buttons Business Picture ----------------------------------------->
+      <div class="contentBackground">
+        <div class="row">
+          <div class="col-md-6">
+            <input
+              type="file"
+              id="businessPicture"
+              class="form-control"
+              name="businessPicture"
+              disabled
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-------------------------------------------  END Business Picture ----------------------------------------->
+    <!------------------------------------------- Business Contract ----------------------------------------->
     <!-- <h2>Logo</h2>
       <div class="contentBackground">
         <div class="row">
@@ -994,7 +1038,7 @@
         </div>
       </div>
     </div>
-        <!------------------------------------------------------------- Contact Modal ------------------------------------------------------------->
+    <!------------------------------------------------------------- Contact Modal ------------------------------------------------------------->
     <div
       class="modal fade"
       tabindex="-1"

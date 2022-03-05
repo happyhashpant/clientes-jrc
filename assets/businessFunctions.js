@@ -306,4 +306,40 @@ window.addEventListener("load", (event) => {
       false
     );
   });
+
+  // var businessPictureData = $("#businessPictureForm");
+
+  // // Loop over them and prevent submission
+  // Array.prototype.slice.call(businessPictureData).forEach(function (form) {
+  //   form.addEventListener(
+  //     "submit",
+  //     function (event) {
+  //       if (!form.checkValidity()) {
+  //         event.preventDefault();
+  //         event.stopPropagation();
+  //       }
+  //       if (form.checkValidity()) {
+  //         var formData = JSON.stringify(
+  //           $("#businessPictureForm").serializeArray()
+  //         );
+  //         formData = JSON.parse(formData);
+  //         console.log(formData);
+  //         $.ajax({
+  //           type: "POST",
+  //           url: "/saveBusinessPicture",
+  //           data: {
+  //             formData: formData,
+  //           },
+  //           success: function (data, status) {
+  //             $("#businessModal").modal("show");
+  //             $("#businessModalMessage").text("Logo Guardado");
+  //           },
+  //         });
+  //       }
+  //       form.classList.add("was-validated");
+  //       event.preventDefault();
+  //     },
+  //     false
+  //   );
+  // });
 })();

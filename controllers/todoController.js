@@ -18,6 +18,23 @@ var loadBusiness = require(path.join(__dirname, "../assets/loadBusiness.js"));
 
 var loadActivity = require(path.join(__dirname, "../assets/loadActivity.js"));
 var bodyParser = require("body-parser");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+const uuid = require("uuid").v4;
+const aws = require("aws-sdk")
+const s3 = new aws.S3({ apiVersion: "2006-03-01" });
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "clientes-jrc",
+    metadata: (req, file, cb) => cb(null, { filename: file.fieldname }),
+    key: (req, file, cb) => {
+      const ext = path.extname(file.originalname);
+      cb(null, `${uuid()}${ext}`);
+    },
+  }),
+});
 
 module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -182,6 +199,22 @@ module.exports = function (app) {
     res.send("Success");
   });
 
+  // app.post(
+  //   "/saveBusinessPicture",
+  //   upload.single("businessPicture"),
+  //   function (req, res) {
+  //     console.log(req.body);
+  //     res.send("Success");
+  //   }
+  // );
+  app.post(
+    "/saveBusinessPicture",
+    upload.single("businessPicture"),
+    function (req, res) {
+      res.redirect(req.get("referer"));
+    }
+  );
+
   // ------------------------------------------------------------------ Delete-------------------------
 
   app.post("/deleteActivity", function (req, res) {
@@ -198,6 +231,7 @@ module.exports = function (app) {
     );
     res.send("Success");
   });
+
   app.post("/deleteContact", function (req, res) {
     res.send("Success");
   });
