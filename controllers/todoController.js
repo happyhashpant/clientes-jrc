@@ -86,6 +86,7 @@ module.exports = function (app) {
 
   app.post("/resetPasswordEmail", function (req, res) {
     APIFunction.passwordResetEmail(req, res);
+    res.send("Sucess")
   });
 
   app.get("/setNewPassword", function (req, res) {
