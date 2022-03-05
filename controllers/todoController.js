@@ -21,7 +21,11 @@ var bodyParser = require("body-parser");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const uuid = require("uuid").v4;
-const aws = require("aws-sdk")
+const aws = require("aws-sdk");
+aws.config.update({
+  accessKeyId: "AKIAZ5BJL3XRTVQYHUTE",
+  secretAccessKey: "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"
+});
 const s3 = new aws.S3({ apiVersion: "2006-03-01" });
 
 const upload = multer({
