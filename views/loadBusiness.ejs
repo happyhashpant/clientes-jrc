@@ -829,8 +829,8 @@
       <button
         type="button"
         class="button"
-        id="editBusinessPicture"
-        onclick="editBusinessLogo()"
+        id="editBusinessContract"
+        onclick="editBusinessContract()"
       >
         <i class="material-icons">mode_edit</i>
         <span class="text">Editar</span>
@@ -840,8 +840,8 @@
       <button
         type="submit"
         class="button hiddenButton"
-        id="saveBusinessPicture"
-        form="businessPictureForm"
+        id="saveBusinessContract"
+        form="businessContractForm"
       >
         <i class="material-icons">sd_card</i>
         <span class="text">Guardar</span>
@@ -852,8 +852,8 @@
     <div class="contentBackground">
       <form
         method="post"
-        action="/saveBusinessPicture"
-        id="businessPictureForm"
+        action="/saveBusinessContract"
+        id="businessContractForm"
         enctype="multipart/form-data"
       >
         <input
@@ -865,9 +865,9 @@
           <div class="col-md-6">
             <input
               type="file"
-              id="businessPicture"
+              id="businessContact"
               class="form-control"
-              name="businessPicture"
+              name="businessContract"
               disabled
               required
             />
@@ -875,13 +875,13 @@
         </div>
       </form>
 
-      <% var y=0; businessPictures.forEach(function(businessPicturesData){ %>
+      <% var y=0; businessContract.forEach(function(businessContractData){ %>
       <div class="editButtons">
         <button
           type="button"
           class="hiddenButton button"
-          id="deleteButtonPictures"
-          onclick="deleteOwnerAjx('<%=business[0].businessID%>')"
+          id="deleteButtonContract"
+          onclick="deleteBusinessContractAjx('<%=business[0].businessID%>','<%=businessContractData.contractURL%>')"
         >
           <i class="material-icons">clear</i>
           <span class="text">Eliminar</span>
@@ -889,10 +889,10 @@
       </div>
 
       <a
-        href="<%=businessPicturesData.pictureURL%>"
+        href="<%=businessContractData.contractURL%>"
         class="list-group-item list-group-item-action"
       >
-        <%=businessPicturesData.shortName%>
+        <%=businessContractData.shortName%>
       </a>
       <% y++; }) %>
     </div>

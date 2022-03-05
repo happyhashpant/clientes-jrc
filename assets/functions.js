@@ -471,6 +471,13 @@ function editBusinessLogo() {
   $(".deleteButtonPictures").css("display", "inline-flex"); 
 }
 
+function editBusinessContract() {
+  $("#businessContact").prop("disabled", false);
+  $("#editBusinessContract").css("display", "none");
+  $("#saveBusinessContract").css("display", "inline-flex");  
+  $(".deleteButtonContract").css("display", "inline-flex"); 
+}
+
 function deleteOwnerAjx(businessID, businesOwnerID) {
   $.ajax({
     type: "POST",

@@ -43,6 +43,21 @@ const uploadPicture = multer({
   }),
 });
 
+const uploadContract = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "clientes-jrc/cotizacion",
+    metadata: (req, file, cb) => cb(null, { filename: file.fieldname }),
+    key: (req, file, cb) => {
+      const ext = path.extname(file.originalname);
+      var fileName = `${uuid()}.${req.body.businessID}.${file.originalname}`;
+      var shortName = `${file.originalname}`;
+      saveBusiness.saveBusinessContractURL(req.body.businessID, fileName, shortName);
+      cb(null, fileName);
+    },
+  }),
+});
+
 module.exports = function (app) {
   app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -206,17 +221,17 @@ module.exports = function (app) {
     res.send("Success");
   });
 
-  // app.post(
-  //   "/saveBusinessPicture",
-  //   upload.single("businessPicture"),
-  //   function (req, res) {
-  //     console.log(req.body);
-  //     res.send("Success");
-  //   }
-  // );
   app.post(
     "/saveBusinessPicture",
     uploadPicture.single("businessPicture"),
+    function (req, res) {
+      res.redirect(req.get("referer"));
+    }
+  );
+
+  app.post(
+    "/saveBusinessContract",
+    uploadContract.single("businessContract"),
     function (req, res) {
       res.redirect(req.get("referer"));
     }

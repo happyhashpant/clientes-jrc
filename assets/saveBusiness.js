@@ -227,3 +227,12 @@ exports.saveBusinessPictureURL = function (businessId, businessPictureURL, pictu
   connect.query(query);
   connect.end();
 };
+exports.saveBusinessContractURL = function (businessId, businessContractURL, contractShortName) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query =`INSERT INTO businesscontract (businessID, contractURL, shortName) VALUES (${businessId},'https://clientes-jrc.s3.amazonaws.com/contract/${businessContractURL}', '${contractShortName}');`
+  console.log(query);
+  connect.query(query);
+  connect.end();
+};
