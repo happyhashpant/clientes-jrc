@@ -25,6 +25,7 @@ async function loadBusinessSync(req, res) {
   var totalActivity = await loadActivity.loadActivityMenu();
   var contact = await loadBusiness.loadContacts(business[0].businessID);
   var activity = await loadBusiness.loadActivity(business[0].businessID);
+  var businessPictures = await loadBusiness.loadBusinessPictures(business[0].businessID)
   res.render("loadBusiness", {
     business: business,
     user: user,
@@ -33,6 +34,7 @@ async function loadBusinessSync(req, res) {
     contact: contact,
     totalUsers: totalUsers,
     totalActivity: totalActivity,
+    businessPictures:businessPictures
   });
 }
 

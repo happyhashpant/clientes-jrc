@@ -468,6 +468,7 @@ function editBusinessLogo() {
   $("#businessPicture").prop("disabled", false);
   $("#editBusinessPicture").css("display", "none");
   $("#saveBusinessPicture").css("display", "inline-flex");  
+  $(".deleteButtonPictures").css("display", "inline-flex"); 
 }
 
 function deleteOwnerAjx(businessID, businesOwnerID) {

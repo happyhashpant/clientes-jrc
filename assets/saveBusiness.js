@@ -218,3 +218,12 @@ exports.deleteBusinessOwner = function (businessId, businessOwerID) {
   connect.end();
 };
 
+exports.saveBusinessPictureURL = function (businessId, businessPictureURL, pictureShortName) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query =`INSERT INTO businesspictures (businessID, pictureURL, shortName) VALUES (${businessId},'https://clientes-jrc.s3.amazonaws.com/logo/${businessPictureURL}', '${pictureShortName}');`
+  console.log(query);
+  connect.query(query);
+  connect.end();
+};

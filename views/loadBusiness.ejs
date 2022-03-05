@@ -123,14 +123,17 @@
               class="col-md-6 divDeleteButtonOwner"
               id="divDeleteButtonOwner"
             >
-              <button
-                type="button"
-                class="edit"
-                id="deleteButtonOwner"
-                onclick="deleteOwnerAjx('<%=business[0].businessID%>','<%=data.idLegal%>')"
-              >
-                <i class="deleteIcon material-icons">clear</i>
-              </button>
+              <div class="editButtons">
+                <button
+                  type="button"
+                  class="button"
+                  id="deleteButtonOwner"
+                  onclick="deleteOwnerAjx('<%=business[0].businessID%>','<%=data.idLegal%>')"
+                >
+                  <i class="material-icons">clear</i>
+                  <span class="text">Eliminar</span>
+                </button>
+              </div>
             </div>
             <div class="row" id="ownerRow">
               <div class="col-md-4 form-floating" id="ownerNameInput">
@@ -744,32 +747,44 @@
     <!-------------------------------------------  ENDTIV ----------------------------------------->
 
     <!------------------------------------------- Business Picture ----------------------------------------->
-    <form method="post" action="/saveBusinessPicture" id="businessPictureForm" enctype="multipart/form-data">
-      <h2>Logo</h2>
-      <!------------------------------------------- Edit Buttons Business Picture ----------------------------------------->
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button"
-          id="editBusinessPicture"
-          onclick="editBusinessLogo()"
-        >
-          <i class="material-icons">mode_edit</i>
-          <span class="text">Editar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="submit"
-          class="button hiddenButton"
-          id="saveBusinessPicture"
-        >
-          <i class="material-icons">sd_card</i>
-          <span class="text">Guardar</span>
-        </button>
-      </div>
-      <!------------------------------------------- END Buttons Business Picture ----------------------------------------->
-      <div class="contentBackground">
+
+    <h2>Logo</h2>
+    <!------------------------------------------- Edit Buttons Business Picture ----------------------------------------->
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button"
+        id="editBusinessPicture"
+        onclick="editBusinessLogo()"
+      >
+        <i class="material-icons">mode_edit</i>
+        <span class="text">Editar</span>
+      </button>
+    </div>
+    <div class="editButtons">
+      <button
+        type="submit"
+        class="button hiddenButton"
+        id="saveBusinessPicture"
+        form="businessPictureForm"
+      >
+        <i class="material-icons">sd_card</i>
+        <span class="text">Guardar</span>
+      </button>
+    </div>
+    <!------------------------------------------- END Buttons Business Picture ----------------------------------------->
+    <div class="contentBackground">
+      <form
+        method="post"
+        action="/saveBusinessPicture"
+        id="businessPictureForm"
+        enctype="multipart/form-data"
+      >
+        <input
+          name="businessID"
+          type="hidden"
+          value="<%=business[0].businessID%>"
+        />
         <div class="row">
           <div class="col-md-6">
             <input
@@ -782,19 +797,107 @@
             />
           </div>
         </div>
+      </form>
+
+      <% var y=0; businessPictures.forEach(function(businessPicturesData){ %>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="hiddenButton button deleteButtonPictures"
+          id="deleteButtonPictures"
+          onclick="deleteBusinessPicture('<%=business[0].businessID%>','<%=businessPicturesData.pictureURL%>')"
+        >
+          <i class="material-icons">clear</i>
+          <span class="text">Eliminar</span>
+        </button>
       </div>
-    </form>
+
+      <a
+        href="<%=businessPicturesData.pictureURL%>"
+        class="list-group-item list-group-item-action"
+      >
+        <%=businessPicturesData.shortName%>
+      </a>
+      <% y++; }) %>
+    </div>
+
     <!-------------------------------------------  END Business Picture ----------------------------------------->
     <!------------------------------------------- Business Contract ----------------------------------------->
-    <!-- <h2>Logo</h2>
-      <div class="contentBackground">
+    <h2>Cotización</h2>
+    <!------------------------------------------- Edit Business Contract ----------------------------------------->
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button"
+        id="editBusinessPicture"
+        onclick="editBusinessLogo()"
+      >
+        <i class="material-icons">mode_edit</i>
+        <span class="text">Editar</span>
+      </button>
+    </div>
+    <div class="editButtons">
+      <button
+        type="submit"
+        class="button hiddenButton"
+        id="saveBusinessPicture"
+        form="businessPictureForm"
+      >
+        <i class="material-icons">sd_card</i>
+        <span class="text">Guardar</span>
+      </button>
+    </div>
+    <!------------------------------------------- END EditBusiness Contract ----------------------------------------->
+    <!------------------------------------------- Form Business Contract ----------------------------------------->
+    <div class="contentBackground">
+      <form
+        method="post"
+        action="/saveBusinessPicture"
+        id="businessPictureForm"
+        enctype="multipart/form-data"
+      >
+        <input
+          name="businessID"
+          type="hidden"
+          value="<%=business[0].businessID%>"
+        />
         <div class="row">
           <div class="col-md-6">
-            <input type="file" class="form-control" name="picture" />
+            <input
+              type="file"
+              id="businessPicture"
+              class="form-control"
+              name="businessPicture"
+              disabled
+              required
+            />
           </div>
         </div>
-      </div> -->
-    <!------------------------------------------- Business Contact ----------------------------------------->
+      </form>
+
+      <% var y=0; businessPictures.forEach(function(businessPicturesData){ %>
+      <div class="editButtons">
+        <button
+          type="button"
+          class="hiddenButton button"
+          id="deleteButtonPictures"
+          onclick="deleteOwnerAjx('<%=business[0].businessID%>')"
+        >
+          <i class="material-icons">clear</i>
+          <span class="text">Eliminar</span>
+        </button>
+      </div>
+
+      <a
+        href="<%=businessPicturesData.pictureURL%>"
+        class="list-group-item list-group-item-action"
+      >
+        <%=businessPicturesData.shortName%>
+      </a>
+      <% y++; }) %>
+    </div>
+    <!-------------------------------------------END Form Business Contact ----------------------------------------->
+    <!------------------------------------------- Edit Buttons Bussiness Contact ----------------------------------------->
     <form
       id="userData"
       class="addUserForm"
@@ -802,7 +905,7 @@
       method="post"
     >
       <h2>Contacto</h2>
-      <!------------------------------------------- Edit Buttons Bussiness Contact ----------------------------------------->
+
       <div class="editButtons">
         <button
           type="button"

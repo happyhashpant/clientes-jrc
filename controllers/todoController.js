@@ -24,18 +24,21 @@ const uuid = require("uuid").v4;
 const aws = require("aws-sdk");
 aws.config.update({
   accessKeyId: "AKIAZ5BJL3XRTVQYHUTE",
-  secretAccessKey: "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"
+  secretAccessKey: "fGpBsTpRElw//d0+DMPiVQm5Y62tn5+CGEcceB8K",
 });
 const s3 = new aws.S3({ apiVersion: "2006-03-01" });
 
-const upload = multer({
+const uploadPicture = multer({
   storage: multerS3({
     s3: s3,
-    bucket: "clientes-jrc",
+    bucket: "clientes-jrc/logo",
     metadata: (req, file, cb) => cb(null, { filename: file.fieldname }),
     key: (req, file, cb) => {
       const ext = path.extname(file.originalname);
-      cb(null, `${uuid()}${ext}`);
+      var fileName = `${uuid()}.${req.body.businessID}.${file.originalname}`;
+      var shortName = `${file.originalname}`;
+      saveBusiness.saveBusinessPictureURL(req.body.businessID, fileName, shortName);
+      cb(null, fileName);
     },
   }),
 });
@@ -213,7 +216,7 @@ module.exports = function (app) {
   // );
   app.post(
     "/saveBusinessPicture",
-    upload.single("businessPicture"),
+    uploadPicture.single("businessPicture"),
     function (req, res) {
       res.redirect(req.get("referer"));
     }

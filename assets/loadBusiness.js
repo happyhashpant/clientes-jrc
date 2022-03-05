@@ -99,6 +99,23 @@ exports.loadActivity = function loadActivity(businessID) {
   });
 };
 
+exports.loadBusinessPictures = function loadBusinessPictures(businessID) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query =
+    `SELECT * FROM businesspictures WHERE businessID=${businessID}`;
+  return new Promise((resolve, reject) => {
+    connect.query(query, (err, result, fields) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+    connect.end();
+  });
+};
+
 exports.validateNewOwner = function (businessId, newOwner) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
