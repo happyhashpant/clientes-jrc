@@ -417,11 +417,9 @@ function editAccountsData() {
 }
 
 function editBusinessActivity() {
-  $(".divDeleteButton").css("display", "block");
-  $(".currentActivity").prop("disabled", false);
+  $(".divDeleteButton").css("display", "inline-flex");
   $("#addActivity").css("display", "block");
   $(".businessNewActivities").attr("readonly", false);
-  $(".deleteButton").css("display", "block");
   $("#saveActivityData").css("display", "inline-flex");
   $("#addActivityButton").css("display", "inline-flex");
   $("#editActivity").css("display", "none");
@@ -492,6 +490,7 @@ function deleteOwnerAjx(businessID, businesOwnerID) {
     },
   });
 }
+
 function deleteActivityAjx(businessID, businesActivityID, businessActivityID) {
   $.ajax({
     type: "POST",
@@ -524,6 +523,7 @@ function validateNewActivity(activity) {
     },
   });
 }
+
 function validateNewOwner(ownerID) {
   $.ajax({
     type: "GET",

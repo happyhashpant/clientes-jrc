@@ -480,7 +480,8 @@
           type="button"
           class="button hiddenButton"
           id="addActivityButton"
-          onclick="cloneActivity2()"
+          data-bs-toggle="modal"
+          data-bs-target="#activityFormModal"
         >
           <i class="material-icons">add</i>
           <span class="text">Agregar Actividad</span>
@@ -491,14 +492,17 @@
       <div class="contentBackground">
         <% var e=0; activity.forEach(function(activityData){ %>
         <div id="activityDIV" class="currentActivities">
-          <div class="col-md-6 divDeleteButton" id="divDeleteButton">
+          <div
+            class="col-md-6 divDeleteButton editButtons"
+            id="divDeleteButton"
+          >
             <button
               type="button"
-              class="edit deleteButton"
-              id="deleteButton"
+              class="button"
               onclick="deleteActivityAjx('<%=business[0].businessID%>','<%=activityData.activityID%>','<%=activityData.businessActivityID%>')"
             >
-              <i class="deleteIcon material-icons">clear</i>
+              <i class="material-icons">clear</i>
+              <span class="text">Eliminar</span>
             </button>
           </div>
           <div class="row" id="<%=activityData.businessActivityID%>">
@@ -814,6 +818,7 @@
       <a
         href="<%=businessPicturesData.pictureURL%>"
         class="list-group-item list-group-item-action"
+        target="_blank"
       >
         <%=businessPicturesData.shortName%>
       </a>
@@ -844,6 +849,18 @@
       >
         <i class="material-icons">sd_card</i>
         <span class="text">Guardar</span>
+      </button>
+    </div>
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button hiddenButton"
+        id="addContactButton"
+        data-bs-toggle="modal"
+        data-bs-target="#contactFormModal"
+      >
+        <i class="material-icons">add</i>
+        <span class="text">Agregar Contacto</span>
       </button>
     </div>
     <!------------------------------------------- END EditBusiness Contract ----------------------------------------->
@@ -890,6 +907,7 @@
       <a
         href="<%=businessContractData.contractURL%>"
         class="list-group-item list-group-item-action"
+        target="_blank"
       >
         <%=businessContractData.shortName%>
       </a>
@@ -1144,7 +1162,7 @@
     <div
       class="modal fade"
       tabindex="-1"
-      id="ownerFormModal"
+      id="contactFormModal"
       aria-labelledby="ownerFormModal"
       aria-hidden="true"
     >
@@ -1263,7 +1281,73 @@
         </div>
       </div>
     </div>
-
+    <!------------------------------------------------------------- Activity Modal ------------------------------------------------------------->
+    <div
+      class="modal fade"
+      tabindex="-1"
+      id="activityFormModal"
+      aria-labelledby="activityFormModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="businessModalTitle">
+              Agregar Nueva actividad comercial:
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="businessModalMessage">
+            <form
+              class="addUserForm needs-validation"
+              id="newOwnerForm"
+              method="post"
+              novalidate
+            >
+              <input
+                name="businessID"
+                type="hidden"
+                value="<%=business[0].businessID%>"
+              />
+              <select
+                name="businessNewActivity"
+                id="businessActivity"
+                class="form-select"
+                required
+              >
+                <% var n=0; totalActivity.forEach(function(totalActivityData){
+                %>
+                <option value="<%=totalActivityData.id%>">
+                  <%=totalActivityData.activityName%>
+                </option>
+                <% n++; }) %>
+              </select>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              form="activityFormModal"
+              class="btn btn-secondary"
+            >
+              Agregar actividad
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!----------------------------------------------------------------- Closing Form ModalS ---------------------------------------------->
   </body>
   <script type="text/javascript" src="/assets/businessFunctions.js"></script>

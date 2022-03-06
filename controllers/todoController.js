@@ -32,6 +32,7 @@ const uploadPicture = multer({
   storage: multerS3({
     s3: s3,
     bucket: "clientes-jrc/logo",
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: (req, file, cb) => cb(null, { filename: file.fieldname }),
     key: (req, file, cb) => {
       const ext = path.extname(file.originalname);
@@ -51,6 +52,7 @@ const uploadContract = multer({
   storage: multerS3({
     s3: s3,
     bucket: "clientes-jrc/cotizacion",
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: (req, file, cb) => cb(null, { filename: file.fieldname }),
     key: (req, file, cb) => {
       const ext = path.extname(file.originalname);

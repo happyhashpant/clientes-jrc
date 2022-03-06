@@ -37,43 +37,7 @@ window.addEventListener("load", (event) => {
               $(".businessOwnerID").attr("readonly", true);
               $(".ownerIDExpDate").attr("readonly", true);
               $(".ownerBirDate").attr("readonly", true);
-              $(".ownerAddress").attr("readonly", true);
-              $(".newBusinessOwnerName").attr("readonly", true);
-              $(".newBusinessOwnerID").attr("readonly", true);
-              $(".newOwnerIDExpDate").attr("readonly", true);
-              $(".newOwnerBirDate").attr("readonly", true);
-              $(".newOwnerAddress").attr("readonly", true);
-              setTimeout(() => {
-                $(".newBusinessOwnerName").attr(
-                  "name",
-                  "currentBusinessOwnerName"
-                );
-                $(".newBusinessOwnerName").attr(
-                  "class",
-                  "form-control businessOwnerName"
-                );
-                $(".newBusinessOwnerID").attr("name", "currentBusinessOwnerID");
-                $(".newBusinessOwnerID").attr(
-                  "class",
-                  "form-control businessOwnerID"
-                );
-                $(".newOwnerIDExpDate").attr("name", "currentOwnerIDExpDate");
-                $(".newOwnerIDExpDate").attr(
-                  "class",
-                  "form-control ownerIDExpDate"
-                );
-                $(".newOwnerBirDate").attr("name", "currentOwnerBirDate");
-                $(".newOwnerBirDate").attr(
-                  "class",
-                  "form-control ownerBirDate"
-                );
-                $(".newOwnerAddress").attr("name", "currentOwnerAddress");
-                $(".newOwnerAddress").attr(
-                  "class",
-                  "form-control ownerAddress"
-                );
-              }, 300);
-              console.log(formData);
+              $(".ownerAddress").attr("readonly", true);                      
               $(".editOwner").css("display", "inline");
               $("#saveOwnerDataButton").css("display", "none");
               $("#addOwnerButton").css("display", "none");

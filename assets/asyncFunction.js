@@ -44,7 +44,7 @@ async function loadBusinessSync(req, res) {
   });
 }
 
-function passwordResetEmail(req) {  
+function passwordResetEmail(req) {
   var date = new Date().toISOString().slice(0, 10);
   insertUser.tokenInsert(req.body.formData[0].value, date);
   var nodemailer = require("nodemailer");
@@ -232,7 +232,6 @@ async function addNewActivities(req) {
 
 async function addNewOwners(req, res) {
   var ownerArrayCurrent = [];
-  var ownerArrayNew = [];
   formData = req.body;
   var businessID = formData.formData[0].value;
   tempOwnerArray = new Object();
@@ -255,26 +254,9 @@ async function addNewOwners(req, res) {
         ownerArrayCurrent.push(tempOwnerArray);
         tempOwnerArray = new Object();
         break;
-      case "newBusinessOwner":
-        tempOwnerArray.ownerName = formData.formData[i].value;
-        break;
-      case "newBusinessOwnerID":
-        tempOwnerArray.ownerID = formData.formData[i].value;
-        break;
-      case "newOwnerIDExpDate":
-        tempOwnerArray.IDExpDate = formData.formData[i].value;
-        break;
-      case "newOwnerBirDate":
-        tempOwnerArray.ownerBirthDate = formData.formData[i].value;
-        break;
-      case "newOwnerAddress":
-        tempOwnerArray.ownerAddress = formData.formData[i].value;
-        ownerArrayNew.push(tempOwnerArray);
-        tempOwnerArray = new Object();
-        break;
     }
   }
-  saveBusiness.saveOwnerData(businessID, ownerArrayCurrent, ownerArrayNew);
+  saveBusiness.saveOwnerData(businessID, ownerArrayCurrent);
 }
 
 module.exports.addNewOwners = addNewOwners;

@@ -54,47 +54,6 @@ exports.saveAccountsData = function (req) {
   connect.end();
 };
 
-exports.saveAccountsData = function (req) {
-  var credentials = require("./connection");
-  var mysql = require("mysql2");
-  var connect = mysql.createConnection(credentials);
-  var query =
-    "UPDATE business SET atvUser='" +
-    req.body.formData[1].value +
-    "', atvPassword='" +
-    req.body.formData[2].value +
-    "', billSystem='" +
-    req.body.formData[3].value +
-    "', billSystemUser='" +
-    req.body.formData[4].value +
-    "', billSystemPassword='" +
-    req.body.formData[5].value +
-    "', billEmail='" +
-    req.body.formData[6].value +
-    "', billEmailPassword='" +
-    req.body.formData[7].value +
-    "', traviUser='" +
-    req.body.formData[8].value +
-    "', traviPassword='" +
-    req.body.formData[9].value +
-    "', ccssUser='" +
-    req.body.formData[10].value +
-    "', ccssPassword='" +
-    req.body.formData[11].value +
-    "', insUser='" +
-    req.body.formData[12].value +
-    "', insPassword='" +
-    req.body.formData[13].value +
-    "', userID='" +
-    req.body.formData[14].value +
-    "' WHERE businessID='" +
-    req.body.formData[0].value +
-    "';";
-  connect.query(query);
-  console.log(query);
-  connect.end();
-};
-
 exports.saveTIVData = function (req) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
@@ -134,7 +93,6 @@ exports.saveTIVData = function (req) {
     req.body.businessID +
     "';";
   connect.query(query);
-  console.log(query);
   connect.end();
 };
 
@@ -173,16 +131,10 @@ exports.saveNewOwnerData = function (formData) {
   connect.end();
 };
 
-exports.saveOwnerData = function (
-  businessID,
-  currentOwnerArray,
-  newOwnerArray
-) {
+exports.saveOwnerData = function (businessID, currentOwnerArray) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var newInsert =
-    "INSERT INTO legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES";
   var sql = "";
   currentOwnerArray.map((owner, i) => {
     sql = `UPDATE legalbusinessrep SET nameLegal = '${owner.ownerName}', idLegal = ${owner.ownerID}, dateBirthLegal = '${owner.ownerBirthDate}', dateIdExpiration = '${owner.IDExpDate}', address = '${owner.ownerAddress}' WHERE businessID = ${businessID} AND idLegal = ${owner.ownerID};`;
@@ -190,17 +142,6 @@ exports.saveOwnerData = function (
     connect.query(sql);
     sql = "";
   });
-
-  newOwnerArray.map((owner, i) => {
-    sql = `(${businessID},'${owner.ownerName}', ${owner.ownerID}, '${owner.IDExpDate}', '${owner.ownerBirthDate}', '${owner.ownerAddress}');`;
-    newInsert = newInsert + sql;
-    console.log(newInsert);
-    connect.query(newInsert);
-    newInsert =
-      "INSERT INTO legalbusinessrep (businessID, nameLegal, idLegal, dateBirthLegal, dateIdExpiration, address) VALUES";
-    sql = " ";
-  });
-
   connect.end();
 };
 
@@ -218,20 +159,29 @@ exports.deleteBusinessOwner = function (businessId, businessOwerID) {
   connect.end();
 };
 
-exports.saveBusinessPictureURL = function (businessId, businessPictureURL, pictureShortName) {
+exports.saveBusinessPictureURL = function (
+  businessId,
+  businessPictureURL,
+  pictureShortName
+) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query =`INSERT INTO businesspictures (businessID, pictureURL, shortName) VALUES (${businessId},'https://clientes-jrc.s3.amazonaws.com/logo/${businessPictureURL}', '${pictureShortName}');`
+  var query = `INSERT INTO businesspictures (businessID, pictureURL, shortName) VALUES (${businessId},'https://clientes-jrc.s3.amazonaws.com/logo/${businessPictureURL}', '${pictureShortName}');`;
   console.log(query);
   connect.query(query);
   connect.end();
 };
-exports.saveBusinessContractURL = function (businessId, businessContractURL, contractShortName) {
+
+exports.saveBusinessContractURL = function (
+  businessId,
+  businessContractURL,
+  contractShortName
+) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query =`INSERT INTO businesscontract (businessID, contractURL, shortName) VALUES (${businessId},'https://clientes-jrc.s3.amazonaws.com/contract/${businessContractURL}', '${contractShortName}');`
+  var query = `INSERT INTO businesscontract (businessID, contractURL, shortName) VALUES (${businessId},'https://clientes-jrc.s3.amazonaws.com/cotizacion/${businessContractURL}', '${contractShortName}');`;
   console.log(query);
   connect.query(query);
   connect.end();

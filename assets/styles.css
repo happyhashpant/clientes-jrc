@@ -11,6 +11,7 @@ h2 {
   max-width: 100rem;
   margin: 40px auto 10px auto;
 }
+
 html {
   min-height: 100%;
 }
@@ -33,7 +34,7 @@ input {
   margin-bottom: 10px;
 }
 .contentBackground {
-  background-color: #d8d7d7;
+  background-color: #141313;
   padding: 10px;
   border-radius: 10px;
   max-width: 100rem;
@@ -73,12 +74,6 @@ th > input {
 }
 th > input:read-only {
   background-color: #cacaca;
-}
-
-.deleteButton {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding-bottom: 10px;
 }
 
 .editUser {
@@ -125,27 +120,6 @@ img {
 
 .search {
   width: 100%;
-}
-.edit {
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  max-width: 100rem;
-  margin: 20px auto;
-}
-.save {
-  display: inline;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  max-width: 100rem;
-  margin: 20px auto;
 }
 
 .editButtons {
@@ -251,7 +225,4 @@ img {
 }
 .hiddenButton {
   display: none;
-}
-.deleteIcon {
-  color: rgb(78, 78, 78);
 }
