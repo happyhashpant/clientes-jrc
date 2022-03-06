@@ -451,14 +451,10 @@ function editBusinessTivData() {
 function editContactData() {
   $("#contactName").attr("readonly", false);
   $("#contactPhone").attr("readonly", false);
-  $("#contactEmail").attr("readonly", false);
-  $(".editContactsData").after(
-    "<button type='button' class='edit' form='generalData' id='editGeneralData' onclick='editAddNewContact()'><i class='material-icons' style='font-size:36px'>add</i></button>"
-  );
-  $(".editContactsData").after(
-    "<button class='edit' type='button' form='userData' id='editUserData' onclick=''><i class='material-icons'>sd_card</i></button>"
-  );
-  $(".editContactsData").remove();
+  $("#contactEmail").attr("readonly", false); 
+  $("#editContactsData").css("display", "none");
+  $("#saveContactData").css("display", "inline-flex");
+  $("#addContactButton").css("display", "inline-flex");
 }
 
 function editBusinessLogo() {

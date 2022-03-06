@@ -850,19 +850,7 @@
         <i class="material-icons">sd_card</i>
         <span class="text">Guardar</span>
       </button>
-    </div>
-    <div class="editButtons">
-      <button
-        type="button"
-        class="button hiddenButton"
-        id="addContactButton"
-        data-bs-toggle="modal"
-        data-bs-target="#contactFormModal"
-      >
-        <i class="material-icons">add</i>
-        <span class="text">Agregar Contacto</span>
-      </button>
-    </div>
+    </div>   
     <!------------------------------------------- END EditBusiness Contract ----------------------------------------->
     <!------------------------------------------- Form Business Contract ----------------------------------------->
     <div class="contentBackground">
@@ -935,7 +923,7 @@
         </button>
       </div>
       <div class="editButtons">
-        <button type="submit" class="button hiddenButton" id="saveActivityData">
+        <button type="submit" class="button hiddenButton" id="saveContactData">
           <i class="material-icons">sd_card</i>
           <span class="text">Guardar</span>
         </button>
@@ -944,11 +932,12 @@
         <button
           type="button"
           class="button hiddenButton"
-          id="addActivityButton"
-          onclick="cloneActivity2()"
+          id="addContactButton"
+          data-bs-toggle="modal"
+          data-bs-target="#contactFormModal"
         >
           <i class="material-icons">add</i>
-          <span class="text">Agregar Actividad</span>
+          <span class="text">Agregar contacto</span>
         </button>
       </div>
 
@@ -971,19 +960,19 @@
               </div>
               <div class="col-md-4">
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  \
                   id="contactPhone"
                   name="contactPhone"
                   placeholder="Numero Telefonico"
                   value="<%=contactData.contactPhone%>"
+                  onkeypress="limit(event,this.value,10)"
                   readonly
                 />
               </div>
               <div class="col-md-4">
                 <input
-                  type="text"
+                  type="email"
                   class="form-control"
                   id="contactEmail"
                   name="contactEmail"
@@ -1170,7 +1159,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="businessModalTitle">
-              Agregar Nuevo Representante Legal:
+              Agregar Nuevo Contacto:
             </h5>
             <button
               type="button"
@@ -1191,75 +1180,36 @@
                 type="hidden"
                 value="<%=business[0].businessID%>"
               />
-              <div id="addOwner">
-                <div id="ownerDIV">
-                  <div class="row" id="ownerRow">
-                    <div class="col-md-4 form-floating" id="ownerNameInput">
+              <div id="contact">
+                <div id="contactDIV1">
+                  <div class="row">
+                    <div class="col-md-4">
                       <input
                         type="text"
                         class="form-control"
-                        id="businessOwnerName"
-                        name="businessOwnerName"
-                        placeholder="Nombre del Representante"
-                        required
+                        id="contactName"
+                        name="contactName"
+                        placeholder="Nombre"
                       />
-                      <label for="businessOwnerName">Nombre*</label>
                     </div>
-                    <div class="col-md-4 form-floating" id="ownerIDInput">
+                    <div class="col-md-4">
                       <input
                         type="number"
                         class="form-control"
-                        id="businessOwnerID"
-                        name="businessOwnerID"
-                        placeholder="Cédula"
+                        id="contactPhone"
+                        name="contactPhone"
+                        placeholder="Numero Telefonico"
                         onkeypress="limit(event,this.value,10)"
-                        onblur="validateNewOwner(this.value)"
-                        required
                       />
-                      <label for="businessOwnerID">Cédula*</label>
                     </div>
-                    <div
-                      class="col-md-4 form-floating"
-                      id="ownerIDExpDateInput"
-                    >
+                    <div class="col-md-4">
                       <input
-                        type="date"
+                        type="email"
                         class="form-control"
-                        id="ownerIDExpDate"
-                        name="ownerIDExpDate"
-                        placeholder="Fecha de expiración de la Cédula"
-                        required
+                        id="contactEmail"
+                        name="contactEmail"
+                        placeholder="Correo electronico"
                       />
-                      <label for="ownerIDExpDate"
-                        >Expiración de la Cédula*</label
-                      >
-                    </div>
-                  </div>
-                  <div class="row" id="ownerSecRow">
-                    <div
-                      class="col-md-4 form-floating"
-                      id="ownerBirDateToolInput"
-                    >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="ownerBirDate"
-                        name="ownerBirDate"
-                        placeholder="Fecha de Nacimiento"
-                        required
-                      />
-                      <label for="ownerBirDate">Fecha de Nacimiento*</label>
-                    </div>
-                    <div class="col-md-4 form-floating" id="ownerAddressInput">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="ownerAddress"
-                        name="ownerAddress"
-                        placeholder="Domicilio"
-                        required
-                      />
-                      <label for="ownerAddress">Domicilio*</label>
                     </div>
                   </div>
                 </div>
