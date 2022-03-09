@@ -16,6 +16,7 @@ var loadBusinessTable = require(path.join(
 var loadBusiness = require(path.join(__dirname, "../assets/loadBusiness.js"));
 const loadActivity = require(path.join(__dirname, "../assets/loadActivity.js"));
 var bodyParser = require("body-parser");
+const { saveBusinessContractURL } = require("./saveBusiness");
 
 async function loadBusinessSync(req, res) {
   var business = await loadBusiness.loadBusinessAsy(req.query.businessID);
@@ -204,63 +205,64 @@ async function login(req, res) {
   }
 }
 
-async function addNewActivities(req) {
-  let formData = req.body;
-  var newActivitiesArray = [];
-  var oldActivitiesArray = [];
-  tempActivity = new Object();
-  for (i = 0; i < formData.formData.length; i++) {
-    switch (formData.formData[i].name) {
-      case "businessCurrentActivities":
-        tempActivity.activityID = formData.formData[i].value;
-        oldActivitiesArray.push(tempActivity);
-        tempActivity = new Object();
-        break;
-
-      case "newBusinessActivity":
-        tempActivity.activityID = formData.formData[i].value;
-        newActivitiesArray.push(tempActivity);
-        tempActivity = new Object();
-        break;
-    }
-  }
-  saveBusiness.saveBusinessActivity(
-    formData.formData[0].value,
-    newActivitiesArray
-  );
-}
-
-async function addNewOwners(req, res) {
-  var ownerArrayCurrent = [];
+async function saveAllBusinessOwners(req, res) {
+  var ownerArray = [];
   formData = req.body;
   var businessID = formData.formData[0].value;
-  tempOwnerArray = new Object();
+  tempOwnerObject = new Object();
   for (i = 0; i < formData.formData.length; i++) {
     switch (formData.formData[i].name) {
       case "currentBusinessOwnerName":
-        tempOwnerArray.ownerName = formData.formData[i].value;
+        tempOwnerAObject.ownerName = formData.formData[i].value;
         break;
       case "currentBusinessOwnerID":
-        tempOwnerArray.ownerID = formData.formData[i].value;
+        tempOwnerObject.ownerID = formData.formData[i].value;
         break;
       case "currentOwnerIDExpDate":
-        tempOwnerArray.IDExpDate = formData.formData[i].value;
+        tempOwnerObject.IDExpDate = formData.formData[i].value;
         break;
       case "currentOwnerBirDate":
-        tempOwnerArray.ownerBirthDate = formData.formData[i].value;
+        tempOwnerObject.ownerBirthDate = formData.formData[i].value;
         break;
       case "currentOwnerAddress":
-        tempOwnerArray.ownerAddress = formData.formData[i].value;
-        ownerArrayCurrent.push(tempOwnerArray);
-        tempOwnerArray = new Object();
+        tempOwnerObject.ownerAddress = formData.formData[i].value;
+        ownerArray.push(tempOwnerObject);
+        tempOwnerObject = new Object();
         break;
     }
   }
   saveBusiness.saveOwnerData(businessID, ownerArrayCurrent);
 }
 
-module.exports.addNewOwners = addNewOwners;
-module.exports.addNewActivities = addNewActivities;
+async function saveAllBusinessContacts(req, res) {
+  var contactArray = [];
+  formData = req.body;
+  console.log(formData);
+  var businessID = formData.formData[0].value;
+  tempContactObject = new Object();
+  for (i = 0; i < formData.formData.length; i++) {
+    switch (formData.formData[i].name) {
+      case "contactID":
+        tempContactObject.contactID = formData.formData[i].value;
+        break;
+      case "contactName":
+        tempContactObject.contactName = formData.formData[i].value;
+        break;
+      case "contactPhone":
+        tempContactObject.contactPhone = formData.formData[i].value;
+        break;
+      case "contactEmail":
+        tempContactObject.contactEmail = formData.formData[i].value;
+        contactArray.push(tempContactObject);
+        tempContactObject = new Object();
+        break;
+    }
+  }
+  saveBusiness.saveContactData(businessID, contactArray);
+}
+
+module.exports.saveAllBusinessContacts = saveAllBusinessContacts;
+module.exports.saveAllBusinessOwners = saveAllBusinessOwners;
 module.exports.login = login;
 module.exports.tokenValidation = tokenValidation;
 module.exports.loadUserEmail = loadUserEmail;

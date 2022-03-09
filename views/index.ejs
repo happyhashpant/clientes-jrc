@@ -6,7 +6,7 @@
     <script defer src="/assets/functions.js"></script>
     <link rel="stylesheet" href="/assets/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="icon" href="/assets/logo.png">
+    <link rel="icon" href="/assets/logo.png" />
     <title>Iniciar sesion</title>
   </head>
   <body>
@@ -19,8 +19,8 @@
                 <div class="col-md-6 col-lg-5 d-none d-md-block">
                   <img
                     src="../assets/index.jfif"
-                    alt="login form"                  
-                    style="border-radius: 1rem 0 0 1rem"                   
+                    alt="login form"
+                    style="border-radius: 1rem 0 0 1rem"
                   />
                 </div>
                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -73,17 +73,16 @@
                           id="userPassword"
                           name="userPassword"
                           class="form-control form-control-lg"
-                          onkeypress="limit(event,this.value,4)"
                           required
                         />
-                        <label class="form-label  loginScreen" for="userPassword"
-                          >PIN</label
+                        <label class="form-label loginScreen" for="userPassword"
+                          >Contraseña</label
                         >
                       </div>
 
                       <div class="pt-1 mb-4">
                         <button
-                          class="btn btn-dark btn-lg btn-block"
+                          class="btn btn-dark btn-lg"
                           type="submit"
                         >
                           Ingresar
@@ -91,7 +90,7 @@
                       </div>
 
                       <a class="small text-muted" href="/forgetPassword"
-                        >Olvido el PIN?</a
+                        >Olvidaste la contraseña?</a
                       >
                     </form>
                   </div>

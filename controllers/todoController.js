@@ -202,22 +202,26 @@ module.exports = function (app) {
 
   app.post("/saveTivData", function (req, res) {
     saveBusiness.saveTIVData(req);
-    loadBusinessTable
-      .loadBusinessTable()
-      .then(function (result) {
-        objects = result;
-        res.redirect(req.get("referer"));
-      })
-      .catch((err) => alert(err));
+    res.send("Success");
   });
 
-  app.post("/saveBusinessActivity", function (req, res) {
-    APIFunction.addNewActivities(req);
-    res.redirect(req.get("referer"));
+  app.post("/saveContactData", function (req, res) {
+    saveBusiness.saveBusinessNewContact(req);
+    res.send("Success");
   });
 
-  app.post("/saveBusinessOwner", function (req, res) {
-    APIFunction.addNewOwners(req, res);
+  app.post("/saveAllContactData", function (req, res) {
+    APIFunction.saveAllBusinessContacts(req);
+    res.send("Success");
+  });
+
+  app.post("/saveNewActivityData", function (req, res) {
+    saveBusiness.saveBusinessActivity(req);
+    res.send("Success");
+  });
+
+  app.post("/saveAllBusinessOwner", function (req, res) {
+    APIFunction.saveAllBusinessOwners(req, res);
     res.send("Success");
   });
 
@@ -249,22 +253,29 @@ module.exports = function (app) {
 
   // ------------------------------------------------------------------ Delete-------------------------
 
-  app.post("/deleteActivity", function (req, res) {
-    saveBusiness.deleteBusinessActivity(
-      req.body.businessID,
-      req.body.businessActivityID
-    );
+  app.post("/deleteOwner", function (req, res) {
+    saveBusiness.deleteBusinessOwner(req.body.businessID, req.body.actionID);
     res.send("Success");
   });
-  app.post("/deleteOwner", function (req, res) {
-    saveBusiness.deleteBusinessOwner(
-      req.body.businessID,
-      req.body.businesOwnerID
-    );
+
+  app.post("/deleteActivity", function (req, res) {
+    console.log(req.body.actionID);
+    saveBusiness.deleteBusinessActivity(req.body.businessID, req.body.actionID);
+    res.send("Success");
+  });
+
+  app.post("/deletePicture", function (req, res) {
+    saveBusiness.deleteBusinessPicture(req.body.businessID, req.body.actionID);
+    res.send("Success");
+  });
+
+  app.post("/deleteContract", function (req, res) {
+    saveBusiness.deleteBusinessContract(req.body.businessID, req.body.actionID);
     res.send("Success");
   });
 
   app.post("/deleteContact", function (req, res) {
+    saveBusiness.deleteBusinessContact(req.body.businessID, req.body.actionID);
     res.send("Success");
   });
 };

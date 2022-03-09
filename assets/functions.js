@@ -242,79 +242,6 @@ function clonOwner() {
   );
 }
 
-function clonOwner2() {
-  newOwnerCount++;
-  $("#ownerDIV1")
-    .clone()
-    .attr("id", "ownerDIV" + newOwnerCount)
-    .appendTo("#addOwner");
-
-  i++;
-
-  //Clone ownerNameInput
-  $("#ownerDIV" + i + " #ownerRow #ownerNameInput #businessOwnerName").val("");
-  $("#ownerDIV" + i + " #ownerRow #ownerNameInput #businessOwnerName").attr(
-    "class",
-    "form-control newBusinessOwnerName"
-  );
-  $("#ownerDIV" + i + " #ownerRow #ownerNameInput #businessOwnerName").attr(
-    "name",
-    "newBusinessOwner"
-  );
-
-  //Clone ownerIDInput
-  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #businessOwnerID").val("");
-  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #businessOwnerID").attr(
-    "class",
-    "form-control newBusinessOwnerID"
-  );
-  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #businessOwnerID").attr(
-    "name",
-    "newBusinessOwnerID"
-  );
-
-  //Clone ownerIDExpDateInput
-  $("#ownerDIV" + i + " #ownerRow #ownerIDExpDateInput #ownerIDExpDate").val(
-    ""
-  );
-  $("#ownerDIV" + i + " #ownerRow #ownerIDExpDateInput #ownerIDExpDate").attr(
-    "class",
-    "form-control newOwnerIDExpDate"
-  );
-  $("#ownerDIV" + i + " #ownerRow #ownerIDInput #ownerIDExpDate").attr(
-    "name",
-    "newOwnerIDExpDate"
-  );
-
-  //Clone ownerBirDateToolInput
-  $("#ownerDIV" + i + " #ownerSecRow #ownerBirDateToolInput #ownerBirDate").val(
-    ""
-  );
-  $(
-    "#ownerDIV" + i + " #ownerSecRow #ownerBirDateToolInput #ownerBirDate"
-  ).attr("class", "form-control newOwnerBirDate");
-  $("#ownerDIV" + i + " #ownerSecRow #ownerIDInput #ownerBirDate").attr(
-    "name",
-    "newOwnerBirDate"
-  );
-
-  //Clone ownerAddressInput
-  $("#ownerDIV" + i + " #ownerSecRow #ownerAddressInput #ownerAddress").val("");
-  $("#ownerDIV" + i + " #ownerSecRow #ownerAddressInput #ownerAddress").attr(
-    "class",
-    "form-control newOwnerAddress"
-  );
-  $("#ownerDIV" + i + " #ownerSecRow #ownerAddressInput #ownerAddress").attr(
-    "name",
-    "newOwnerAddress"
-  );
-  //Add delete button
-  $("#ownerDIV" + i + " #divDeleteButtonOwner #deleteButtonOwner").attr(
-    "onclick",
-    "removeOwner('ownerDIV" + i + "')"
-  );
-}
-
 //Remove Owner
 function removeOwner(id) {
   $("#" + id).remove();
@@ -357,28 +284,14 @@ function cloneActivity() {
     "removeActivity('activityDIV" + z + "')"
   );
 }
-function cloneActivity2() {
-  newActivityCount++;
-  $("#activityDIV")
-    .clone()
-    .attr("id", "activityDIV" + newActivityCount)
-    .appendTo("#addActivity");
-  z++;
-
-  $("#activityDIV" + z + " .row #businessActivityInput #businessActivity").val(
-    ""
-  );
-  $("#activityDIV" + z + " .row #businessActivityInput #businessActivity").attr(
-    "name",
-    "newBusinessActivity"
-  );
-}
 
 function removeActivity(id) {
   $("#" + id).remove();
   z--;
   newActivityCount--;
 }
+
+// --------------------------------------Edit business functionality
 
 function editGeneralDataDiv() {
   $("#businessName").attr("readonly", false);
@@ -425,6 +338,14 @@ function editBusinessActivity() {
   $("#editActivity").css("display", "none");
 }
 
+function saveBusinessActivity() {
+  $(".divDeleteButton").css("display", "none");
+  $(".businessActivities").attr("readonly", true);
+  $("#saveActivityData").css("display", "none");
+  $("#addActivityButton").css("display", "none");
+  $("#editActivity").css("display", "inline-flex");
+}
+
 function editBusinessTivData() {
   $("#a").attr("readonly", false);
   $("#b").attr("readonly", false);
@@ -442,18 +363,17 @@ function editBusinessTivData() {
   $("#n").attr("readonly", false);
   $("#o").attr("readonly", false);
 
-  $(".editTIV").after(
-    "<button class='edit' form='tivData' id='editTivData'><i class='material-icons'>sd_card</i></button>"
-  );
-  $(".editTIV").remove();
+  $("#editTIVButton").css("display", "none");
+  $("#saveTIVDataButton").css("display", "inline-flex");
 }
 
 function editContactData() {
-  $("#contactName").attr("readonly", false);
-  $("#contactPhone").attr("readonly", false);
-  $("#contactEmail").attr("readonly", false); 
+  $(".newContactName").attr("readonly", false);
+  $(".newContactPhone").attr("readonly", false);
+  $(".newContactEmail").attr("readonly", false);
   $("#editContactsData").css("display", "none");
-  $("#saveContactData").css("display", "inline-flex");
+  $("#saveContactDataButton").css("display", "inline-flex");
+  $(".deleteButtonContact").css("display", "inline-flex");
   $("#addContactButton").css("display", "inline-flex");
 }
 
@@ -471,37 +391,92 @@ function editBusinessContract() {
   $(".deleteButtonContract").css("display", "inline-flex");
 }
 
-function deleteOwnerAjx(businessID, businesOwnerID) {
-  $.ajax({
-    type: "POST",
-    url: "/deleteOwner",
-    data: {
-      businessID: businessID,
-      businesOwnerID: businesOwnerID,
-    },
-    success: function (data, status) {
-      $("." + businesOwnerID).remove();
-      $("#businessModal").modal("show");
-      $("#businessModalMessage").text("Has eliminado unx representante legal");
-    },
-  });
-}
-
-function deleteActivityAjx(businessID, businesActivityID, businessActivityID) {
-  $.ajax({
-    type: "POST",
-    url: "/deleteActivity",
-    data: {
-      businessID: businessID,
-      businessActivityID: businessActivityID,
-      businesActivityID: businesActivityID,
-    },
-    success: function (data, status) {
-      $("#" + businessActivityID).remove();
-      $("#businessModal").modal("show");
-      $("#businessModalMessage").text("Has Eliminado una actividad");
-    },
-  });
+function deleteBusinessFunction(action, businessID, actionID) {
+  switch (action) {
+    case "deleteOwner": {
+      $.ajax({
+        type: "POST",
+        url: "/deleteOwner",
+        data: {
+          businessID: businessID,
+          actionID: actionID,
+        },
+        success: function (data, status) {
+          $("." + actionID).remove();
+          $("#businessModal").modal("show");
+          $("#businessModalMessage").text(
+            "Has eliminado unx representante legal"
+          );
+        },
+      });
+      break;
+    }
+    case "deleteActivity": {
+      $.ajax({
+        type: "POST",
+        url: "/deleteActivity",
+        data: {
+          businessID: businessID,
+          actionID: actionID,
+        },
+        actionID: actionID,
+        success: function (data, status) {
+          $(".activity" + actionID).remove();
+          $("#businessModal").modal("show");
+          $("#businessModalMessage").text("Has eliminado una actividad");
+        },
+      });
+      break;
+    }
+    case "deletePicture": {
+      $.ajax({
+        type: "POST",
+        url: "/deletePicture",
+        data: {
+          businessID: businessID,
+          actionID: actionID,
+        },
+        success: function (data, status) {
+          $("#picture" + actionID).remove();
+          $("#businessModal").modal("show");
+          $("#businessModalMessage").text("Has eliminado un logo");
+        },
+      });
+      break;
+    }
+    case "deleteContract": {
+      $.ajax({
+        type: "POST",
+        url: "/deleteContract",
+        data: {
+          businessID: businessID,
+          actionID: actionID,
+        },
+        success: function (data, status) {
+          $("#contract" + actionID).remove();
+          $("#businessModal").modal("show");
+          $("#businessModalMessage").text("Has eliminado una cotización");
+        },
+      });
+      break;
+    }
+    case "deleteContact": {
+      $.ajax({
+        type: "POST",
+        url: "/deleteContact",
+        data: {
+          businessID: businessID,
+          actionID: actionID,
+        },
+        success: function (data, status) {
+          $(".contact" + actionID).remove();
+          $("#businessModal").modal("show");
+          $("#businessModalMessage").text("Has eliminado un contacto");
+        },
+      });
+      break;
+    }
+  }
 }
 
 function validateNewActivity(activity) {
@@ -509,11 +484,9 @@ function validateNewActivity(activity) {
     type: "POST",
     url: "/validateActivity",
     data: {
-      activity,
-      activity,
+      activity: activity,
     },
     success: function (data, status) {
-      $("#" + businessActivityID).remove();
       $("#businessModal").modal("show");
       $("#businessModalMessage").text("Has Eliminado una actividad");
     },
@@ -528,7 +501,6 @@ function validateNewOwner(ownerID) {
       ownerID: ownerID,
     },
     success: function (data, status) {
-      $("#" + businessActivityID).remove();
       $("#businessModal").modal("show");
       $("#businessModalMessage").text("Has Eliminado una actividad");
     },

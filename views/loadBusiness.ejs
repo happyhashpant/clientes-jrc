@@ -128,7 +128,7 @@
                   type="button"
                   class="button"
                   id="deleteButtonOwner"
-                  onclick="deleteOwnerAjx('<%=business[0].businessID%>','<%=data.idLegal%>')"
+                  onclick="deleteBusinessFunction( 'deleteOwner','<%=business[0].businessID%>','<%=data.idLegal%>')"
                 >
                   <i class="material-icons">clear</i>
                   <span class="text">Eliminar</span>
@@ -444,54 +444,55 @@
     </form>
 
     <!------------------------------------------- Business Activity ----------------------------------------->
-    <form
-      id="businessActivity"
-      class="addUserForm needs-validation"
-      method="post"
-      novalidate
-    >
-      <h2>Actividad Económica</h2>
-      <input
-        name="businessID"
-        type="hidden"
-        value="<%=business[0].businessID%>"
-      />
 
-      <!------------------------------------------- Edit Buttons Business Activity ----------------------------------------->
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button"
-          id="editActivity"
-          onclick="editBusinessActivity()"
-        >
-          <i class="material-icons">mode_edit</i>
-          <span class="text">Editar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button type="submit" class="button hiddenButton" id="saveActivityData">
-          <i class="material-icons">sd_card</i>
-          <span class="text">Guardar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button hiddenButton"
-          id="addActivityButton"
-          data-bs-toggle="modal"
-          data-bs-target="#activityFormModal"
-        >
-          <i class="material-icons">add</i>
-          <span class="text">Agregar Actividad</span>
-        </button>
-      </div>
-      <!------------------------------------------- END Buttons Business Activity ----------------------------------------->
+    <h2>Actividad Económica</h2>
+    <input
+      name="businessID"
+      type="hidden"
+      value="<%=business[0].businessID%>"
+    />
 
-      <div class="contentBackground">
+    <!------------------------------------------- Edit Buttons Business Activity ----------------------------------------->
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button"
+        id="editActivity"
+        onclick="editBusinessActivity()"
+      >
+        <i class="material-icons">mode_edit</i>
+        <span class="text">Editar</span>
+      </button>
+    </div>
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button hiddenButton"
+        id="saveActivityData"
+        onclick="saveBusinessActivity()"
+      >
+        <i class="material-icons">sd_card</i>
+        <span class="text">Guardar</span>
+      </button>
+    </div>
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button hiddenButton"
+        id="addActivityButton"
+        data-bs-toggle="modal"
+        data-bs-target="#activityFormModal"
+      >
+        <i class="material-icons">add</i>
+        <span class="text">Agregar Actividad</span>
+      </button>
+    </div>
+    <!------------------------------------------- END Buttons Business Activity ----------------------------------------->
+
+    <div class="contentBackground">
+      <div id="addActivity" class="addActivity">
         <% var e=0; activity.forEach(function(activityData){ %>
-        <div id="activityDIV" class="currentActivities">
+        <div id="activityDIV" class="activity<%=activityData.activityID%>">
           <div
             class="col-md-6 divDeleteButton editButtons"
             id="divDeleteButton"
@@ -499,7 +500,8 @@
             <button
               type="button"
               class="button"
-              onclick="deleteActivityAjx('<%=business[0].businessID%>','<%=activityData.activityID%>','<%=activityData.businessActivityID%>')"
+              id="deleteActivityButton"
+              onclick="deleteBusinessFunction('deleteActivity','<%=business[0].businessID%>','<%=activityData.activityID%>')"
             >
               <i class="material-icons">clear</i>
               <span class="text">Eliminar</span>
@@ -513,9 +515,9 @@
                 value="<%=activityData.businessActivityID%>"
               />
               <select
-                name="businessCurrentActivities"
+                name="businessActivities"
                 id="businessActivity"
-                class="form-select currentActivity"
+                class="form-select businessActivities"
                 disabled
                 required
               >
@@ -533,12 +535,11 @@
           </div>
         </div>
         <% e++; }) %>
-        <div id="addActivity" class="addActivity"></div>
       </div>
-    </form>
+    </div>
 
     <!------------------------------------------- TIV ----------------------------------------->
-    <form id="tivData" class="addUserForm" action="/saveTivData" method="post">
+    <form id="tivDataForm" class="needs-validation" novalidate>
       <h2>TIV</h2>
       <input
         name="businessID"
@@ -550,11 +551,21 @@
         <button
           type="button"
           class="button"
-          id="editTIV"
+          id="editTIVButton"
           onclick="editBusinessTivData()"
         >
           <i class="material-icons">mode_edit</i>
           <span class="text">Editar</span>
+        </button>
+      </div>
+      <div class="editButtons">
+        <button
+          type="submit"
+          class="button hiddenButton"
+          id="saveTIVDataButton"
+        >
+          <i class="material-icons">sd_card</i>
+          <span class="text">Guardar</span>
         </button>
       </div>
       <!------------------------------------------- END Buttons TIV ----------------------------------------->
@@ -803,25 +814,26 @@
       </form>
 
       <% var y=0; businessPictures.forEach(function(businessPicturesData){ %>
-      <div class="editButtons">
-        <button
-          type="button"
-          class="hiddenButton button deleteButtonPictures"
-          id="deleteButtonPictures"
-          onclick="deleteBusinessPicture('<%=business[0].businessID%>','<%=businessPicturesData.pictureURL%>')"
+      <div id="picture<%=businessPicturesData.pictureID%>">
+        <div class="editButtons">
+          <button
+            type="button"
+            class="hiddenButton button deleteButtonPictures"
+            id="deleteButtonPictures"
+            onclick="deleteBusinessFunction('deletePicture','<%=business[0].businessID%>','<%=businessPicturesData.pictureID%>')"
+          >
+            <i class="material-icons">clear</i>
+            <span class="text">Eliminar</span>
+          </button>
+        </div>
+        <a
+          href="<%=businessPicturesData.pictureURL%>"
+          class="list-group-item list-group-item-action"
+          target="_blank"
         >
-          <i class="material-icons">clear</i>
-          <span class="text">Eliminar</span>
-        </button>
+          <%=businessPicturesData.shortName%>
+        </a>
       </div>
-
-      <a
-        href="<%=businessPicturesData.pictureURL%>"
-        class="list-group-item list-group-item-action"
-        target="_blank"
-      >
-        <%=businessPicturesData.shortName%>
-      </a>
       <% y++; }) %>
     </div>
 
@@ -850,7 +862,7 @@
         <i class="material-icons">sd_card</i>
         <span class="text">Guardar</span>
       </button>
-    </div>   
+    </div>
     <!------------------------------------------- END EditBusiness Contract ----------------------------------------->
     <!------------------------------------------- Form Business Contract ----------------------------------------->
     <div class="contentBackground">
@@ -880,111 +892,129 @@
       </form>
 
       <% var y=0; businessContract.forEach(function(businessContractData){ %>
-      <div class="editButtons">
-        <button
-          type="button"
-          class="hiddenButton button"
-          id="deleteButtonContract"
-          onclick="deleteBusinessContractAjx('<%=business[0].businessID%>','<%=businessContractData.contractURL%>')"
-        >
-          <i class="material-icons">clear</i>
-          <span class="text">Eliminar</span>
-        </button>
-      </div>
+      <div id="contract<%=businessContractData.contractID%>">
+        <div class="editButtons">
+          <button
+            type="button"
+            class="hiddenButton button deleteButtonContract"
+            onclick="deleteBusinessFunction('deleteContract','<%=business[0].businessID%>','<%=businessContractData.contractID%>')"
+          >
+            <i class="material-icons">clear</i>
+            <span class="text">Eliminar</span>
+          </button>
+        </div>
 
-      <a
-        href="<%=businessContractData.contractURL%>"
-        class="list-group-item list-group-item-action"
-        target="_blank"
-      >
-        <%=businessContractData.shortName%>
-      </a>
+        <a
+          href="<%=businessContractData.contractURL%>"
+          class="list-group-item list-group-item-action"
+          target="_blank"
+        >
+          <%=businessContractData.shortName%>
+        </a>
+      </div>
       <% y++; }) %>
     </div>
-    <!-------------------------------------------END Form Business Contact ----------------------------------------->
+    <!-------------------------------------------END Form Business Contact ----------------------------------------------->
     <!------------------------------------------- Edit Buttons Bussiness Contact ----------------------------------------->
-    <form
-      id="userData"
-      class="addUserForm"
-      action="/saveUserData"
-      method="post"
-    >
-      <h2>Contacto</h2>
 
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button"
-          id="editContactsData"
-          onclick="editContactData()"
-        >
-          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
-          <span class="text">Editar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button type="submit" class="button hiddenButton" id="saveContactData">
-          <i class="material-icons">sd_card</i>
-          <span class="text">Guardar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button hiddenButton"
-          id="addContactButton"
-          data-bs-toggle="modal"
-          data-bs-target="#contactFormModal"
-        >
-          <i class="material-icons">add</i>
-          <span class="text">Agregar contacto</span>
-        </button>
-      </div>
+    <h2>Contacto</h2>
 
-      <!------------------------------------------- END Buttons Bussiness Contact ----------------------------------------->
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button"
+        id="editContactsData"
+        onclick="editContactData()"
+      >
+        <i class="material-icons" style="font-size: 2rem">mode_edit</i>
+        <span class="text">Editar</span>
+      </button>
+    </div>
+    <div class="editButtons">
+      <button
+        type="submit"
+        class="button hiddenButton"
+        form="saveContactData"
+        id="saveContactDataButton"
+      >
+        <i class="material-icons">sd_card</i>
+        <span class="text">Guardar</span>
+      </button>
+    </div>
+    <div class="editButtons">
+      <button
+        type="button"
+        class="button hiddenButton"
+        id="addContactButton"
+        data-bs-toggle="modal"
+        data-bs-target="#contactFormModal"
+      >
+        <i class="material-icons">add</i>
+        <span class="text">Agregar contacto</span>
+      </button>
+    </div>
+
+    <!------------------------------------------- END Buttons Bussiness Contact ----------------------------------------->
+    <form id="saveContactData" class="needs-validation" novalidate>
+      <input
+        name="businessID"
+        type="hidden"
+        value="<%=business[0].businessID%>"
+      />
       <div class="contentBackground">
-        <% var p=0; contact.forEach(function(contactData){ %>
         <div id="contact">
-          <div id="contactDIV1">
-            <div class="row">
-              <div class="col-md-4">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="contactName"
-                  name="contactName"
-                  placeholder="Nombre"
-                  value="<%=contactData.contactName%>"
-                  readonly
-                />
-              </div>
-              <div class="col-md-4">
-                <input
-                  type="number"
-                  class="form-control"
-                  id="contactPhone"
-                  name="contactPhone"
-                  placeholder="Numero Telefonico"
-                  value="<%=contactData.contactPhone%>"
-                  onkeypress="limit(event,this.value,10)"
-                  readonly
-                />
-              </div>
-              <div class="col-md-4">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="contactEmail"
-                  name="contactEmail"
-                  placeholder="Correo electronico"
-                  value="<%=contactData.contactEmail%>"
-                  readonly
-                />
-              </div>
+          <% var p=0; contact.forEach(function(contactData){ %>
+          <div
+            id="contactDIV1"
+            class="contactDIV contact<%=contactData.contactPhone%>"
+          >
+            <input name="contactID" type="hidden" value="<%=contactData.id%>" />
+            <div class="editButtons" id="deleteContactButtonDiv">
+              <button
+                id="deleteContactButton"
+                type="button"
+                class="hiddenButton button deleteButtonContact"
+                onclick="deleteBusinessFunction('deleteContact','<%=business[0].businessID%>','<%=contactData.contactPhone%>')"
+              >
+                <i class="material-icons">clear</i>
+                <span class="text">Eliminar</span>
+              </button>
+            </div>
+            <div class="row" id="contactRow">
+              <input
+                type="text"
+                class="form-control col-md-4 newContactName"
+                id="contactName"
+                name="contactName"
+                placeholder="Nombre"
+                value="<%=contactData.contactName%>"
+                readonly
+              />
+              <input
+                type="number"
+                class="form-control col-md-4 newContactPhone"
+                id="contactPhone"
+                name="contactPhone"
+                placeholder="Numero
+              Telefonico"
+                value="<%=contactData.contactPhone%>"
+                onkeypress="limit(event,this.value,10)"
+                readonly
+              />
+
+              <input
+                type="email"
+                class="form-control col-md-4 newContactEmail"
+                id="contactEmail"
+                name="contactEmail"
+                placeholder="Correo electronico"
+                value="<%=contactData.contactEmail%>"
+                readonly
+              />
             </div>
           </div>
+          <% p++; }) %>
         </div>
-        <% p++; }) %>
       </div>
     </form>
 
@@ -1035,9 +1065,7 @@
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="businessModalTitle">
-              Agregar Nuevo Representante Legal:
-            </h5>
+            <h5 class="modal-title">Agregar Nuevo Representante Legal:</h5>
             <button
               type="button"
               class="btn-close"
@@ -1045,9 +1073,9 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body" id="businessModalMessage">
+          <div class="modal-body">
             <form
-              class="addUserForm needs-validation"
+              class="needs-validation"
               id="newOwnerForm"
               method="post"
               novalidate
@@ -1079,7 +1107,6 @@
                         name="businessOwnerID"
                         placeholder="Cédula"
                         onkeypress="limit(event,this.value,10)"
-                        onblur="validateNewOwner(this.value)"
                         required
                       />
                       <label for="businessOwnerID">Cédula*</label>
@@ -1147,6 +1174,36 @@
         </div>
       </div>
     </div>
+
+    <!------------------------------------------------------------- Delete Modal ------------------------------------------------------------->
+    <div
+      class="modal fade"
+      id="businessDeleteActionModal"
+      tabindex="-1"
+      aria-labelledby="businessDeleteActionModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="businessDeleteActionModalTitle"></h5>
+          </div>
+          <div class="modal-body" id="businessFormModalMessage">
+            <p id="businessDeleteActionModalMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="businessDeleteActionButton"
+              type="button"
+              class="btn btn-danger"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!------------------------------------------------------------- Contact Modal ------------------------------------------------------------->
     <div
       class="modal fade"
@@ -1158,9 +1215,7 @@
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="businessModalTitle">
-              Agregar Nuevo Contacto:
-            </h5>
+            <h5 class="modal-title">Agregar Nuevo Contacto:</h5>
             <button
               type="button"
               class="btn-close"
@@ -1168,13 +1223,8 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body" id="businessModalMessage">
-            <form
-              class="addUserForm needs-validation"
-              id="newOwnerForm"
-              method="post"
-              novalidate
-            >
+          <div class="modal-body">
+            <form class="needs-validation" id="newContactForm" novalidate>
               <input
                 name="businessID"
                 type="hidden"
@@ -1217,8 +1267,12 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="submit" form="newOwnerForm" class="btn btn-secondary">
-              Agregar Representante
+            <button
+              type="submit"
+              form="newContactForm"
+              class="btn btn-secondary"
+            >
+              Agregar contacto
             </button>
             <button
               type="button"
@@ -1242,9 +1296,7 @@
       <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="businessModalTitle">
-              Agregar Nueva actividad comercial:
-            </h5>
+            <h5 class="modal-title">Agregar Nueva actividad comercial:</h5>
             <button
               type="button"
               class="btn-close"
@@ -1252,37 +1304,39 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body" id="businessModalMessage">
+          <div class="modal-body">
             <form
-              class="addUserForm needs-validation"
-              id="newOwnerForm"
+              class="needs-validation"
+              id="newActivityForm"
               method="post"
               novalidate
             >
-              <input
-                name="businessID"
-                type="hidden"
-                value="<%=business[0].businessID%>"
-              />
-              <select
-                name="businessNewActivity"
-                id="businessActivity"
-                class="form-select"
-                required
-              >
-                <% var n=0; totalActivity.forEach(function(totalActivityData){
-                %>
-                <option value="<%=totalActivityData.id%>">
-                  <%=totalActivityData.activityName%>
-                </option>
-                <% n++; }) %>
-              </select>
+              <div id="activityDIV">
+                <input
+                  name="businessID"
+                  type="hidden"
+                  value="<%=business[0].businessID%>"
+                />
+                <select
+                  name="businessNewActivity"
+                  id="businessActivity"
+                  class="form-select"
+                  required
+                >
+                  <% var n=0; totalActivity.forEach(function(totalActivityData){
+                  %>
+                  <option value="<%=totalActivityData.id%>">
+                    <%=totalActivityData.activityName%>
+                  </option>
+                  <% n++; }) %>
+                </select>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
             <button
               type="submit"
-              form="activityFormModal"
+              form="newActivityForm"
               class="btn btn-secondary"
             >
               Agregar actividad

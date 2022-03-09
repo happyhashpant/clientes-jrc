@@ -103,8 +103,7 @@ exports.loadBusinessPictures = function loadBusinessPictures(businessID) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query =
-    `SELECT * FROM businesspictures WHERE businessID=${businessID}`;
+  var query = `SELECT * FROM businesspictures WHERE businessID=${businessID} AND status=1`;
   return new Promise((resolve, reject) => {
     connect.query(query, (err, result, fields) => {
       if (err) {
@@ -120,8 +119,7 @@ exports.loadBusinessContract = function loadBusinessContract(businessID) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query =
-    `SELECT * FROM businesscontract WHERE businessID=${businessID}`;
+  var query = `SELECT * FROM businesscontract WHERE businessID=${businessID} AND status=1`;
   return new Promise((resolve, reject) => {
     connect.query(query, (err, result, fields) => {
       if (err) {

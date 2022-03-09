@@ -58,66 +58,63 @@ exports.saveTIVData = function (req) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
+  console.log(req.body.formData[15].value);
   var query =
     "UPDATE business SET tiv='" +
-    req.body.a +
+    req.body.formData[1].value +
     "/" +
-    req.body.b +
+    req.body.formData[2].value +
     "/" +
-    req.body.c +
+    req.body.formData[3].value +
     "/" +
-    req.body.d +
+    req.body.formData[4].value +
     "/" +
-    req.body.e +
+    req.body.formData[5].value +
     "/" +
-    req.body.f +
+    req.body.formData[6].value +
     "/" +
-    req.body.g +
+    req.body.formData[7].value +
     "/" +
-    req.body.h +
+    req.body.formData[8].value +
     "/" +
-    req.body.i +
+    req.body.formData[9].value +
     "/" +
-    req.body.j +
+    req.body.formData[10].value +
     "/" +
-    req.body.k +
+    req.body.formData[11].value +
     "/" +
-    req.body.l +
+    req.body.formData[12].value +
     "/" +
-    req.body.m +
+    req.body.formData[13].value +
     "/" +
-    req.body.m +
+    req.body.formData[14].value +
     "/" +
-    req.body.o +
+    req.body.formData[15].value +
     "' WHERE businessID='" +
-    req.body.businessID +
+    req.body.formData[0].value +
     "';";
+  console.log(query);
   connect.query(query);
   connect.end();
 };
 
-exports.saveBusinessActivity = function (businessId, newActivitiesArray) {
+exports.saveBusinessActivity = function (req) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  newActivitiesArray.map((activity, i) => {
-    query = `INSERT into businesactivity (businessID, activityID) VALUES (${businessId}, ${activity.activityID});`;
-    console.log(query);
-    connect.query(query);
-  });
+  query = `INSERT into businesactivity (businessID, activityID) VALUES (${req.body.formData[0].value}, ${req.body.formData[1].value});`;
+  console.log(query);
+  connect.query(query);
   connect.end();
 };
 
-exports.deleteBusinessActivity = function (businessId, newActivitiesArray) {
+exports.deleteBusinessActivity = function (businessId, activityID) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query =
-    "DELETE FROM businesactivity WHERE businessID= " +
-    businessId +
-    " AND businessActivityID = " +
-    businesActivityID;
+  var query = `DELETE FROM businesactivity WHERE businessID= ${businessId} AND activityID = ${activityID};`;
   connect.query(query);
+  console.log(query);
   connect.end();
 };
 
@@ -149,11 +146,7 @@ exports.deleteBusinessOwner = function (businessId, businessOwerID) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query =
-    "DELETE FROM legalbusinessrep WHERE businessID= " +
-    businessId +
-    " AND idLegal = " +
-    businessOwerID;
+  var query = `DELETE FROM legalbusinessrep WHERE businessID = ${businessId} AND idLegal = ${businessOwerID}`;
   console.log(query);
   connect.query(query);
   connect.end();
@@ -182,6 +175,60 @@ exports.saveBusinessContractURL = function (
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   var query = `INSERT INTO businesscontract (businessID, contractURL, shortName) VALUES (${businessId},'https://clientes-jrc.s3.amazonaws.com/cotizacion/${businessContractURL}', '${contractShortName}');`;
+  console.log(query);
+  connect.query(query);
+  connect.end();
+};
+
+exports.deleteBusinessPicture = function (businessID, pictureID) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query = `UPDATE businesspictures SET status=0 WHERE businessID = ${businessID} AND pictureID = ${pictureID};`;
+  console.log(query);
+  connect.query(query);
+  connect.end();
+};
+
+exports.deleteBusinessContract = function (businessID, contractID) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query = `UPDATE businesscontract SET status=0 WHERE businessID = ${businessID} AND contractID = ${contractID};`;
+  console.log(query);
+  connect.query(query);
+  connect.end();
+};
+
+exports.saveBusinessNewContact = function (formData) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query = `INSERT INTO businesscontact (businessID, contactName, contactPhone, contactEmail) VALUES (${formData.body.formData[0].value}, '${formData.body.formData[1].value}', ${formData.body.formData[2].value}, '${formData.body.formData[3].value}');`;
+  console.log(query);
+  connect.query(query);
+  connect.end();
+};
+
+exports.saveContactData = function (businessID, contactArray) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var sql = "";
+  contactArray.map((contact, i) => {
+    sql = `UPDATE businesscontact SET contactName = '${contact.contactName}', contactPhone = ${contact.contactPhone}, contactEmail = '${contact.contactEmail}' WHERE businessID = ${businessID} AND id = ${contact.contactID};`;
+    console.log(sql);
+    connect.query(sql);
+    sql = "";
+  });
+  connect.end();
+};
+
+exports.deleteBusinessContact = function (businessID, contractID) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query = `DELETE FROM businesscontact WHERE businessID = ${businessID} AND contactPhone = ${contractID}`;
   console.log(query);
   connect.query(query);
   connect.end();

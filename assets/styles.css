@@ -34,7 +34,7 @@ input {
   margin-bottom: 10px;
 }
 .contentBackground {
-  background-color: #141313;
+  background-color: #6b6b6b;
   padding: 10px;
   border-radius: 10px;
   max-width: 100rem;
@@ -80,8 +80,11 @@ th > input:read-only {
   margin-top: 3px;
 }
 
-.addOwnerDIV {
-  border-top-style: groove;
+.contactDIV {
+  border-bottom-style: solid;
+  border-color: white;
+  margin-bottom: 20px;
+  margin-top: 5px;
 }
 
 .tokenInvalid {
@@ -127,9 +130,6 @@ img {
   border-radius: 10px;
   max-width: 100rem;
   margin: 0 auto;
-}
-#addActivity {
-  display: none;
 }
 
 .editAddActivity {
