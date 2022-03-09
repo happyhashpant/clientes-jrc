@@ -231,7 +231,7 @@ async function saveAllBusinessOwners(req, res) {
         break;
     }
   }
-  saveBusiness.saveOwnerData(businessID, ownerArrayCurrent);
+  saveBusiness.saveOwnerData(businessID, ownerArray);
 }
 
 async function saveAllBusinessContacts(req, res) {
