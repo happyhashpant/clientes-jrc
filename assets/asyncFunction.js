@@ -213,7 +213,7 @@ async function saveAllBusinessOwners(req, res) {
   for (i = 0; i < formData.formData.length; i++) {
     switch (formData.formData[i].name) {
       case "currentBusinessOwnerName":
-        tempOwnerAObject.ownerName = formData.formData[i].value;
+        tempOwnerObject.ownerName = formData.formData[i].value;
         break;
       case "currentBusinessOwnerID":
         tempOwnerObject.ownerID = formData.formData[i].value;
