@@ -5,7 +5,7 @@ exports.saveGeneralData = function (req) {
   var query =
     "UPDATE business SET businessName='" +
     req.body.formData[0].value +
-    "' WHERE id=" +
+    "' WHERE businessID=" +
     req.body.formData[1].value +
     ";";
   connect.query(query);
@@ -17,7 +17,7 @@ exports.saveAccountsData = function (req) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  console.log(req.body.formData)
+  console.log(req.body.formData);
   var query =
     "UPDATE business SET atvUser='" +
     req.body.formData[1].value +
@@ -47,7 +47,6 @@ exports.saveAccountsData = function (req) {
     req.body.formData[13].value +
     "', userID='" +
     req.body.formData[14].value +
-    +
     "' WHERE businessID='" +
     req.body.formData[0].value +
     "';";
