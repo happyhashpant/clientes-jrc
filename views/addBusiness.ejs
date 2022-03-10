@@ -13,11 +13,7 @@
   </head>
   <body>
     <div id="navBar"></div>
-    <script>
-      $("#navBar").load("/assets/navBar.html");
-    </script>
     <h1>Agregar Sociedad</h1>
-
     <form
       id="businessForm"
       action="/addBusiness"
@@ -25,6 +21,7 @@
       method="post"
       novalidate
     >
+      <!-------------------------------------- datos generales ------------------------->
       <h2>Datos Generales</h2>
       <div class="contentBackground">
         <div class="row">
@@ -42,94 +39,34 @@
           <div class="col-md-4 form-floating">
             <input
               type="number"
-              id="inputBusinessID"
+              id="businessID"
               class="form-control"
-              name="inputBusinessID"
+              name="businessID"
               placeholder="Cédula Jurídica"
+              onkeypress="limit(event,this.value,10)"
               required
             />
             <label for="inputBusinessID">Cédula Jurídica*</label>
           </div>
         </div>
       </div>
+      <!-------------------------------------- owmer Data ------------------------->
+      <!------------- owmer Data Button ------------------------->
       <h2>Representante Legal</h2>
-      <div class="contentBackground">
-        <div id="addOwner">
-          <div id="ownerDIV1">
-            <div class="row" id="ownerRow1">
-              <div class="col-md-4 form-floating" id="ownerNameInput">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="businessOwnerName"
-                  name="businessOwnerName"
-                  placeholder="Nombre del Representante"
-                  required
-                />
-                <label for="businessOwnerName">Nombre*</label>
-              </div>
-              <div class="col-md-4 form-floating" id="ownerIDInput">
-                <input
-                  type="number"
-                  class="form-control"
-                  id="businessOwnerID"
-                  name="businessOwnerID"
-                  placeholder="Cédula"
-                  onkeypress="limit(event,this.value,10)"
-                  required
-                />
-                <label for="businessOwnerID">Cédula*</label>
-              </div>
-              <div class="col-md-4 form-floating" id="ownerIDExpDateInput">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="ownerIDExpDate"
-                  name="ownerIDExpDate"
-                  placeholder="Fecha de expiración de la Cédula"
-                  required
-                />
-                <label for="ownerIDExpDate"
-                  >Fecha de expiración de la Cédula*</label
-                >
-              </div>
-            </div>
-            <div class="row" id="ownerSecRow1">
-              <div class="col-md-4 form-floating" id="ownerBirDateToolInput">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="ownerBirDate"
-                  name="ownerBirDate"
-                  placeholder="Fecha de Nacimiento"
-                  required
-                />
-                <label for="ownerBirDate">Fecha de Nacimiento*</label>
-              </div>
-              <div class="col-md-4 form-floating" id="ownerAddressInput">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="ownerAddress"
-                  name="ownerAddress"
-                  placeholder="Domicilio"
-                  required
-                />
-                <label for="ownerAddress">Domicilio*</label>
-              </div>
-            </div>
-            <div class="row" id="ownerThrRow">
-              <div class="col-md-6" id="ownerDeleteButtonInput"></div>
-            </div>
-          </div>
-        </div>
+      <div class="editButtons">
         <button
-          class="addButton btn btn-light"
           type="button"
-          onclick="clonOwner()"
+          class="button"
+          id="addOwnerButton"
+          data-bs-toggle="modal"
+          data-bs-target="#ownerFormModal"
         >
-          <i class="glyphicon glyphicon-plus"></i> Agregar Representante
+          <i class="material-icons">add</i>
+          <span class="text">Agregar representante</span>
         </button>
+      </div>
+      <div class="contentBackground">
+        <div id="addOwner"></div>
       </div>
 
       <h2>Datos contables</h2>
@@ -288,56 +225,37 @@
         </div>
         <div class="row">
           <div class="col-md-2 form-floating">
-            <input
+            <select
               name="userCharge"
-              class="form-control"
-              list="datalistUser"
-              id="exampleDataList"
+              id="userCharge"
+              class="form-select"
+              list="datalistOptions"
               autocomplete="off"
               required
-            />
-            <label for="exampleDataList">Agente encargado*</label>
-            <datalist id="datalistUser">
+            >
               <% var i=0; user.forEach(function(data){ %>
               <option value="<%=data.id%>"><%=data.userName%></option>
               <% i++; }) %>
-            </datalist>
+            </select>
+            <label for="userCharge">Agente encargado*</label>
           </div>
         </div>
       </div>
       <h2>Actividad Económica</h2>
-      <div class="contentBackground">
-        <div id="activity">
-          <div id="activityDIV1">
-            <div class="row" id="activityFrRow1">
-              <div class="col-md-6">
-                <input
-                  name="activity"
-                  class="form-control"
-                  list="datalistOptions"
-                  id="exampleDataList"
-                  autocomplete="off"
-                  required
-                />
-                <datalist id="datalistOptions">
-                  <% var j=0; activity.forEach(function(datas){ %>
-                  <option value="<%=datas.id%>"><%=datas.activityName%></option>
-                  <% j++; }) %>
-                </datalist>
-              </div>
-            </div>
-            <div class="row" id="activitySecRow">
-              <div class="col-md-6" id="activityDeleteButtonInput"></div>
-            </div>
-          </div>
-        </div>
+      <div class="editButtons">
         <button
-          class="addButton btn btn-light"
           type="button"
-          onclick="cloneActivity()"
+          class="button"
+          id="addActivityButton"
+          data-bs-toggle="modal"
+          data-bs-target="#activityFormModal"
         >
-          <i class="glyphicon glyphicon-plus"></i> Agregar Actividad
+          <i class="material-icons">add</i>
+          <span class="text">Agregar Actividad</span>
         </button>
+      </div>
+      <div class="contentBackground">
+        <div id="addActivity"></div>
       </div>
 
       <h2>TIV*</h2>
@@ -515,101 +433,300 @@
           </tr>
         </table>
       </div>
-      <!-- <h2>Logo</h2>
-      <div class="contentBackground">
-        <div class="row">
-          <div class="col-md-6">
-            <input type="file" class="form-control" name="picture" />
-          </div>
-        </div>
-      </div> -->
 
       <h2>Contactos</h2>
-      <div class="contentBackground">
-        <div id="contact">
-          <div id="contactDIV1">
-            <div class="row" id="contactRow1">
-              <div class="col-md-4 form-floating" id="inputContactName">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="contactName"
-                  id="contactName"
-                  placeholder="Nombre"
-                  required
-                />
-                <label for="contactName">Nombre</label>
-              </div>
-              <div class="col-md-4 form-floating" id="inputContactPhone">
-                <input
-                  type="number"
-                  class="form-control"
-                  name="contactPhone"
-                  id="contactPhone"
-                  onkeypress="limit(event,this.value,8)"
-                  placeholder="Número Telefónico"
-                  required
-                />
-                <label for="contactPhone">Número Telefónico</label>
-              </div>
-              <div class="col-md-4 form-floating" id="inputContactEmail">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="contactEmail"
-                  id="contactEmail"
-                  placeholder="Correo Electrónico"
-                  required
-                />
-                <label for="contactEmail">Correo Electrónico</label>
-              </div>
-            </div>
-            <div class="row" id="contactSecRow1">
-              <div class="col-md-6" id="contactDeleteButtonInput1"></div>
-            </div>
-          </div>
-        </div>
+      <div class="editButtons">
         <button
-          class="addButton btn btn-light"
           type="button"
-          onclick="cloneContact()"
+          class="button"
+          id="addContactButton"
+          data-bs-toggle="modal"
+          data-bs-target="#contactFormModal"
         >
-          <i class="glyphicon glyphicon-plus"></i> Agregar Contacto
+          <i class="material-icons">add</i>
+          <span class="text">Agregar contacto</span>
         </button>
+      </div>
+      <div class="contentBackground">
+        <div id="addContact"></div>
       </div>
       <button id="submit" type="submit" class="btn btn-dark col-md-12">
         Agregar Sociedad
       </button>
     </form>
+
+    <!------------------------------------------ Modals ---------------------------------->
+    <!----------------------- Owner Modal ---------------------------------->
+    <div
+      class="modal fade"
+      tabindex="-1"
+      id="ownerFormModal"
+      aria-labelledby="ownerFormModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Agregar Nuevo Representante Legal:</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation" id="addOwnerForm" novalidate>
+              <div id="addOwner">
+                <div id="ownerDIVModal">
+                  <div class="editButtons" id="deleteContactButtonDiv">
+                    <button
+                      id="deleteContactButton"
+                      type="button"
+                      class="hiddenButton button"
+                      onclick="removeOwnerDIV()"
+                    >
+                      <i class="material-icons">clear</i>
+                      <span class="text">Eliminar</span>
+                    </button>
+                  </div>
+                  <div class="row" id="ownerRow">
+                    <div class="col-md-4 form-floating" id="ownerNameInput">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="businessOwnerName"
+                        name="businessOwnerName"
+                        placeholder="Nombre del Representante"
+                        required
+                      />
+                      <label for="businessOwnerName">Nombre*</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerIDInput">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="businessOwnerID"
+                        name="businessOwnerID"
+                        placeholder="Cédula"
+                        onkeypress="limit(event,this.value,10)"
+                        required
+                      />
+                      <label for="businessOwnerID">Cédula*</label>
+                    </div>
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerIDExpDateInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ownerIDExpDate"
+                        name="ownerIDExpDate"
+                        placeholder="Fecha de expiración de la Cédula"
+                        required
+                      />
+                      <label for="ownerIDExpDate"
+                        >Expiración de la Cédula*</label
+                      >
+                    </div>
+                  </div>
+                  <div class="row" id="ownerSecRow">
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerBirthDateInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="ownerBirthDate"
+                        name="ownerBirthDate"
+                        placeholder="Fecha de Nacimiento"
+                        required
+                      />
+                      <label for="ownerBirDate">Fecha de Nacimiento*</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerAddressInput">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="ownerAddress"
+                        name="ownerAddress"
+                        placeholder="Domicilio"
+                        required
+                      />
+                      <label for="ownerAddress">Domicilio*</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" form="addOwnerForm" class="btn btn-secondary">
+              Agregar Representante
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!----------------------- Activity Modal ---------------------------------->
+    <div
+      class="modal fade"
+      tabindex="-1"
+      id="activityFormModal"
+      aria-labelledby="activityFormModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Agregar Nueva actividad comercial:</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation" id="newActivityForm" novalidate>
+              <div id="activityDIVModal">
+                <div class="editButtons" id="deleteActivityButtonDiv">
+                  <button
+                    id="deleteActivityButton"
+                    type="button"
+                    class="hiddenButton button"
+                    onclick="removeOwnerDIV()"
+                  >
+                    <i class="material-icons">clear</i>
+                    <span class="text">Eliminar</span>
+                  </button>
+                </div>
+                <select
+                  name="businessActivity"
+                  id="activity"
+                  class="form-select"
+                  required
+                >
+                  <% var j=0; activity.forEach(function(datas){ %>
+                  <option value="<%=datas.id%>"><%=datas.activityName%></option>
+                  <% j++; }) %>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              form="newActivityForm"
+              class="btn btn-secondary"
+            >
+              Agregar actividad
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!----------------------- Contact Modal ---------------------------------->
+    <div
+      class="modal fade"
+      tabindex="-1"
+      id="contactFormModal"
+      aria-labelledby="ownerFormModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Agregar Nuevo Contacto:</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation" id="newContactForm" novalidate>
+              <div id="contactDIVModal">
+                <div class="editButtons" id="deleteContactButtonDiv">
+                  <button
+                    id="deleteContactButton"
+                    type="button"
+                    class="hiddenButton button"
+                    onclick="removeOwnerDIV()"
+                  >
+                    <i class="material-icons">clear</i>
+                    <span class="text">Eliminar</span>
+                  </button>
+                </div>
+                <div class="row" id="contactRow">
+                  <div class="col-md-4">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="contactName"
+                      name="contactName"
+                      placeholder="Nombre"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="contactPhone"
+                      name="contactPhone"
+                      placeholder="Numero Telefonico"
+                      onkeypress="limit(event,this.value,10)"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="contactEmail"
+                      name="contactEmail"
+                      placeholder="Correo electronico"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              form="newContactForm"
+              class="btn btn-secondary"
+            >
+              Agregar contacto
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
-  <script>
-    var i = 1;
-    var j = 1;
-    var z = 1;
-    var newOwnerCount = 1;
-    var newContactCount = 1;
-    var newActivityCount = 1;
-    (function () {
-      "use strict";
-
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll(".needs-validation");
-
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener(
-          "submit",
-          function (event) {
-            if (!form.checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-
-            form.classList.add("was-validated");
-          },
-          false
-        );
-      });
-    })();
-  </script>
+  <script type="text/javascript" src="/assets/newBusinessFunction.js"></script>
 </html>

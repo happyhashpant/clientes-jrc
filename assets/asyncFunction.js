@@ -97,64 +97,95 @@ async function addBusinessSync(req, res) {
 async function addNewBusiness(req) {
   var formData = req.body;
   var ownerArray = [];
-  var businessArray = [];
   var contactArray = [];
   var activityArray = [];
-  var p = 0;
-  var j = 0;
-  var i = 0;
-  var z = 0;
-
-  for (const property in formData) {
-    if (`${property}` === "businessOwnerName") {
-      ownerArray[i] = formData[property];
-      i++;
-    } else if (`${property}` === "businessOwnerID") {
-      ownerArray[i] = formData[property];
-      i++;
-    } else if (`${property}` === "ownerIDExpDate") {
-      ownerArray[i] = formData[property];
-      i++;
-    } else if (`${property}` === "ownerBirDate") {
-      ownerArray[i] = formData[property];
-      i++;
-    } else if (`${property}` === "ownerAddress") {
-      ownerArray[i] = formData[property];
-      i++;
-    } else if (`${property}` === "contactName") {
-      contactArray[j] = formData[property];
-      j++;
-    } else if (`${property}` === "contactPhone") {
-      contactArray[j] = formData[property];
-      j++;
-    } else if (`${property}` === "contactEmail") {
-      contactArray[j] = formData[property];
-      j++;
-    } else if (`${property}` === "activity") {
-      activityArray[p] = formData[property];
-      p++;
+  if (formData.businessOwnerName) {
+    if (typeof formData.businessOwnerName !== "string") {
+      i = 0;
+      for (const owner in formData.businessOwnerName) {
+        ownerArray[i] = new Object();
+        ownerArray[i].ownerName = formData.businessOwnerName[owner];
+        i++;
+      }
+      i = 0;
+      for (const owner in formData.businessOwnerID) {
+        ownerArray[i].ownerID = formData.businessOwnerID[owner];
+        i++;
+      }
+      i = 0;
+      for (const owner in formData.ownerIDExpDate) {
+        ownerArray[i].ownerIDExpDate = formData.ownerIDExpDate[owner];
+        i++;
+      }
+      i = 0;
+      for (const owner in formData.ownerBirthDate) {
+        ownerArray[i].ownerBirthDate = formData.ownerBirthDate[owner];
+        i++;
+      }
+      i = 0;
+      for (const owner in formData.ownerAddress) {
+        ownerArray[i].ownerAddress = formData.ownerAddress[owner];
+        i++;
+      }
     } else {
-      businessArray[z] = formData[property];
-      z++;
+      ownerArray[0] = new Object();
+      ownerArray[0].ownerName = formData.businessOwnerName;
+      ownerArray[0].ownerID = formData.businessOwnerID;
+      ownerArray[0].ownerIDExpDate = formData.ownerIDExpDate;
+      ownerArray[0].ownerBirthDate = formData.ownerBirthDate;
+      ownerArray[0].ownerAddress = formData.ownerAddress;
     }
   }
-  await insertBusiness.addBusiness(businessArray, formData);
+  if (formData.businessActivity) {
+    if (typeof formData.businessActivity !== "string") {
+      i = 0;
+      for (const activity in formData.businessActivity) {
+        activityArray[i] = new Object();
+        activityArray[i].activityID = formData.businessActivity[activity];
+        i++;
+      }
+    } else {
+      activityArray[0] = new Object();
+      activityArray[0].businessActivity = formData.businessActivity;
+    }
+  }
+  if (formData.contactName) {
+    if (typeof formData.contactName !== "string") {
+      i = 0;
+      for (const contact in formData.contactName) {
+        contactArray[i] = new Object();
+        contactArray[i].contactName = formData.contactName[contact];
+        i++;
+      }
+      i = 0;
+      for (const contact in formData.contactPhone) {
+        contactArray[i].contactPhone = formData.contactPhone[contact];
+        i++;
+      }
+      i = 0;
+      for (const contact in formData.contactEmail) {
+        contactArray[i].contactEmail = formData.contactEmail[contact];
+        i++;
+      }
+    } else {
+      contactArray[0] = new Object();
+      contactArray[0].contactName = formData.contactName;
+      contactArray[0].contactPhone = formData.contactPhone;
+      contactArray[0].contactEmail = formData.contactEmail;
+    }
+  }
+
+  console.log(ownerArray);
+  console.log(contactArray);
+  console.log(activityArray);
+
+  await insertBusiness.addBusiness(formData);
   setTimeout(async function () {
-    businessID = await loadBusiness.loadMyBusiness(formData.inputBusinessID);
-    await insertBusiness.addBusinessOwner(
-      ownerArray,
-      req.body.inputBusinessID,
-      ownerArray[0].length
-    );
-    await insertBusiness.addBusinessContact(
-      contactArray,
-      req.body.inputBusinessID,
-      contactArray[0].length
-    );
+    await insertBusiness.addBusinessOwner(ownerArray, formData.businessID);
+    await insertBusiness.addBusinessContact(contactArray, formData.businessID);
     await insertBusiness.addBusinessActivity(
       activityArray,
-      req.body.inputBusinessID,
-      activityArray[0].length
+      formData.businessID
     );
   }, 2000);
 }

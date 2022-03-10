@@ -1,9 +1,4 @@
-var i = 1;
-var j = 1;
-var z = 1;
-var newOwnerCount = 1;
-var newContactCount = 1;
-var newActivityCount = 1;
+
 window.addEventListener("load", (event) => {
   $("#navBar").load("/assets/navbar.html");
 });
