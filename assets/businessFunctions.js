@@ -283,7 +283,7 @@ window.addEventListener("load", (event) => {
             },
             sendData: { formData: formData },
             success: function (data, status) {
-              $("#contactDIV1")
+              $("#contactDIV")
                 .clone()
                 .attr("id", "contactNewDIV")
                 .appendTo("#contact");
