@@ -184,7 +184,7 @@ module.exports = function (app) {
   });
 
   app.get("*", function (req, res) {
-    res.render("navBar");
+    res.render("404");
   });
 
   app.delete("/todo", function (req, res) {});
