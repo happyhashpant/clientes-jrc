@@ -1,5 +1,5 @@
 window.addEventListener("load", (event) => {
-  $("#navBar").load("/assets/navbar.html");
+  $("#navBar").load("/navbar");
 });
 
 (function () {

@@ -1,4 +1,5 @@
 var path = require("path");
+var url = require("url");
 const APIFunction = require(path.join(__dirname, "../assets/asyncFunction.js"));
 var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
 var loadUserTable = require(path.join(__dirname, "../assets/loadUserTable.js"));
@@ -188,7 +189,7 @@ module.exports = function (app) {
   });
 
   app.get("*", function (req, res) {
-    res.render("navBar");
+    res.render("404");
   });
 
   app.delete("/todo", function (req, res) {});
