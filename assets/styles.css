@@ -93,7 +93,7 @@ th > input:read-only {
 
 label {
   font-weight: bold;
-  margin: 0 0 5px 5px;
+  margin: 0px 0px 5px 10px;
   color: rgb(41, 41, 41);
 }
 
@@ -133,7 +133,7 @@ img {
 }
 
 .editAddActivity {
-  margin: 10px 0 10px 0;
+  margin: 10px 0 10px 0; 
 }
 .activityFrRow1 {
   margin-top: 10px;

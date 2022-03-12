@@ -78,10 +78,21 @@ function passwordResetEmail(req) {
 
 function checkSignIn(req, res, next) {
   if (req.session.user) {
+    res.user = 1;
     next();
   } else {
     var err = new Error("Not logged in!");
     res.render("index");
+  }
+}
+
+function checkRole(req, res, next) {
+  console.log(req.session.role);
+  if (req.session.role == 1) {
+    next();
+  } else {
+    var err = new Error("Not logged in!");
+    res.render("401");
   }
 }
 
@@ -224,7 +235,8 @@ async function login(req, res) {
       .compare(req.body.userPassword, password[0].userPassword)
       .then((res) => {
         if (res) {
-          req.session.user = password[0].userEmail;
+          req.session.user = password[0].id;
+          req.session.role = password[0].userPermission;
         } else {
           res.redirect("/login");
         }
@@ -292,6 +304,7 @@ async function saveAllBusinessContacts(req, res) {
   saveBusiness.saveContactData(businessID, contactArray);
 }
 
+module.exports.checkRole = checkRole;
 module.exports.saveAllBusinessContacts = saveAllBusinessContacts;
 module.exports.saveAllBusinessOwners = saveAllBusinessOwners;
 module.exports.login = login;

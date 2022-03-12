@@ -73,7 +73,7 @@ exports.loginUser = function (userEmail) {
     var mysql = require("mysql2");
     var connect = mysql.createConnection(credentials);
     var query =
-      "SELECT id, userPassword, userEmail FROM user WHERE userEmail='" +
+      "SELECT id, userPassword, userEmail, userPermission FROM user WHERE userEmail='" +
       userEmail +
       "'";
     connect.query(query, function (err, result, fields) {

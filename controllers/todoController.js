@@ -114,7 +114,7 @@ module.exports = function (app) {
 
   app.get("/business", APIFunction.checkSignIn, function (req, res) {
     loadBusinessTable
-      .loadBusinessTable()
+      .loadBusinessTable(req.session.user, req.session.role)
       .then(function (result) {
         objects = result;
         res.render("business");
@@ -133,9 +133,14 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
-  app.get("/addBusiness", APIFunction.checkSignIn, function (req, res) {
-    APIFunction.addBusinessSync(req, res);
-  });
+  app.get(
+    "/addBusiness",
+    APIFunction.checkSignIn,
+    APIFunction.checkRole,
+    function (req, res) {
+      APIFunction.addBusinessSync(req, res);
+    }
+  );
 
   app.get("/loadBusiness*", (req, res) => {
     APIFunction.loadBusinessSync(req, res);
@@ -151,6 +156,14 @@ module.exports = function (app) {
         res.render("user");
       });
   });
+  app.get(
+    "/adduser",
+    APIFunction.checkSignIn,
+    APIFunction.checkRole,
+    function (req, res) {
+      res.render("addUser");
+    }
+  );
 
   app.get("/loadUser*", APIFunction.checkSignIn, function (req, res) {
     loadUser
@@ -162,7 +175,7 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
-  app.post("/addUser", function (req, res) {
+  app.post("/addUser", APIFunction.checkSignIn, function (req, res) {
     insertUser.addUser(req);
     loadUserTable
       .loadUserTable()
@@ -173,7 +186,7 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
-  app.post("/saveUser", function (req, res) {
+  app.post("/saveUser", APIFunction.checkSignIn, function (req, res) {
     saveUser.saveUser(req);
     loadUserTable
       .loadUserTable()
@@ -191,8 +204,6 @@ module.exports = function (app) {
   app.get("*", function (req, res) {
     res.render("404");
   });
-
-  app.delete("/todo", function (req, res) {});
 
   ////////////////////////////////////////// edit Business Post Handling/////////////////////////////////////////
   app.post("/saveGeneralData", function (req, res) {

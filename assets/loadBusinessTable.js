@@ -1,10 +1,14 @@
-exports.loadBusinessTable = function (req, res) {
+exports.loadBusinessTable = function (user,role) {
   return new Promise(function (resolve, reject) {
     var credentials = require("./connection");
     var mysql = require("mysql2");
     var connect = mysql.createConnection(credentials);
-    var query = "SELECT * FROM business";
-
+    if (role == 1) {
+      var query = `SELECT * FROM business;`
+    } else {
+      var query = `SELECT * FROM business WHERE userID = ${user};`;
+    }
+    console.log(query);
     connect.query(query, function (err, result, fields) {
       if (err) {
         return reject(err);
