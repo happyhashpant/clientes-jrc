@@ -183,8 +183,12 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
-  app.get("*", function (req, res) {
-    res.render("404");
+  app.get("/navbar", function (req, res) {
+    res.render("navbar");
+  });
+
+  app.get("/*", function (req, res) {
+    res.render("navbar");
   });
 
   app.delete("/todo", function (req, res) {});
