@@ -184,11 +184,11 @@ module.exports = function (app) {
   });
 
   app.get("/navbar", function (req, res) {
-    res.render("navbar");
+    res.render("navBar");
   });
 
-  app.get("/*", function (req, res) {
-    res.render("navbar");
+  app.get("*", function (req, res) {
+    res.render("navBar");
   });
 
   app.delete("/todo", function (req, res) {});
