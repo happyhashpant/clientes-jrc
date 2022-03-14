@@ -142,20 +142,29 @@ module.exports = function (app) {
     }
   );
 
+  app.post("/validateOwner", function (req, res) {
+    APIFunction.retrieveOwnerValidation(req, res);
+  });
+
   app.get("/loadBusiness*", (req, res) => {
     APIFunction.loadBusinessSync(req, res);
   });
 
-  app.get("/user", APIFunction.checkSignIn, function (req, res) {
-    loadUserTable
-      .loadUserTable()
-      .then(function (result) {
-        objects = result;
-      })
-      .then(function (result) {
-        res.render("user");
-      });
-  });
+  app.get(
+    "/user",
+    APIFunction.checkSignIn,
+    APIFunction.checkRole,
+    function (req, res) {
+      loadUserTable
+        .loadUserTable()
+        .then(function (result) {
+          objects = result;
+        })
+        .then(function (result) {
+          res.render("user");
+        });
+    }
+  );
   app.get(
     "/adduser",
     APIFunction.checkSignIn,

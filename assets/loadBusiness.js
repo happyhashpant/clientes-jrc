@@ -8,12 +8,12 @@ exports.loadBusiness = function (req, res) {
       if (err) {
         return reject(err);
       }
-      console.log(query);
       return resolve(result);
     });
     connect.end();
   });
 };
+
 exports.loadMyBusiness = function (req, res) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
@@ -24,11 +24,8 @@ exports.loadMyBusiness = function (req, res) {
       if (err) {
         return reject(err);
       }
-      console.log(query);
-      console.log(result);
       return resolve(result);
     });
-
     connect.end();
   });
 };
@@ -131,15 +128,11 @@ exports.loadBusinessContract = function loadBusinessContract(businessID) {
   });
 };
 
-exports.validateNewOwner = function (businessId, newOwner) {
+exports.retrieveOwnerValidation = function (value) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query =
-    "DELETE FROM legalbusinessrep WHERE businessID= " +
-    businessId +
-    " AND idLegal = " +
-    businessOwerID;
+  var query = `SELECT businessID FROM business WHERE businessID = ${value}`;
   return new Promise((resolve, reject) => {
     connect.query(query, (err, result, fields) => {
       if (err) {

@@ -36,7 +36,6 @@ window.addEventListener("load", (event) => {
         if (form.checkValidity()) {
           var formData = JSON.stringify($("#addOwnerForm").serializeArray());
           formData = JSON.parse(formData);
-          console.log(formData);
           $("#ownerDIVModal")
             .clone()
             .attr("id", "newOwners")
@@ -111,7 +110,7 @@ window.addEventListener("load", (event) => {
         if (form.checkValidity()) {
           var formData = JSON.stringify($("#newActivityForm").serializeArray());
           formData = JSON.parse(formData);
-          console.log(formData);
+
           $("#activityDIVModal")
             .clone()
             .attr("id", "activityNewDIV")
@@ -153,8 +152,6 @@ window.addEventListener("load", (event) => {
         if (form.checkValidity()) {
           var formData = JSON.stringify($("#newContactForm").serializeArray());
           formData = JSON.parse(formData);
-
-          console.log(formData);
           $("#contactDIVModal")
             .clone()
             .attr("id", "contactNewDIV")
@@ -183,7 +180,7 @@ window.addEventListener("load", (event) => {
           event.preventDefault();
           event.stopPropagation();
         }
-        
+
         event.preventDefault();
       },
       false
@@ -192,8 +189,6 @@ window.addEventListener("load", (event) => {
 })();
 
 function removeBusinessDIV(action, id) {
-  console.log(action);
-  console.log(id);
   switch (action) {
     case "owner":
       $(`.ownerDIV${id}`).remove();
@@ -204,5 +199,24 @@ function removeBusinessDIV(action, id) {
     case "contact":
       $(`.contactDIV${id}`).remove();
       break;
+  }
+}
+
+function validateBusinessID(value) {
+  if (value) {
+    $.ajax({
+      type: "POST",
+      url: "/validateOwner",
+      data: {
+        value: value,
+      },
+      success: function (data, status) {
+        if (data == 0) {
+          $("#businessID").attr("class", "form-control is-valid");
+        } else {
+          $("#businessID").attr("class", "form-control is-invalid");
+        }
+      },
+    });
   }
 }

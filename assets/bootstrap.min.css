@@ -1788,6 +1788,8 @@ progress {
 }
 .table-responsive {
   overflow: auto;
+  margin: 0 auto;
+  max-width: 80rem;
   -webkit-overflow-scrolling: touch;
 }
 @media (max-width: 575.98px) {
@@ -2333,7 +2335,7 @@ textarea.form-control-lg {
   top: 0;
   left: 0;
   height: 100%;
-  padding: 1rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   pointer-events: none;
   border: 1px solid transparent;
   transform-origin: 0 0;

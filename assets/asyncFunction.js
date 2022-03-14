@@ -87,7 +87,6 @@ function checkSignIn(req, res, next) {
 }
 
 function checkRole(req, res, next) {
-  console.log(req.session.role);
   if (req.session.role == 1) {
     next();
   } else {
@@ -97,6 +96,7 @@ function checkRole(req, res, next) {
 }
 
 async function addBusinessSync(req, res) {
+  1;
   var user = await loadUser.loadUserMenu();
   var activity = await loadActivity.loadActivityMenu();
   res.render("addBusiness", {
@@ -107,8 +107,6 @@ async function addBusinessSync(req, res) {
 
 async function addNewBusiness(req) {
   var formData = req.body;
-  var ownerArray = [];
-  var contactArray = [];
   var activityArray = [];
   if (formData.businessOwnerName) {
     if (typeof formData.businessOwnerName !== "string") {
@@ -185,10 +183,6 @@ async function addNewBusiness(req) {
       contactArray[0].contactEmail = formData.contactEmail;
     }
   }
-
-  console.log(ownerArray);
-  console.log(contactArray);
-  console.log(activityArray);
 
   await insertBusiness.addBusiness(formData);
   setTimeout(async function () {
@@ -280,7 +274,6 @@ async function saveAllBusinessOwners(req, res) {
 async function saveAllBusinessContacts(req, res) {
   var contactArray = [];
   formData = req.body;
-  console.log(formData);
   var businessID = formData.formData[0].value;
   tempContactObject = new Object();
   for (i = 0; i < formData.formData.length; i++) {
@@ -304,6 +297,13 @@ async function saveAllBusinessContacts(req, res) {
   saveBusiness.saveContactData(businessID, contactArray);
 }
 
+async function retrieveOwnerValidation(req, res) {
+  var business = await loadBusiness.retrieveOwnerValidation(req.body.value);
+  var value = business.length + "";
+  res.status(200).send(value);
+}
+
+module.exports.retrieveOwnerValidation = retrieveOwnerValidation;
 module.exports.checkRole = checkRole;
 module.exports.saveAllBusinessContacts = saveAllBusinessContacts;
 module.exports.saveAllBusinessOwners = saveAllBusinessOwners;

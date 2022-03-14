@@ -8,7 +8,8 @@ h2 {
   border-bottom: black;
   border-bottom-style: groove;
   font-size: 20px;
-  max-width: 100rem;
+  max-width: 80rem;
+  left: -5%;
   margin: 40px auto 10px auto;
 }
 
@@ -17,16 +18,16 @@ html {
 }
 
 body {
-  background: linear-gradient(#ffffff 0%, #666666 100%);
+  background: #fbf6fd;
   background-repeat: no-repeat;
   height: 100%;
   color: black;
-  letter-spacing: 3px;
+  letter-spacing: 1px;
   font-family: "Open Sans Condensed", sans-serif;
 }
 input {
-  margin-bottom: 20px;
-  margin-right: 10px;
+  margin-bottom: 5px;
+  margin-right: 5px;
 }
 
 #submit {
@@ -34,10 +35,10 @@ input {
   margin-bottom: 10px;
 }
 .contentBackground {
-  background-color: #6b6b6b;
-  padding: 10px;
+  background-color: #f4f5ff;
+  padding: 5px 0px;
   border-radius: 10px;
-  max-width: 100rem;
+  max-width: 80rem;
   margin: 0 auto;
   border-style: solid;
 }
@@ -52,8 +53,6 @@ input {
 
 .tiv {
   text-align: center;
-  max-width: 40rem;
-  margin: 0 auto;
   border-style: solid;
 }
 
@@ -93,7 +92,7 @@ th > input:read-only {
 
 label {
   font-weight: bold;
-  margin: 0px 0px 5px 10px;
+  margin: 5px 0px 0px 10px;
   color: rgb(41, 41, 41);
 }
 
@@ -108,7 +107,7 @@ label {
     margin-top: 0;
   }
   input {
-    width: 100px;
+    width: 50px;
   }
 }
 
@@ -128,12 +127,12 @@ img {
 .editButtons {
   margin: 5px;
   border-radius: 10px;
-  max-width: 100rem;
+  max-width: 80rem;
   margin: 0 auto;
 }
 
 .editAddActivity {
-  margin: 10px 0 10px 0; 
+  margin: 10px 0 10px 0;
 }
 .activityFrRow1 {
   margin-top: 10px;
@@ -165,7 +164,7 @@ img {
 .divDeleteButtonOwner {
   display: none;
   margin: 0;
-  padding: 0;
+  padding: 0px;
 }
 @font-face {
   font-family: "Material Icons";
@@ -225,4 +224,16 @@ img {
 }
 .hiddenButton {
   display: none;
+}
+
+.addBusinessDIV {
+  margin: 10px;
+}
+.table th {
+  text-align: center;
+}
+
+.dataTables_filter input{
+  width: 100%;
+  margin: 5px;
 }
