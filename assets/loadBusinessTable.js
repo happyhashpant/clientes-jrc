@@ -6,7 +6,7 @@ exports.loadBusinessTable = function (user,role) {
     if (role == 1) {
       var query = `SELECT * FROM business;`
     } else {
-      var query = `SELECT * FROM business WHERE userID = ${user};`;
+      var query = `SELECT * FROM business WHERE userID = ${user} AND userID = 0;`;
     }
     console.log(query);
     connect.query(query, function (err, result, fields) {
