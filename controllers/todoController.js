@@ -23,10 +23,10 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const uuid = require("uuid").v4;
 const aws = require("aws-sdk");
-// aws.config.update({
-//   accessKeyId: "AKIAZ5BJL3XR25ZYNTCH",
-//   secretAccessKey: "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",
-// });
+aws.config.update({
+  accessKeyId: "AKIAZ5BJL3XR25ZYNTCH",
+  secretAccessKey: "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",
+});
 const s3 = new aws.S3({ apiVersion: "2006-03-01" });
 
 const uploadPicture = multer({
