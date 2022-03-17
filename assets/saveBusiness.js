@@ -139,6 +139,7 @@ exports.deleteBusinessOwner = function (businessId, businessOwerID) {
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   var query = `DELETE FROM legalbusinessrep WHERE businessID = ${businessId} AND idLegal = ${businessOwerID}`;
+  console.log(query);
   connect.query(query);
   connect.end();
 };

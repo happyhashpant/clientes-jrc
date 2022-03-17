@@ -1,4 +1,3 @@
-
 window.addEventListener("load", (event) => {
   $("#navBar").load("/navbar");
 });
@@ -80,11 +79,11 @@ window.addEventListener("load", (event) => {
               //Clone ownerNameInput
               $("#newOwners #divDeleteButtonOwner #deleteButtonOwner").attr(
                 "onclick",
-                "deleteOwnerAjx('" +
-                  this.sendData.formData[0].value +
-                  "','" +
-                  this.sendData.formData[2].value +
-                  "')"
+                `deleteBusinessFunction( 'deleteOwner',${this.sendData.formData[0].value},${this.sendData.formData[2].value})`
+              );
+              $("#newOwners #divDeleteButtonOwner #deleteButtonOwner").attr(
+                "class",
+                "button"
               );
               $("#newOwners #ownerRow #ownerNameInput #businessOwnerName").val(
                 this.sendData.formData[1].value
@@ -93,6 +92,10 @@ window.addEventListener("load", (event) => {
               //Clone ownerIDInput
               $("#newOwners #ownerRow #ownerIDInput #businessOwnerID").val(
                 this.sendData.formData[2].value
+              );
+              $("#newOwners #ownerRow #ownerIDInput #businessOwnerID").attr(
+                "readonly",
+                true
               );
 
               //Clone ownerIDExpDateInput
@@ -239,6 +242,18 @@ window.addEventListener("load", (event) => {
                 .attr("id", "activityNewDIV")
                 .appendTo("#addActivity");
 
+                $("#activityNewDIV #divDeleteButton").css(
+                  "display",
+                  "inline"
+                );
+              $("#activityNewDIV #divDeleteButton #deleteActivityButton").attr(
+                "onclick",
+                `deleteBusinessFunction('deleteActivity',${this.sendData.formData[0].value},${this.sendData.formData[1].value})`
+              );
+              $("#activityNewDIV #divDeleteButton #deleteActivityButton").attr(
+                "class",
+                "button"
+              );
               $("#activityNewDIV  #businessActivity").attr("disabled", true);
               $("#activityNewDIV  #businessActivity").val(
                 `${this.sendData.formData[1].value}`
@@ -246,10 +261,6 @@ window.addEventListener("load", (event) => {
               $("#activityNewDIV").attr(
                 "class",
                 `activity${this.sendData.formData[1].value}`
-              );
-              $("#activityNewDIV #divDeleteButton #deleteActivityButton").attr(
-                "onclick",
-                `deleteBusinessFunction('deleteActivity',${this.sendData.formData[0].value},${this.sendData.formData[1].value})`
               );
               $("#activityNewDIV").attr("id", "activityDIV");
             },

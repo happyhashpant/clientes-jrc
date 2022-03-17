@@ -772,7 +772,7 @@
 
       <!------------------------------------------- Business Picture ----------------------------------------->
 
-      <h2>Logo</h2>
+      <h2>Logo (png/jpeg)</h2>
       <!------------------------------------------- Edit Buttons Business Picture ----------------------------------------->
       <div class="editButtons">
         <button
@@ -816,6 +816,7 @@
                 id="businessPicture"
                 class="form-control"
                 name="businessPicture"
+                accept="image/jpeg, image/png"
                 disabled
                 required
               />
@@ -849,7 +850,7 @@
 
       <!-------------------------------------------  END Business Picture ----------------------------------------->
       <!------------------------------------------- Business Contract ----------------------------------------->
-      <h2>Cotización</h2>
+      <h2>Cotización (PDF)</h2>
       <!------------------------------------------- Edit Business Contract ----------------------------------------->
       <div class="editButtons">
         <button
@@ -1102,6 +1103,22 @@
               />
               <div id="addOwner">
                 <div id="ownerDIV">
+                  <div class="editButtons">
+                    <div
+                      class="col-md-6 divDeleteButtonOwner"
+                      id="divDeleteButtonOwner"
+                    >
+                      <button
+                        type="button"
+                        class="button hiddenButton"
+                        id="deleteButtonOwner"
+                        onclick="deleteBusinessFunction()"
+                      >
+                        <i class="material-icons">clear</i>
+                        <span class="text">Eliminar</span>
+                      </button>
+                    </div>
+                  </div>
                   <div class="row" id="ownerRow">
                     <div class="col-md-4 form-floating" id="ownerNameInput">
                       <input
@@ -1247,6 +1264,17 @@
               />
               <div id="contact">
                 <div id="contactDIV">
+                  <div class="editButtons" id="deleteContactButtonDiv">
+                    <button
+                      id="deleteContactButton"
+                      type="button"
+                      class="hiddenButton button"
+                      onclick="deleteBusinessFunction()"
+                    >
+                      <i class="material-icons">clear</i>
+                      <span class="text">Eliminar</span>
+                    </button>
+                  </div>
                   <div class="row">
                     <div class="col-md-4">
                       <input
@@ -1327,24 +1355,42 @@
               novalidate
             >
               <div id="activityDIV">
+                <div
+                  class="col-md-6 divDeleteButton editButtons"
+                  id="divDeleteButton"
+                >
+                  <div class="editButtons">
+                    <button
+                      type="button"
+                      class="button hiddenButton"
+                      id="deleteActivityButton"
+                      onclick="deleteBusinessFunction()"
+                    >
+                      <i class="material-icons">clear</i>
+                      <span class="text">Eliminar</span>
+                    </button>
+                  </div>
+                </div>
                 <input
                   name="businessID"
                   type="hidden"
                   value="<%=business[0].businessID%>"
                 />
-                <select
+                <input
+                  list="activitiesList"
                   name="businessNewActivity"
                   id="businessActivity"
                   class="form-select"
                   required
-                >
+                />
+                <datalist id="activitiesList">
                   <% var n=0; totalActivity.forEach(function(totalActivityData){
                   %>
                   <option value="<%=totalActivityData.id%>">
                     <%=totalActivityData.activityName%>
                   </option>
                   <% n++; }) %>
-                </select>
+                </datalist>
               </div>
             </form>
           </div>
