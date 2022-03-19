@@ -171,9 +171,9 @@ function editBusinessTivData() {
 }
 
 function editContactData() {
-  $(".newContactName").attr("readonly", false);
-  $(".newContactPhone").attr("readonly", false);
-  $(".newContactEmail").attr("readonly", false);
+  $(".contactName").attr("readonly", false);
+  $(".contactPhone").attr("readonly", false);
+  $(".contactEmail").attr("readonly", false);
   $("#editContactsData").css("display", "none");
   $("#saveContactDataButton").css("display", "inline-flex");
   $(".deleteButtonContact").css("display", "inline-flex");
@@ -194,7 +194,7 @@ function editBusinessContract() {
   $(".deleteButtonContract").css("display", "inline-flex");
 }
 
-function deleteBusinessFunction(action, businessID, actionID) {
+function deleteBusinessFunction(action, businessID, actionID, contactAction) {
   switch (action) {
     case "deleteOwner": {
       $.ajax({
@@ -270,6 +270,7 @@ function deleteBusinessFunction(action, businessID, actionID) {
         data: {
           businessID: businessID,
           actionID: actionID,
+          contactAction: contactAction,
         },
         success: function (data, status) {
           $(".contact" + actionID).remove();

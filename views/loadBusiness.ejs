@@ -74,6 +74,7 @@
       </form>
 
       <!------------------------------------------- Legal Owner ----------------------------------------->
+
       <form id="ownerData" class="needs-validation" method="post" novalidate>
         <input
           name="businessID"
@@ -219,6 +220,7 @@
           </div>
         </div>
       </form>
+
       <!------------------------------------------- Account Details ----------------------------------------->
 
       <form id="accountData" class="needs-validation" novalidate>
@@ -976,57 +978,68 @@
         <div class="contentBackground">
           <div id="contact">
             <% var p=0; contact.forEach(function(contactData){ %>
-            <div
-              id="contactDIV1"
-              class="contactDIV contact<%=contactData.contactPhone%>"
-            >
+            <div id="contactDIV" class="contact<%=contactData.contactPhone%>">
               <input
-                name="contactID"
+                name="currentContactPhone"
+                id="currentContactPhone"
                 type="hidden"
-                value="<%=contactData.id%>"
+                value="<%=contactData.contactPhone%>"
+              />
+              <input
+                name="currentContactEmail"
+                id="currentContactEmail"
+                type="hidden"
+                value="<%=contactData.contactEmail%>"
               />
               <div class="editButtons" id="deleteContactButtonDiv">
                 <button
                   id="deleteContactButton"
                   type="button"
                   class="hiddenButton button deleteButtonContact"
-                  onclick="deleteBusinessFunction('deleteContact','<%=business[0].businessID%>','<%=contactData.contactPhone%>')"
+                  onclick="deleteBusinessFunction('deleteContact','<%=business[0].businessID%>','<%=contactData.contactPhone%>','<%=contactData.contactEmail%>')"
                 >
                   <i class="material-icons">clear</i>
                   <span class="text">Eliminar</span>
                 </button>
               </div>
               <div class="row" id="contactRow">
-                <input
-                  type="text"
-                  class="form-control col-md-4 newContactName"
-                  id="contactName"
-                  name="contactName"
-                  placeholder="Nombre"
-                  value="<%=contactData.contactName%>"
-                  readonly
-                />
-                <input
-                  type="number"
-                  class="form-control col-md-4 newContactPhone"
-                  id="contactPhone"
-                  name="contactPhone"
-                  placeholder="Numero
-              Telefonico"
-                  value="<%=contactData.contactPhone%>"
-                  onkeypress="limit(event,this.value,10)"
-                  readonly
-                />
-
-                <input
-                  type="email"
-                  class="form-control col-md-4 newContactEmail"
-                  id="contactEmail"
-                  name="contactEmail"
-                  placeholder="Correo electronico"
-                  value="<%=contactData.contactEmail%>"
-                  readonly
-                />
+                <div class="col-md-4 form-floating">
+                  <input
+                    type="text"
+                    class="form-control contactName"
+                    id="contactName"
+                    name="contactName"
+                    placeholder="Nombre"
+                    value="<%=contactData.contactName%>"
+                    readonly
+                  />
+                  <label for="contactName">Nombre</label>
+                </div>
+                <div class="col-md-4 form-floating">
+                  <input
+                    type="number"
+                    class="form-control contactPhone"
+                    id="contactPhone"
+                    name="contactPhone"
+                    placeholder="Telefono"
+                    value="<%=contactData.contactPhone%>"
+                    onkeypress="limit(event,this.value,10)"
+                    readonly
+                  />
+                  <label for="contactPhone">Telefono</label>
+                </div>
+                <div class="col-md-4 form-floating">
+                  <input
+                    type="email"
+                    class="form-control contactEmail"
+                    id="contactEmail"
+                    name="contactEmail"
+                    placeholder="Correo"
+                    value="<%=contactData.contactEmail%>"
+                    readonly
+                  />
+                  <label for="contactPhone">Correo</label>
+                </div>
               </div>
             </div>
             <% p++; }) %>
@@ -1264,11 +1277,23 @@
               />
               <div id="contact">
                 <div id="contactDIV">
+                  <input
+                    name="currentContactPhone"
+                    id="currentContactPhone"
+                    type="hidden"
+                    value=""
+                  />
+                  <input
+                    name="currentContactEmail"
+                    id="currentContactEmail"
+                    type="hidden"
+                    value=""
+                  />
                   <div class="editButtons" id="deleteContactButtonDiv">
                     <button
                       id="deleteContactButton"
                       type="button"
-                      class="hiddenButton button"
+                      class="hiddenButton button deleteButtonContact"
                       onclick="deleteBusinessFunction()"
                     >
                       <i class="material-icons">clear</i>
@@ -1279,7 +1304,7 @@
                     <div class="col-md-4">
                       <input
                         type="text"
-                        class="form-control"
+                        class="form-control contactName"
                         id="contactName"
                         name="contactName"
                         placeholder="Nombre"
@@ -1288,7 +1313,7 @@
                     <div class="col-md-4">
                       <input
                         type="number"
-                        class="form-control"
+                        class="form-control contactPhone"
                         id="contactPhone"
                         name="contactPhone"
                         placeholder="Numero Telefonico"
@@ -1298,7 +1323,7 @@
                     <div class="col-md-4">
                       <input
                         type="email"
-                        class="form-control"
+                        class="form-control contactEmail"
                         id="contactEmail"
                         name="contactEmail"
                         placeholder="Correo electronico"

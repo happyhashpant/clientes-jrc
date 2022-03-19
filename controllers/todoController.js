@@ -230,10 +230,6 @@ module.exports = function (app) {
     saveBusiness.saveBusinessNewContact(req);
     res.send("Success");
   });
-  app.get("/getSaveContactID", function (req, res) {
-    saveBusiness.saveBusinessNewContact(req);
-    res.send("Success");
-  });
 
   app.post("/saveAllContactData", function (req, res) {
     APIFunction.saveAllBusinessContacts(req);
@@ -300,7 +296,7 @@ module.exports = function (app) {
   });
 
   app.post("/deleteContact", function (req, res) {
-    saveBusiness.deleteBusinessContact(req.body.businessID, req.body.actionID);
+    saveBusiness.deleteBusinessContact(req.body.businessID, req.body.actionID, req.body.contactAction);
     res.send("Success");
   });
 };

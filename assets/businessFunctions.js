@@ -242,10 +242,7 @@ window.addEventListener("load", (event) => {
                 .attr("id", "activityNewDIV")
                 .appendTo("#addActivity");
 
-                $("#activityNewDIV #divDeleteButton").css(
-                  "display",
-                  "inline"
-                );
+              $("#activityNewDIV #divDeleteButton").css("display", "inline");
               $("#activityNewDIV #divDeleteButton #deleteActivityButton").attr(
                 "onclick",
                 `deleteBusinessFunction('deleteActivity',${this.sendData.formData[0].value},${this.sendData.formData[1].value})`
@@ -299,25 +296,28 @@ window.addEventListener("load", (event) => {
                 .attr("id", "contactNewDIV")
                 .appendTo("#contact");
 
+              $("#contactNewDIV #currentContactPhone").val(formData[4].value);
+              $("#contactNewDIV #currentContactEmail").val(formData[5].value);
+              // $(
+              //   "#contactNewDIV #deleteContactButtonDiv #deleteContactButton"
+              // ).attr("class", `button hidden deleteContactButton`);
+
               $(
                 "#contactNewDIV #deleteContactButtonDiv #deleteContactButton"
               ).attr(
                 "onclick",
-                `deleteBusinessFunction('deleteContact',${this.sendData.formData[0].value},${this.sendData.formData[2].value})`
+                `deleteBusinessFunction('deleteContact','${formData[0].value}','${formData[4].value}','${formData[5].value}')`
               );
-              $("#contactNewDIV").attr(
-                "class",
-                `contactDIV ${this.sendData.formData[2].value}`
-              );
+              $("#contactNewDIV").attr("class", `contact${formData[4].value}`);
 
               $("#contactNewDIV #contactRow #contactName").val(
-                this.sendData.formData[1].value
+                formData[3].value
               );
               $("#contactNewDIV #contactRow #contactPhone").val(
-                this.sendData.formData[2].value
+                formData[4].value
               );
               $("#contactNewDIV #contactRow #contactEmail").val(
-                this.sendData.formData[3].value
+                formData[5].value
               );
               $("#contactNewDIV").attr("id", "contactDIV");
             },
@@ -350,9 +350,9 @@ window.addEventListener("load", (event) => {
               formData: formData,
             },
             success: function (data, status) {
-              $(".newContactName").attr("readonly", true);
-              $(".newContactPhone").attr("readonly", true);
-              $(".newContactEmail").attr("readonly", true);
+              $(".contactName").attr("readonly", true);
+              $(".contactPhone").attr("readonly", true);
+              $(".contactEmail").attr("readonly", true);
               $("#editContactsData").css("display", "inline-flex");
               $("#saveContactDataButton").css("display", "none");
               $(".deleteButtonContact").css("display", "none");

@@ -278,9 +278,12 @@ async function saveAllBusinessContacts(req, res) {
   tempContactObject = new Object();
   for (i = 0; i < formData.formData.length; i++) {
     switch (formData.formData[i].name) {
-      case "contactID":
-        tempContactObject.contactID = formData.formData[i].value;
+      case "currentContactPhone":
+        tempContactObject.currentContactPhone = formData.formData[i].value;
         break;
+      case "currentContactEmail":
+        tempContactObject.currentContactEmail = formData.formData[i].value;
+        break;   
       case "contactName":
         tempContactObject.contactName = formData.formData[i].value;
         break;

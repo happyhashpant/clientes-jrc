@@ -30,14 +30,10 @@ input {
   margin-right: 5px;
 }
 
-#submit {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 .contentBackground {
   background-color: #f4f5ff;
-  padding: 5px 0px;
   border-radius: 10px;
+  padding: 1.5rem 0px 1.5rem 0px;
   max-width: 80rem;
   margin: 0 auto;
   border-style: solid;
@@ -233,7 +229,7 @@ img {
   text-align: center;
 }
 
-.dataTables_filter input{
+.dataTables_filter input {
   width: 100%;
   margin: 5px;
 }

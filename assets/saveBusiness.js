@@ -192,8 +192,9 @@ exports.saveBusinessNewContact = function (formData) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query = `INSERT INTO businesscontact (businessID, contactName, contactPhone, contactEmail) VALUES (${formData.body.formData[0].value}, '${formData.body.formData[1].value}', ${formData.body.formData[2].value}, '${formData.body.formData[3].value}');`;
+  var query = `INSERT INTO businesscontact (businessID, contactName, contactPhone, contactEmail) VALUES (${formData.body.formData[0].value}, '${formData.body.formData[3].value}', ${formData.body.formData[4].value}, '${formData.body.formData[5].value}');`;
   connect.query(query);
+  console.log(query);
   connect.end();
 };
 
@@ -203,18 +204,24 @@ exports.saveContactData = function (businessID, contactArray) {
   var connect = mysql.createConnection(credentials);
   var sql = "";
   contactArray.map((contact, i) => {
-    sql = `UPDATE businesscontact SET contactName = '${contact.contactName}', contactPhone = ${contact.contactPhone}, contactEmail = '${contact.contactEmail}' WHERE businessID = ${businessID} AND id = ${contact.contactID};`;
+    sql = `UPDATE businesscontact SET contactName = '${contact.contactName}', contactPhone = ${contact.contactPhone}, contactEmail = '${contact.contactEmail}' WHERE businessID = ${businessID} AND contactPhone = ${contact.currentContactPhone} AND contactEmail = '${contact.currentContactEmail}';`;
+    console.log(sql);
     connect.query(sql);
     sql = "";
   });
   connect.end();
 };
 
-exports.deleteBusinessContact = function (businessID, contractID) {
+exports.deleteBusinessContact = function (
+  businessID,
+  contactPhone,
+  contactEmail
+) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
-  var query = `DELETE FROM businesscontact WHERE businessID = ${businessID} AND contactPhone = ${contractID}`;
+  var query = `DELETE FROM businesscontact WHERE businessID = ${businessID} AND contactPhone = ${contactPhone} AND contactEmail = '${contactEmail}'`;
+  console.log(query);
   connect.query(query);
   connect.end();
 };
