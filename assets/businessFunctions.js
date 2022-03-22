@@ -298,9 +298,6 @@ window.addEventListener("load", (event) => {
 
               $("#contactNewDIV #currentContactPhone").val(formData[4].value);
               $("#contactNewDIV #currentContactEmail").val(formData[5].value);
-              // $(
-              //   "#contactNewDIV #deleteContactButtonDiv #deleteContactButton"
-              // ).attr("class", `button hidden deleteContactButton`);
 
               $(
                 "#contactNewDIV #deleteContactButtonDiv #deleteContactButton"

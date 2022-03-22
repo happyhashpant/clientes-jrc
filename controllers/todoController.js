@@ -132,7 +132,6 @@ module.exports = function (app) {
   app.get(
     "/addBusiness",
     APIFunction.checkSignIn,
-    APIFunction.checkRole,
     function (req, res) {
       APIFunction.addBusinessSync(req, res);
     }
