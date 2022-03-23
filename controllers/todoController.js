@@ -121,10 +121,10 @@ module.exports = function (app) {
   app.post("/addBusiness", function (req, res) {
     APIFunction.addNewBusiness(req);
     loadBusinessTable
-      .loadBusinessTable()
+      .loadBusinessTable(req.session.user, req.session.role)
       .then(function (result) {
         objects = result;
-        res.redirect("business");
+        res.render("business");
       })
       .catch((err) => alert(err));
   });
