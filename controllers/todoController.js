@@ -129,13 +129,9 @@ module.exports = function (app) {
       .catch((err) => alert(err));
   });
 
-  app.get(
-    "/addBusiness",
-    APIFunction.checkSignIn,
-    function (req, res) {
-      APIFunction.addBusinessSync(req, res);
-    }
-  );
+  app.get("/addBusiness", APIFunction.checkSignIn, function (req, res) {
+    APIFunction.addBusinessSync(req, res);
+  });
 
   app.post("/validateOwner", function (req, res) {
     APIFunction.retrieveOwnerValidation(req, res);
@@ -236,7 +232,7 @@ module.exports = function (app) {
   });
 
   app.post("/saveNewActivityData", function (req, res) {
-    saveBusiness.saveBusinessActivity(req);    
+    saveBusiness.saveBusinessActivity(req, res);
   });
 
   app.post("/saveAllBusinessOwner", function (req, res) {
@@ -294,7 +290,11 @@ module.exports = function (app) {
   });
 
   app.post("/deleteContact", function (req, res) {
-    saveBusiness.deleteBusinessContact(req.body.businessID, req.body.actionID, req.body.contactAction);
+    saveBusiness.deleteBusinessContact(
+      req.body.businessID,
+      req.body.actionID,
+      req.body.contactAction
+    );
     res.send("Success");
   });
 };
