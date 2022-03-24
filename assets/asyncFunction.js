@@ -108,6 +108,8 @@ async function addBusinessSync(req, res) {
 async function addNewBusiness(req) {
   var formData = req.body;
   var activityArray = [];
+  var ownerArray = [];
+  var contactArray = [];
   if (formData.businessOwnerName) {
     if (typeof formData.businessOwnerName !== "string") {
       i = 0;
@@ -283,7 +285,7 @@ async function saveAllBusinessContacts(req, res) {
         break;
       case "currentContactEmail":
         tempContactObject.currentContactEmail = formData.formData[i].value;
-        break;   
+        break;
       case "contactName":
         tempContactObject.contactName = formData.formData[i].value;
         break;
