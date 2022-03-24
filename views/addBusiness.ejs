@@ -32,7 +32,7 @@
                 id="businessName"
                 type="text"
                 class="form-control"
-                placeholder="Nombre de la sociedad"
+                placeholder="Nombre"
                 required
               />
               <label for="businessName">Nombre*</label>
@@ -43,14 +43,14 @@
                 id="businessID"
                 class="form-control"
                 name="businessID"
-                placeholder="Cédula Jurídica"
+                placeholder="Cédula"
                 onblur="validateBusinessID(this.value)"
-                onkeypress="limit(event,this.value,10)"
+                onkeypress="limit(event,this.value,12)"
                 required
               />
-              <label for="inputBusinessID">Cédula Jurídica*</label>
+              <label for="inputBusinessID">Cédula*</label>
               <div class="invalid-feedback">
-                Ya existe esta cédula jurídica.
+                Ya existe esta cédula.
               </div>
             </div>
           </div>
