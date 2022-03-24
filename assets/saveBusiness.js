@@ -94,12 +94,18 @@ exports.saveTIVData = function (req) {
   connect.end();
 };
 
-exports.saveBusinessActivity = function (req) {
+exports.saveBusinessActivity = function (req, res) {
   var credentials = require("./connection");
   var mysql = require("mysql2");
   var connect = mysql.createConnection(credentials);
   query = `INSERT into businesactivity (businessID, activityID) VALUES (${req.body.formData[0].value}, ${req.body.formData[1].value});`;
-  connect.query(query);
+  connect.query(query, (err) => {
+    if (err) {
+      res.status(400).send("error");
+    } else {
+      res.status(200).send("success");
+    }
+  });
   connect.end();
 };
 

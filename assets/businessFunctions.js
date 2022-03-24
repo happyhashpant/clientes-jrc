@@ -261,6 +261,11 @@ window.addEventListener("load", (event) => {
               );
               $("#activityNewDIV").attr("id", "activityDIV");
             },
+            error: () => {
+              $("#activityFormModal").modal("hide");
+              $("#businessModal").modal("show");
+              $("#businessModalMessage").text("Esta actividad no existe");
+            },
           });
         }
         form.classList.add("was-validated");

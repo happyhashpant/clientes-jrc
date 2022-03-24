@@ -236,8 +236,7 @@ module.exports = function (app) {
   });
 
   app.post("/saveNewActivityData", function (req, res) {
-    saveBusiness.saveBusinessActivity(req);
-    res.send("Success");
+    saveBusiness.saveBusinessActivity(req);    
   });
 
   app.post("/saveAllBusinessOwner", function (req, res) {
