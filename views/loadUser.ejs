@@ -16,7 +16,7 @@
     <h1><%=userInfo[0].userName%></h1>
     <div class="contentBackground">
       <h2>Datos personales</h2>
-      <form class="addUserForm" action="/saveUser" method="post">
+      <form class="addUserForm" action="/user" method="post">
         <input name="userID" type="hidden" value="<%=userInfo[0].id%>" />
         <div class="row">
           <div class="col-md-4 form-floating">

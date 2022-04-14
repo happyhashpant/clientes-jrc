@@ -1,25 +1,18 @@
 var path = require("path");
 var insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"));
-var loadUserTable = require(path.join(__dirname, "../assets/loadUserTable.js"));
-
 const loadUser = require(path.join(__dirname, "../assets/loadUser.js"));
-var saveUser = require(path.join(__dirname, "../assets/saveUser.js"));
 var saveBusiness = require(path.join(__dirname, "../assets/saveBusiness.js"));
 var insertBusiness = require(path.join(
   __dirname,
   "../assets/insertNewBusiness.js"
 ));
-var loadBusinessTable = require(path.join(
-  __dirname,
-  "../assets/loadBusinessTable.js"
-));
 var loadBusiness = require(path.join(__dirname, "../assets/loadBusiness.js"));
 const loadActivity = require(path.join(__dirname, "../assets/loadActivity.js"));
-var bodyParser = require("body-parser");
-const { saveBusinessContractURL } = require("./saveBusiness");
 
 async function loadBusinessSync(req, res) {
-  var business = await loadBusiness.loadBusinessAsy(req.query.businessID);
+  var business = await loadBusiness.loadBusinessAsy(req.params.id);
+  if (business.length == 0) return res.render("404");
+
   var user = await loadUser.loadUser(business[0].userID);
   var owner = await loadBusiness.loadOwners(business[0].businessID);
   var totalUsers = await loadUser.loadUserMenu();
@@ -32,6 +25,10 @@ async function loadBusinessSync(req, res) {
   var businessContract = await loadBusiness.loadBusinessContract(
     business[0].businessID
   );
+  var businessD140 = await loadBusiness.loadBusinessD140(
+    business[0].businessID
+  );
+
   res.render("loadBusiness", {
     business: business,
     user: user,
@@ -42,6 +39,7 @@ async function loadBusinessSync(req, res) {
     totalActivity: totalActivity,
     businessPictures: businessPictures,
     businessContract: businessContract,
+    businessD140: businessD140,
   });
 }
 
@@ -107,6 +105,7 @@ async function addBusinessSync(req, res) {
 
 async function addNewBusiness(req) {
   var formData = req.body;
+  console.log(formData);
   var activityArray = [];
   var ownerArray = [];
   var contactArray = [];
@@ -189,7 +188,7 @@ async function addNewBusiness(req) {
   await insertBusiness.addBusiness(formData);
   setTimeout(async function () {
     await insertBusiness.addBusinessOwner(ownerArray, formData.businessID);
-    await insertBusiness.addBusinessContact(contactArray, formData.businessID);
+    await insertBusiness.addBusinessContact(contactArray, formData.businessID);    
     await insertBusiness.addBusinessActivity(
       activityArray,
       formData.businessID

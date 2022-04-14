@@ -6,6 +6,7 @@
     <script src="/assets/bootstrap.js"></script>
     <script defer src="/assets/functions.js"></script>
     <link rel="stylesheet" href="/assets/normalize.css" />
+
     <link rel="stylesheet" href="/assets/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" href="/assets/logo.png" />
@@ -13,38 +14,132 @@
   </head>
   <body>
     <div id="navBar"></div>
-    <h1><%=business[0].businessName%></h1>
-    <div class="addBusinessDIV">
-      <form id="generalData" class="needs-validation" method="post" novalidate>
-        <h2>Datos Generales</h2>
-        <!------------------------------------------- Edit Buttons General Data ----------------------------------------->
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="editGeneralData"
-            onclick="editGeneralDataDiv()"
-          >
-            <i class="material-icons">mode_edit</i>
-            <span class="text">Editar</span>
-          </button>
-        </div>
-        <div class="editButtons">
-          <button
-            type="submit"
-            class="button hiddenButton"
-            id="saveGeneralData"
-          >
-            <i class="material-icons">sd_card</i>
-            <span class="text">Guardar</span>
-          </button>
-        </div>
 
-        <!------------------------------------------- END Edit Buttons General Data ----------------------------------------->
+    <nav class="navbar-light navbar navbar-expand-md">
+      <h1><%=business[0].businessName%></h1>
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDarkDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Editar
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-Light btn-group-animation"
+                aria-labelledby="navbarLightDropdownMenuLink"
+              >
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editGeneralData"
+                    onclick="editGeneralDataDiv()"
+                  >
+                    Datos generales
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editTIVButton"
+                    onclick="editBusinessTivData()"
+                  >
+                    TIV
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editAccountData"
+                    onclick="editAccountsData()"
+                  >
+                    Datos contables
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editOwner"
+                    onclick="editOwnerData()"
+                  >
+                    Representante legal
+                  </button>
 
-        <div class="contentBackground">
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editContactsData"
+                    onclick="editContactData()"
+                  >
+                    Contactos
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editActivity"
+                    onclick="editBusinessActivity()"
+                  >
+                    Actividad
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editBusinessPicture"
+                    onclick="editBusinessLogo()"
+                  >
+                    Logo
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editBusinessContract"
+                    onclick="editBusinessContract()"
+                  >
+                    Contrato
+                  </button>
+                  <button
+                    type="button"
+                    class="btn"
+                    id="editBusinessD140"
+                    onclick="editBusinessD140()"
+                  >
+                    D140
+                  </button>
+                </div>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="addBusinessDIV business-grid">
+      <!-------------- Account Data Tab ------------------------->
+      <div class="contentBackground business-grid-item" id="accountDataPDF">
+        <form
+          id="generalData"
+          class="needs-validation"
+          method="post"
+          novalidate
+        >
+          <!------------------------------------------- Edit Buttons General Data ----------------------------------------->
+          <div class="editButtons">
+            <button
+              type="submit"
+              class="button hiddenButton"
+              id="saveGeneralData"
+            >
+              <i class="material-icons">sd_card</i>
+              <span class="text">Guardar</span>
+            </button>
+          </div>
+          <!------------------------------------------- END Edit Buttons General Data ----------------------------------------->
           <div class="row">
-            <div class="col-md-4 form-floating">
+            <div class="col-md-8 form-floating">
               <input
                 id="businessName"
                 type="text"
@@ -55,7 +150,7 @@
                 readonly
                 required
               />
-              <label for="businessName">Nombre de la sociedad</label>
+              <label for="businessName">Nombre</label>
             </div>
             <div class="col-md-4 form-floating">
               <input
@@ -63,198 +158,271 @@
                 type="number"
                 class="form-control"
                 name="businessID"
-                placeholder="Cedula Juridica"
+                placeholder="Cédula"
                 value="<%=business[0].businessID%>"
                 readonly
               />
-              <label for="businessID">Cedula Juridica</label>
+              <label for="businessID">Cédula</label>
             </div>
           </div>
-        </div>
-      </form>
-
-      <!------------------------------------------- Legal Owner ----------------------------------------->
-
-      <form id="ownerData" class="needs-validation" method="post" novalidate>
-        <input
-          name="businessID"
-          type="hidden"
-          value="<%=business[0].businessID%>"
-        />
-
-        <h2>Representante Legal</h2>
-
-        <!------------------------------------------- Edit Buttons Legal Owner ----------------------------------------->
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="editOwner"
-            onclick="editOwnerData()"
-          >
-            <i class="material-icons">mode_edit</i>
-            <span class="text">Editar</span>
-          </button>
-        </div>
-        <div class="editButtons">
-          <button
-            type="submit"
-            class="button hiddenButton"
-            id="saveOwnerDataButton"
-          >
-            <i class="material-icons">sd_card</i>
-            <span class="text">Guardar</span>
-          </button>
-        </div>
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button hiddenButton"
-            id="addOwnerButton"
-            data-bs-toggle="modal"
-            data-bs-target="#ownerFormModal"
-          >
-            <i class="material-icons">add</i>
-            <span class="text">Agregar representante</span>
-          </button>
-        </div>
-
-        <!------------------------------------------- END Edit Buttons Legal Owner ----------------------------------------->
-        <div class="contentBackground">
-          <div id="addOwner">
-            <% var i=1; owner.forEach(function(data){%>
-            <div id="ownerDIV" class="ownerDIV <%=data.idLegal%>">
-              <div
-                class="col-md-6 divDeleteButtonOwner"
-                id="divDeleteButtonOwner"
+          <div class="row">
+            <div class="col-md-2 form-floating">
+              <select
+                name="businessStatus"
+                id="businessStatus"
+                class="form-select"
+                list="datalistOptions"
+                autocomplete="off"
+                required
+                disabled
               >
-                <div class="editButtons">
-                  <button
-                    type="button"
-                    class="button"
-                    id="deleteButtonOwner"
-                    onclick="deleteBusinessFunction( 'deleteOwner','<%=business[0].businessID%>','<%=data.idLegal%>')"
-                  >
-                    <i class="material-icons">clear</i>
-                    <span class="text">Eliminar</span>
-                  </button>
-                </div>
-              </div>
-              <div class="row" id="ownerRow">
-                <div class="col-md-4 form-floating" id="ownerNameInput">
-                  <input
-                    type="text"
-                    class="form-control businessOwnerName"
-                    id="businessOwnerName"
-                    name="currentBusinessOwnerName"
-                    placeholder="Nombre del Representante"
-                    value="<%=data.nameLegal%>"
-                    readonly
-                    required
-                  />
-                  <label for="businessOwnerName"
-                    >Nombre del Representante</label
-                  >
-                </div>
-                <div class="col-md-4 form-floating" id="ownerIDInput">
-                  <input
-                    type="number"
-                    class="form-control businessOwnerID"
-                    name="currentBusinessOwnerID"
-                    id="businessOwnerID"
-                    value="<%=data.idLegal%>"
-                    placeholder="Cedula del Representante"
-                    onkeypress="limit(event,this.value,8)"
-                    readonly
-                    required
-                  />
-                  <label for="businessOwnerID">Cedula del Representante</label>
-                </div>
-                <div class="col-md-4 form-floating" id="ownerIDExpDateInput">
-                  <input
-                    type="date"
-                    class="form-control ownerIDExpDate"
-                    id="ownerIDExpDate"
-                    name="currentOwnerIDExpDate"
-                    value="<%=data.dateIdExpiration%>"
-                    placeholder="Fecha de expiracion de la Cedula"
-                    readonly
-                    required
-                  />
-                  <label for="ownerIDExpDate">Expiración de la Cedula</label>
-                </div>
-              </div>
-              <div class="row" id="ownerSecRow">
-                <div class="col-md-4 form-floating" id="ownerBirDateToolInput">
-                  <input
-                    type="date"
-                    class="form-control ownerBirDate"
-                    name="currentOwnerBirDate"
-                    id="ownerBirDate"
-                    value="<%=data.dateBirthLegal%>"
-                    placeholder="Fecha de nacimiento"
-                    readonly
-                    required
-                  />
-                  <label for="ownerBirDate">Fecha de nacimiento</label>
-                </div>
-                <div class="col-md-4 form-floating" id="ownerAddressInput">
-                  <input
-                    type="text"
-                    class="form-control ownerAddress"
-                    id="ownerAddress"
-                    name="currentOwnerAddress"
-                    value="<%=data.address%>"
-                    placeholder="Domicilio"
-                    readonly
-                    required
-                  />
-                  <label for="ownerAddress">Domicilio</label>
-                </div>
-              </div>
-              <div class="row" id="ownerThrRow">
-                <div class="col-md-6" id="ownerDeleteButtonInput"></div>
-              </div>
+                <%if(business[0].statusBusiness == 1){%>
+                <option value="1" selected>Activa</option>
+                <option value="0">Inactiva</option>
+                <%}else{%>
+                <option value="1">Activa</option>
+                <option value="0" selected>Inactiva</option>
+                <% }%>
+              </select>
+              <label for="businessRegimen">Estado</label>
             </div>
-            <% i++; }) %>
           </div>
-        </div>
-      </form>
+        </form>
+        <form id="tivDataForm" class="needs-validation" novalidate>
+          <input
+            name="businessID"
+            type="hidden"
+            value="<%=business[0].businessID%>"
+          />
+          <!------------------------------------------- Edit Buttons TIV ----------------------------------------->
+          <div class="editButtons">
+            <button
+              type="submit"
+              class="button hiddenButton"
+              id="saveTIVDataButton"
+            >
+              <i class="material-icons">sd_card</i>
+              <span class="text">Guardar</span>
+            </button>
+          </div>
+          <!------------------------------------------- END Buttons TIV ----------------------------------------->
+          <div class="table-responsive">
+            <table class="table table-light table-striped table-bordered tiv">
+              <tr>
+                <th scope="col">A</th>
+                <th scope="col">B</th>
+                <th scope="col">C</th>
+                <th scope="col">D</th>
+                <th scope="col">E</th>
+                <th scope="col">F</th>
+                <th scope="col">G</th>
+                <th scope="col">H</th>
+                <th scope="col">I</th>
+                <th scope="col">J</th>
+                <th scope="col">K</th>
+                <th scope="col">L</th>
+                <th scope="col">M</th>
+                <th scope="col">N</th>
+                <th scope="col">O</th>
+              </tr>
+              <tr>
+                <th>
+                  <input
+                    size="4"
+                    type="text"
+                    id="a"
+                    name="a"
+                    value="<%=business[0].TIV.charAt(0)%><%=business[0].TIV.charAt(1)%>"
+                    readonly
+                    onkeypress="limit(event,this.value,2)"
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="b"
+                    name="b"
+                    value="<%=business[0].TIV.charAt(3)%><%=business[0].TIV.charAt(4)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="c"
+                    name="c"
+                    value="<%=business[0].TIV.charAt(6)%><%=business[0].TIV.charAt(7)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="d"
+                    name="d"
+                    value="<%=business[0].TIV.charAt(9)%><%=business[0].TIV.charAt(10)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="e"
+                    name="e"
+                    value="<%=business[0].TIV.charAt(12)%><%=business[0].TIV.charAt(13)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="f"
+                    name="f"
+                    value="<%=business[0].TIV.charAt(15)%><%=business[0].TIV.charAt(16)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="g"
+                    name="g"
+                    value="<%=business[0].TIV.charAt(18)%><%=business[0].TIV.charAt(19)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="h"
+                    name="h"
+                    value="<%=business[0].TIV.charAt(21)%><%=business[0].TIV.charAt(22)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="i"
+                    name="i"
+                    value="<%=business[0].TIV.charAt(24)%><%=business[0].TIV.charAt(25)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="j"
+                    name="j"
+                    value="<%=business[0].TIV.charAt(27)%><%=business[0].TIV.charAt(28)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="k"
+                    name="k"
+                    value="<%=business[0].TIV.charAt(30)%><%=business[0].TIV.charAt(31)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="l"
+                    name="l"
+                    value="<%=business[0].TIV.charAt(33)%><%=business[0].TIV.charAt(34)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="m"
+                    name="m"
+                    value="<%=business[0].TIV.charAt(36)%><%=business[0].TIV.charAt(37)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="n"
+                    name="n"
+                    value="<%=business[0].TIV.charAt(39)%><%=business[0].TIV.charAt(40)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+                <th>
+                  <input
+                    size="1"
+                    type="text"
+                    id="o"
+                    name="o"
+                    value="<%=business[0].TIV.charAt(42)%><%=business[0].TIV.charAt(43)%>"
+                    onkeypress="limit(event,this.value,2)"
+                    readonly
+                  />
+                </th>
+              </tr>
+            </table>
+          </div>
+        </form>
+        <form id="accountData" class="needs-validation" novalidate>
+          <input
+            name="businessID"
+            type="hidden"
+            value="<%=business[0].businessID%>"
+          />
+          <!------------------------------------------- Edit Buttons Account Details ----------------------------------------->
 
-      <!------------------------------------------- Account Details ----------------------------------------->
-
-      <form id="accountData" class="needs-validation" novalidate>
-        <h2>Datos contables</h2>
-        <input
-          name="businessID"
-          type="hidden"
-          value="<%=business[0].businessID%>"
-        />
-        <!------------------------------------------- Edit Buttons Account Details ----------------------------------------->
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="editAccountData"
-            onclick="editAccountsData()"
-          >
-            <i class="material-icons">mode_edit</i>
-            <span class="text">Editar</span>
-          </button>
-        </div>
-        <div class="editButtons">
-          <button
-            type="submit"
-            class="button hiddenButton"
-            id="saveAccountData"
-          >
-            <i class="material-icons">sd_card</i>
-            <span class="text">Guardar</span>
-          </button>
-        </div>
-        <!------------------------------------------- END Edit Buttons Account Details ----------------------------------------->
-
-        <div class="contentBackground">
+          <div class="editButtons">
+            <button
+              type="button"
+              class="button hiddenButton"
+              id="exportAccountDataPDF"
+            >
+              <i class="material-icons">download</i>
+              <span class="text">Descargar en PDF</span>
+            </button>
+          </div>
+          <div class="editButtons">
+            <button
+              type="submit"
+              class="button hiddenButton"
+              id="saveAccountData"
+            >
+              <i class="material-icons">sd_card</i>
+              <span class="text">Guardar</span>
+            </button>
+          </div>
           <div class="row">
             <div class="col-md-6 form-floating">
               <input
@@ -284,44 +452,6 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                id="billSystem"
-                name="billSystem"
-                placeholder="Sistema de Facturacion"
-                value="<%=business[0].billSystem%>"
-                readonly
-              />
-              <label for="billSystem">Facturacion</label>
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                id="billSystemUser"
-                name="billSystemUser"
-                placeholder="Usuario del Sistema de Facturacion"
-                value="<%=business[0].billSystemUser%>"
-                readonly
-              />
-              <label for="billSystemUser">Usuario de Facturacion</label>
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                id="billSystemPassword"
-                name="billSystemPassword"
-                placeholder="Contraseña del Sistema de Facturacion"
-                value="<%=business[0].billSystemPassword%>"
-                readonly
-              />
-              <label for="billSystemPassword">Contraseña de Facturacion</label>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-md-6 form-floating">
               <input
                 type="text"
@@ -341,7 +471,7 @@
                 class="form-control"
                 id="billEmailPassword"
                 name="billEmailPassword"
-                placeholder="Contraseña del Correo de Facturas"
+                placeholder="Contraseña del correo de facturas"
                 value="<%=business[0].billEmailPassword%>"
                 readonly
                 required
@@ -352,7 +482,45 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 form-floating">
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="billSystemUser"
+                name="billSystemUser"
+                placeholder="Usuario de Facturacion"
+                value="<%=business[0].billSystemUser%>"
+                readonly
+              />
+              <label for="billSystemUser">Usuario de facturación</label>
+            </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="billSystemPassword"
+                name="billSystemPassword"
+                placeholder="Contraseña del Sistema de Facturacion"
+                value="<%=business[0].billSystemPassword%>"
+                readonly
+              />
+              <label for="billSystemPassword">Contraseña de facturación</label>
+            </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="billSystem"
+                name="billSystem"
+                value="<%=business[0].billSystem%>"
+                readonly
+              />
+              <label for="billSystem">Sistema de Facturación</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 form-floating">
               <input
                 type="text"
                 class="form-control"
@@ -364,7 +532,7 @@
               />
               <label for="traviUser">Usuario Travi</label>
             </div>
-            <div class="col-md-6 form-floating">
+            <div class="col-md-4 form-floating">
               <input
                 type="text"
                 class="form-control"
@@ -376,9 +544,21 @@
               />
               <label for="traviPassword">Contraseña Travi</label>
             </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="traviEmail"
+                name="traviEmail"
+                placeholder="Correo Travi"
+                value="<%=business[0].traviEmail%>"
+                readonly
+              />
+              <label for="traviPassword">Correo Travi</label>
+            </div>
           </div>
           <div class="row">
-            <div class="col-md-6 form-floating">
+            <div class="col-md-4 form-floating">
               <input
                 type="text"
                 class="form-control"
@@ -390,7 +570,7 @@
               />
               <label for="ccssUser">Usuario CCSS</label>
             </div>
-            <div class="col-md-6 form-floating">
+            <div class="col-md-4 form-floating">
               <input
                 type="text"
                 class="form-control"
@@ -402,9 +582,21 @@
               />
               <label for="ccssPassword">Contraseña CCSS</label>
             </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="ccssEmail"
+                name="ccssEmail"
+                placeholder="Correo CCSS"
+                value="<%=business[0].ccssEmail%>"
+                readonly
+              />
+              <label for="traviPassword">Correo CCSS</label>
+            </div>
           </div>
           <div class="row">
-            <div class="col-md-6 form-floating">
+            <div class="col-md-4 form-floating">
               <input
                 type="text"
                 class="form-control"
@@ -416,7 +608,7 @@
               />
               <label for="insUser">Usuario INS</label>
             </div>
-            <div class="col-md-6 form-floating">
+            <div class="col-md-4 form-floating">
               <input
                 type="text"
                 class="form-control"
@@ -428,9 +620,21 @@
               />
               <label for="insPassword">Contraseña INS</label>
             </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="insEmail"
+                name="insEmail"
+                placeholder="Correo INS"
+                value="<%=business[0].insEmail%>"
+                readonly
+              />
+              <label for="traviPassword">Correo INS</label>
+            </div>
           </div>
           <div class="row">
-            <div class="col-md-3 form-floating">
+            <div class="col-md-2 form-floating">
               <select
                 name="userCharge"
                 id="userCharge"
@@ -449,605 +653,688 @@
                 </option>
                 <% p++; }) %>
               </select>
-              <label for="userCharge">Agente encargado*</label>
+              <label for="userCharge">Agente*</label>
+            </div>
+            <div class="col-md-2 form-floating">
+              <select
+                name="businessRegimen"
+                id="businessRegimen"
+                class="form-select"
+                list="datalistOptions"
+                autocomplete="off"
+                required
+                disabled
+              >
+                <%if(business[0].businessRegimen == 1){%>
+                <option value="1" selected>Tradicional</option>
+                <option value="0">Simplificado</option>
+                <%}else{%>
+                <option value="1">Tradicional</option>
+                <option value="0" selected>Simplificado</option>
+                <% }%>
+              </select>
+              <label for="businessRegimen">Régimen*</label>
             </div>
           </div>
-        </div>
-      </form>
-
-      <!------------------------------------------- Business Activity ----------------------------------------->
-
-      <h2>Actividad Económica</h2>
-      <input
-        name="businessID"
-        type="hidden"
-        value="<%=business[0].businessID%>"
-      />
-
-      <!------------------------------------------- Edit Buttons Business Activity ----------------------------------------->
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button"
-          id="editActivity"
-          onclick="editBusinessActivity()"
-        >
-          <i class="material-icons">mode_edit</i>
-          <span class="text">Editar</span>
-        </button>
+        </form>
       </div>
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button hiddenButton"
-          id="saveActivityData"
-          onclick="saveBusinessActivity()"
-        >
-          <i class="material-icons">sd_card</i>
-          <span class="text">Guardar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button hiddenButton"
-          id="addActivityButton"
-          data-bs-toggle="modal"
-          data-bs-target="#activityFormModal"
-        >
-          <i class="material-icons">add</i>
-          <span class="text">Agregar Actividad</span>
-        </button>
-      </div>
-      <!------------------------------------------- END Buttons Business Activity ----------------------------------------->
-
-      <div class="contentBackground">
-        <div id="addActivity" class="addActivity">
-          <% var e=0; activity.forEach(function(activityData){ %>
-          <div id="activityDIV" class="activity<%=activityData.activityID%>">
-            <div
-              class="col-md-6 divDeleteButton editButtons"
-              id="divDeleteButton"
-            >
+      <!---------------------- Owner/Contact/Activity Tab --------------------->
+      <div class="tabsBackground business-grid-item">
+        <div class="row">
+          <ul
+            class="nav nav-tabs justify-content-center"
+            id="businessInformationTab"
+            role="tablist"
+          >
+            <li class="nav-item col" role="presentation">
+              <!-------------------------------------- owmer Data ------------------------->
               <button
+                class="nav-link left-tab active"
+                id="owner-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#owner-content"
                 type="button"
-                class="button"
-                id="deleteActivityButton"
-                onclick="deleteBusinessFunction('deleteActivity','<%=business[0].businessID%>','<%=activityData.activityID%>')"
+                role="tab"
+                aria-controls="owner-content"
+                aria-selected="true"
               >
-                <i class="material-icons">clear</i>
-                <span class="text">Eliminar</span>
+                Representantes Legales
+              </button>
+            </li>
+            <!-------------------------------------- Contact ------------------------->
+            <li class="nav-item col" role="presentation">
+              <button
+                class="nav-link"
+                id="contact-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#contact-content"
+                type="button"
+                role="tab"
+                aria-controls="contact-content"
+                aria-selected="false"
+              >
+                Contactos
+              </button>
+            </li>
+            <!-------------------------------------- Activity ------------------------->
+            <li class="nav-item col" role="presentation">
+              <button
+                class="nav-link right-tab"
+                id="activity-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#activity-content"
+                type="button"
+                role="tab"
+                aria-controls="activity-content"
+                aria-selected="false"
+              >
+                Actividad Economica
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-content" id="business-tab-content">
+          <!-------------------------------------- Owner Tab  ------------------------->
+          <div
+            class="tab-pane fade show active"
+            id="owner-content"
+            role="tabpanel"
+            aria-labelledby="owner-content"
+          >
+            <form
+              id="ownerData"
+              class="needs-validation"
+              method="post"
+              novalidate
+            >
+              <input
+                name="businessID"
+                type="hidden"
+                value="<%=business[0].businessID%>"
+              />
+              <div class="editButtons">
+                <button
+                  type="submit"
+                  class="button hiddenButton"
+                  id="saveOwnerDataButton"
+                >
+                  <i class="material-icons">sd_card</i>
+                  <span class="text">Guardar</span>
+                </button>
+              </div>
+              <div class="editButtons">
+                <button
+                  type="button"
+                  class="button hiddenButton"
+                  id="addOwnerButton"
+                  data-bs-toggle="modal"
+                  data-bs-target="#ownerFormModal"
+                >
+                  <i class="material-icons">add</i>
+                  <span class="text">Agregar representante</span>
+                </button>
+              </div>
+
+              <div id="addOwner">
+                <% var i=1; owner.forEach(function(data){%>
+                <div id="ownerDIV" class="ownerDIV <%=data.idLegal%>">
+                  <div
+                    class="col-md-6 divDeleteButtonOwner"
+                    id="divDeleteButtonOwner"
+                  >
+                    <div class="editButtons">
+                      <button
+                        type="button"
+                        class="button"
+                        id="deleteButtonOwner"
+                        onclick="deleteBusinessFunction( 'deleteOwner','<%=business[0].businessID%>','<%=data.idLegal%>')"
+                      >
+                        <i class="material-icons">clear</i>
+                        <span class="text">Eliminar</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row" id="ownerRow">
+                    <div class="col-md-4 form-floating" id="ownerNameInput">
+                      <input
+                        type="text"
+                        class="form-control businessOwnerName"
+                        id="businessOwnerName"
+                        name="currentBusinessOwnerName"
+                        placeholder="Nombre del Representante"
+                        value="<%=data.nameLegal%>"
+                        readonly
+                        required
+                      />
+                      <label for="businessOwnerName">Nombre</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerIDInput">
+                      <input
+                        type="number"
+                        class="form-control businessOwnerID"
+                        name="currentBusinessOwnerID"
+                        id="businessOwnerID"
+                        value="<%=data.idLegal%>"
+                        placeholder="Cedula del Representante"
+                        onkeypress="limit(event,this.value,8)"
+                        readonly
+                        required
+                      />
+                      <label for="businessOwnerID">Cédula</label>
+                    </div>
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerIDExpDateInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control ownerIDExpDate"
+                        id="ownerIDExpDate"
+                        name="currentOwnerIDExpDate"
+                        value="<%=data.dateIdExpiration%>"
+                        placeholder="Exp cedula"
+                        readonly
+                        required
+                      />
+                      <label for="ownerIDExpDate">Exp cedula</label>
+                    </div>
+                  </div>
+                  <div class="row" id="ownerSecRow">
+                    <div
+                      class="col-md-4 form-floating"
+                      id="ownerBirDateToolInput"
+                    >
+                      <input
+                        type="date"
+                        class="form-control ownerBirDate"
+                        name="currentOwnerBirDate"
+                        id="ownerBirDate"
+                        value="<%=data.dateBirthLegal%>"
+                        placeholder="Nacimiento"
+                        readonly
+                        required
+                      />
+                      <label for="ownerBirDate">Nacimiento</label>
+                    </div>
+                    <div class="col-md-4 form-floating" id="ownerAddressInput">
+                      <input
+                        type="text"
+                        class="form-control ownerAddress"
+                        id="ownerAddress"
+                        name="currentOwnerAddress"
+                        value="<%=data.address%>"
+                        placeholder="Domicilio"
+                        readonly
+                        required
+                      />
+                      <label for="ownerAddress">Domicilio</label>
+                    </div>
+                  </div>
+                  <div class="row" id="ownerThrRow">
+                    <div class="col-md-6" id="ownerDeleteButtonInput"></div>
+                  </div>
+                </div>
+                <% i++; }) %>
+              </div>
+            </form>
+          </div>
+          <!-------------------------------------- Contact Tab Content ------------------------->
+          <div
+            class="tab-pane fade"
+            id="contact-content"
+            role="tabpanel"
+            aria-labelledby="contact-content"
+          >
+            <div class="editButtons">
+              <button
+                type="submit"
+                class="button hiddenButton"
+                form="saveContactData"
+                id="saveContactDataButton"
+              >
+                <i class="material-icons">sd_card</i>
+                <span class="text">Guardar</span>
               </button>
             </div>
-            <div class="row" id="<%=activityData.businessActivityID%>">
-              <div class="col-md-12" id="businessActivityInput">
-                <input
-                  name="businessCurrentActivitiesID"
-                  type="hidden"
-                  value="<%=activityData.businessActivityID%>"
-                />
-                <select
-                  name="businessActivities"
-                  id="businessActivity"
-                  class="form-select businessActivities"
-                  disabled
-                  required
+            <div class="editButtons">
+              <button
+                type="button"
+                class="button hiddenButton"
+                id="addContactButton"
+                data-bs-toggle="modal"
+                data-bs-target="#contactFormModal"
+              >
+                <i class="material-icons">add</i>
+                <span class="text">Agregar contacto</span>
+              </button>
+            </div>
+
+            <!------------------------------------------- END Buttons Bussiness Contact ----------------------------------------->
+            <form id="saveContactData" class="needs-validation" novalidate>
+              <input
+                name="businessID"
+                type="hidden"
+                value="<%=business[0].businessID%>"
+              />
+
+              <div id="contact">
+                <% var p=0; contact.forEach(function(contactData){ %>
+                <div
+                  id="contactDIV"
+                  class="contact<%=contactData.contactPhone%>"
                 >
-                  <option value="<%=activityData.activityID%>" selected>
-                    <%=activityData.activityName%>
-                  </option>
-                  <% var n=0; totalActivity.forEach(function(totalActivityData){
-                  %>
-                  <option value="<%=totalActivityData.id%>">
-                    <%=totalActivityData.activityName%>
-                  </option>
-                  <% n++; }) %>
-                </select>
+                  <input
+                    name="currentContactPhone"
+                    id="currentContactPhone"
+                    type="hidden"
+                    value="<%=contactData.contactPhone%>"
+                  />
+                  <input
+                    name="currentContactEmail"
+                    id="currentContactEmail"
+                    type="hidden"
+                    value="<%=contactData.contactEmail%>"
+                  />
+                  <div class="editButtons" id="deleteContactButtonDiv">
+                    <button
+                      id="deleteContactButton"
+                      type="button"
+                      class="hiddenButton button deleteButtonContact"
+                      onclick="deleteBusinessFunction('deleteContact','<%=business[0].businessID%>','<%=contactData.contactPhone%>','<%=contactData.contactEmail%>')"
+                    >
+                      <i class="material-icons">clear</i>
+                      <span class="text">Eliminar</span>
+                    </button>
+                  </div>
+                  <div class="row" id="contactRow">
+                    <div class="col-md-4 form-floating">
+                      <input
+                        type="text"
+                        class="form-control contactName"
+                        id="contactName"
+                        name="contactName"
+                        placeholder="Nombre"
+                        value="<%=contactData.contactName%>"
+                        readonly
+                      />
+                      <label for="contactName">Nombre</label>
+                    </div>
+                    <div class="col-md-4 form-floating">
+                      <input
+                        type="number"
+                        class="form-control contactPhone"
+                        id="contactPhone"
+                        name="contactPhone"
+                        placeholder="Telefono"
+                        value="<%=contactData.contactPhone%>"
+                        onkeypress="limit(event,this.value,10)"
+                        readonly
+                      />
+                      <label for="contactPhone">Telefono</label>
+                    </div>
+                    <div class="col-md-4 form-floating">
+                      <input
+                        type="email"
+                        class="form-control contactEmail"
+                        id="contactEmail"
+                        name="contactEmail"
+                        placeholder="Correo"
+                        value="<%=contactData.contactEmail%>"
+                        readonly
+                      />
+                      <label for="contactPhone">Correo</label>
+                    </div>
+                  </div>
+                </div>
+                <% p++; }) %>
               </div>
+            </form>
+          </div>
+          <!-------------------------------------- Activity Tab Content ------------------------->
+          <div
+            class="tab-pane fade"
+            id="activity-content"
+            role="tabpanel"
+            aria-labelledby="activity-content"
+          >
+            <div class="editButtons">
+              <button
+                type="button"
+                class="button hiddenButton"
+                id="saveActivityData"
+                onclick="saveBusinessActivity()"
+              >
+                <i class="material-icons">sd_card</i>
+                <span class="text">Guardar</span>
+              </button>
+            </div>
+            <div class="editButtons">
+              <button
+                type="button"
+                class="button hiddenButton"
+                id="addActivityButton"
+                data-bs-toggle="modal"
+                data-bs-target="#activityFormModal"
+              >
+                <i class="material-icons">add</i>
+                <span class="text">Agregar Actividad</span>
+              </button>
+            </div>
+            <!------------------------------------------- END Buttons Business Activity ----------------------------------------->
+
+            <div id="addActivity" class="addActivity">
+              <% var e=0; activity.forEach(function(activityData){ %>
+              <div
+                id="activityDIV"
+                class="activity<%=activityData.activityID%>"
+              >
+                <div
+                  class="col-md-2 divDeleteButton editButtons"
+                  id="divDeleteButton"
+                >
+                  <button
+                    type="button"
+                    class="button"
+                    id="deleteActivityButton"
+                    onclick="deleteBusinessFunction('deleteActivity','<%=business[0].businessID%>','<%=activityData.activityID%>')"
+                  >
+                    <i class="material-icons">clear</i>
+                    <span class="text">Eliminar</span>
+                  </button>
+                </div>
+                <div class="row" id="<%=activityData.businessActivityID%>">
+                  <div class="col-md-12" id="businessActivityInput">
+                    <input
+                      name="businessCurrentActivitiesID"
+                      type="hidden"
+                      value="<%=activityData.businessActivityID%>"
+                    />
+                    <select
+                      name="businessActivities"
+                      id="businessActivity"
+                      class="form-select businessActivities"
+                      disabled
+                      required
+                    >
+                      <option value="<%=activityData.activityID%>" selected>
+                        <%=activityData.activityName%>
+                      </option>
+                      <% var n=0;
+                      totalActivity.forEach(function(totalActivityData){ %>
+                      <option value="<%=totalActivityData.id%>">
+                        <%=totalActivityData.activityName%>
+                      </option>
+                      <% n++; }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <% e++; }) %>
             </div>
           </div>
-          <% e++; }) %>
         </div>
       </div>
-
-      <!------------------------------------------- TIV ----------------------------------------->
-      <form id="tivDataForm" class="needs-validation" novalidate>
-        <h2>TIV</h2>
-        <input
-          name="businessID"
-          type="hidden"
-          value="<%=business[0].businessID%>"
-        />
-        <!------------------------------------------- Edit Buttons TIV ----------------------------------------->
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="editTIVButton"
-            onclick="editBusinessTivData()"
+      <!--------------------- Tabs for Picture/Cotizacion/d-140 -->
+      <div class="tabsBackground business-grid-item">
+        <div class="row">
+          <ul class="nav nav-tabs" id="filesTab" role="tablist">
+            <!-------------------------------------- Picture ------------------------->
+            <li class="nav-item col" role="presentation">
+              <button
+                class="nav-link left-tab active"
+                id="picture-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#picture-content"
+                type="button"
+                role="tab"
+                aria-controls="picture-content"
+                aria-selected="true"
+              >
+                Logo (png/jpeg)
+              </button>
+            </li>
+            <!-------------------------------------- Contract ------------------------->
+            <li class="nav-item col" role="presentation">
+              <button
+                class="nav-link"
+                id="profile-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#contract-content"
+                type="button"
+                role="tab"
+                aria-controls="contract-content"
+                aria-selected="false"
+              >
+                Cotización (PDF)
+              </button>
+            </li>
+            <!-------------------------------------- D140 ------------------------->
+            <li class="nav-item col" role="presentation">
+              <button
+                class="nav-link right-tab"
+                id="d140-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#d140-content"
+                type="button"
+                role="tab"
+                aria-controls="d140-content"
+                aria-selected="false"
+              >
+                D-140 (PDF)
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content" id="myTabContent">
+          <!-------------------------------------- Picture Content------------------------->
+          <div
+            class="tab-pane fade show active"
+            id="picture-content"
+            role="tabpanel"
+            aria-labelledby="picture-content"
           >
-            <i class="material-icons">mode_edit</i>
-            <span class="text">Editar</span>
-          </button>
-        </div>
-        <div class="editButtons">
-          <button
-            type="submit"
-            class="button hiddenButton"
-            id="saveTIVDataButton"
-          >
-            <i class="material-icons">sd_card</i>
-            <span class="text">Guardar</span>
-          </button>
-        </div>
-        <!------------------------------------------- END Buttons TIV ----------------------------------------->
-        <div class="table-responsive">
-          <table class="table table-light table-striped table-bordered tiv">
-            <tr>
-              <th scope="col">A</th>
-              <th scope="col">B</th>
-              <th scope="col">C</th>
-              <th scope="col">D</th>
-              <th scope="col">E</th>
-              <th scope="col">F</th>
-              <th scope="col">G</th>
-              <th scope="col">H</th>
-              <th scope="col">I</th>
-              <th scope="col">J</th>
-              <th scope="col">K</th>
-              <th scope="col">L</th>
-              <th scope="col">M</th>
-              <th scope="col">N</th>
-              <th scope="col">O</th>
-            </tr>
-            <tr>
-              <th>
-                <input
-                  size="4"
-                  type="text"
-                  id="a"
-                  name="a"
-                  value="<%=business[0].TIV.charAt(0)%><%=business[0].TIV.charAt(1)%>"
-                  readonly
-                  onkeypress="limit(event,this.value,2)"
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="b"
-                  name="b"
-                  value="<%=business[0].TIV.charAt(3)%><%=business[0].TIV.charAt(4)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="c"
-                  name="c"
-                  value="<%=business[0].TIV.charAt(6)%><%=business[0].TIV.charAt(7)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="d"
-                  name="d"
-                  value="<%=business[0].TIV.charAt(9)%><%=business[0].TIV.charAt(10)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="e"
-                  name="e"
-                  value="<%=business[0].TIV.charAt(12)%><%=business[0].TIV.charAt(13)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="f"
-                  name="f"
-                  value="<%=business[0].TIV.charAt(15)%><%=business[0].TIV.charAt(16)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="g"
-                  name="g"
-                  value="<%=business[0].TIV.charAt(18)%><%=business[0].TIV.charAt(19)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="h"
-                  name="h"
-                  value="<%=business[0].TIV.charAt(21)%><%=business[0].TIV.charAt(22)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="i"
-                  name="i"
-                  value="<%=business[0].TIV.charAt(24)%><%=business[0].TIV.charAt(25)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="j"
-                  name="j"
-                  value="<%=business[0].TIV.charAt(27)%><%=business[0].TIV.charAt(28)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="k"
-                  name="k"
-                  value="<%=business[0].TIV.charAt(30)%><%=business[0].TIV.charAt(31)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="l"
-                  name="l"
-                  value="<%=business[0].TIV.charAt(33)%><%=business[0].TIV.charAt(34)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="m"
-                  name="m"
-                  value="<%=business[0].TIV.charAt(36)%><%=business[0].TIV.charAt(37)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="n"
-                  name="n"
-                  value="<%=business[0].TIV.charAt(39)%><%=business[0].TIV.charAt(40)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-              <th>
-                <input
-                  size="1"
-                  type="text"
-                  id="o"
-                  name="o"
-                  value="<%=business[0].TIV.charAt(42)%><%=business[0].TIV.charAt(43)%>"
-                  onkeypress="limit(event,this.value,2)"
-                  readonly
-                />
-              </th>
-            </tr>
-          </table>
-        </div>
-      </form>
-      <!-------------------------------------------  ENDTIV ----------------------------------------->
-
-      <!------------------------------------------- Business Picture ----------------------------------------->
-
-      <h2>Logo (png/jpeg)</h2>
-      <!------------------------------------------- Edit Buttons Business Picture ----------------------------------------->
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button"
-          id="editBusinessPicture"
-          onclick="editBusinessLogo()"
-        >
-          <i class="material-icons">mode_edit</i>
-          <span class="text">Editar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="submit"
-          class="button hiddenButton"
-          id="saveBusinessPicture"
-          form="businessPictureForm"
-        >
-          <i class="material-icons">sd_card</i>
-          <span class="text">Guardar</span>
-        </button>
-      </div>
-      <!------------------------------------------- END Buttons Business Picture ----------------------------------------->
-      <div class="contentBackground">
-        <form
-          method="post"
-          action="/saveBusinessPicture"
-          id="businessPictureForm"
-          enctype="multipart/form-data"
-        >
-          <input
-            name="businessID"
-            type="hidden"
-            value="<%=business[0].businessID%>"
-          />
-          <div class="row">
-            <div class="col-md-6">
-              <input
-                type="file"
-                id="businessPicture"
-                class="form-control"
-                name="businessPicture"
-                accept="image/jpeg, image/png"
-                disabled
-                required
-              />
+            <div class="editButtons">
+              <button
+                type="submit"
+                class="button hiddenButton"
+                id="saveBusinessPicture"
+                form="businessPictureForm"
+              >
+                <i class="material-icons">sd_card</i>
+                <span class="text">Guardar logo</span>
+              </button>
             </div>
-          </div>
-        </form>
-
-        <% var y=0; businessPictures.forEach(function(businessPicturesData){ %>
-        <div id="picture<%=businessPicturesData.pictureID%>">
-          <div class="editButtons">
-            <button
-              type="button"
-              class="hiddenButton button deleteButtonPictures"
-              id="deleteButtonPictures"
-              onclick="deleteBusinessFunction('deletePicture','<%=business[0].businessID%>','<%=businessPicturesData.pictureID%>')"
+            <form
+              method="post"
+              action="/business/picture/new"
+              id="businessPictureForm"
+              enctype="multipart/form-data"
             >
-              <i class="material-icons">clear</i>
-              <span class="text">Eliminar</span>
-            </button>
-          </div>
-          <a
-            href="<%=businessPicturesData.pictureURL%>"
-            class="list-group-item list-group-item-action"
-            target="_blank"
-          >
-            <%=businessPicturesData.shortName%>
-          </a>
-        </div>
-        <% y++; }) %>
-      </div>
-
-      <!-------------------------------------------  END Business Picture ----------------------------------------->
-      <!------------------------------------------- Business Contract ----------------------------------------->
-      <h2>Cotización (PDF)</h2>
-      <!------------------------------------------- Edit Business Contract ----------------------------------------->
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button"
-          id="editBusinessContract"
-          onclick="editBusinessContract()"
-        >
-          <i class="material-icons">mode_edit</i>
-          <span class="text">Editar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="submit"
-          class="button hiddenButton"
-          id="saveBusinessContract"
-          form="businessContractForm"
-        >
-          <i class="material-icons">sd_card</i>
-          <span class="text">Guardar</span>
-        </button>
-      </div>
-      <!------------------------------------------- END EditBusiness Contract ----------------------------------------->
-      <!------------------------------------------- Form Business Contract ----------------------------------------->
-      <div class="contentBackground">
-        <form
-          method="post"
-          action="/saveBusinessContract"
-          id="businessContractForm"
-          enctype="multipart/form-data"
-        >
-          <input
-            name="businessID"
-            type="hidden"
-            value="<%=business[0].businessID%>"
-          />
-          <div class="row">
-            <div class="col-md-6">
               <input
-                type="file"
-                id="businessContact"
-                class="form-control"
-                name="businessContract"
-                accept="application/pdf"
-                disabled
-                required
-              />
-            </div>
-          </div>
-        </form>
-
-        <% var y=0; businessContract.forEach(function(businessContractData){ %>
-        <div id="contract<%=businessContractData.contractID%>">
-          <div class="editButtons">
-            <button
-              type="button"
-              class="hiddenButton button deleteButtonContract"
-              onclick="deleteBusinessFunction('deleteContract','<%=business[0].businessID%>','<%=businessContractData.contractID%>')"
-            >
-              <i class="material-icons">clear</i>
-              <span class="text">Eliminar</span>
-            </button>
-          </div>
-
-          <a
-            href="<%=businessContractData.contractURL%>"
-            class="list-group-item list-group-item-action"
-            target="_blank"
-          >
-            <%=businessContractData.shortName%>
-          </a>
-        </div>
-        <% y++; }) %>
-      </div>
-      <!-------------------------------------------END Form Business Contact ----------------------------------------------->
-      <!------------------------------------------- Edit Buttons Bussiness Contact ----------------------------------------->
-
-      <h2>Contacto</h2>
-
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button"
-          id="editContactsData"
-          onclick="editContactData()"
-        >
-          <i class="material-icons" style="font-size: 2rem">mode_edit</i>
-          <span class="text">Editar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="submit"
-          class="button hiddenButton"
-          form="saveContactData"
-          id="saveContactDataButton"
-        >
-          <i class="material-icons">sd_card</i>
-          <span class="text">Guardar</span>
-        </button>
-      </div>
-      <div class="editButtons">
-        <button
-          type="button"
-          class="button hiddenButton"
-          id="addContactButton"
-          data-bs-toggle="modal"
-          data-bs-target="#contactFormModal"
-        >
-          <i class="material-icons">add</i>
-          <span class="text">Agregar contacto</span>
-        </button>
-      </div>
-
-      <!------------------------------------------- END Buttons Bussiness Contact ----------------------------------------->
-      <form id="saveContactData" class="needs-validation" novalidate>
-        <input
-          name="businessID"
-          type="hidden"
-          value="<%=business[0].businessID%>"
-        />
-        <div class="contentBackground">
-          <div id="contact">
-            <% var p=0; contact.forEach(function(contactData){ %>
-            <div id="contactDIV" class="contact<%=contactData.contactPhone%>">
-              <input
-                name="currentContactPhone"
-                id="currentContactPhone"
+                name="businessID"
                 type="hidden"
-                value="<%=contactData.contactPhone%>"
+                value="<%=business[0].businessID%>"
               />
-              <input
-                name="currentContactEmail"
-                id="currentContactEmail"
-                type="hidden"
-                value="<%=contactData.contactEmail%>"
-              />
-              <div class="editButtons" id="deleteContactButtonDiv">
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="file"
+                    id="businessPicture"
+                    class="form-control"
+                    name="businessPicture"
+                    accept="image/jpeg, image/png"
+                    disabled
+                    required
+                  />
+                </div>
+              </div>
+            </form>
+
+            <% var y=0; businessPictures.forEach(function(businessPicturesData){
+            %>
+            <div id="picture<%=businessPicturesData.pictureID%>">
+              <div class="editButtons">
                 <button
-                  id="deleteContactButton"
                   type="button"
-                  class="hiddenButton button deleteButtonContact"
-                  onclick="deleteBusinessFunction('deleteContact','<%=business[0].businessID%>','<%=contactData.contactPhone%>','<%=contactData.contactEmail%>')"
+                  class="hiddenButton button deleteButtonPictures"
+                  id="deleteButtonPictures"
+                  onclick="deleteBusinessFunction('deletePicture','<%=business[0].businessID%>','<%=businessPicturesData.pictureID%>')"
                 >
                   <i class="material-icons">clear</i>
                   <span class="text">Eliminar</span>
                 </button>
               </div>
-              <div class="row" id="contactRow">
-                <div class="col-md-4 form-floating">
+              <a
+                href="<%=businessPicturesData.pictureURL%>"
+                class="list-group-item list-group-item-action"
+                target="_blank"
+              >
+                <%=businessPicturesData.shortName%>
+              </a>
+            </div>
+            <% y++; }) %>
+          </div>
+          <!-------------------------------------- Contract Content ------------------------->
+          <div
+            class="tab-pane fade"
+            id="contract-content"
+            role="tabpanel"
+            aria-labelledby="contract-content"
+          >
+            <div class="editButtons">
+              <button
+                type="submit"
+                class="button hiddenButton"
+                id="saveBusinessContract"
+                form="businessContractForm"
+              >
+                <i class="material-icons">sd_card</i>
+                <span class="text">Guardar contrato</span>
+              </button>
+            </div>
+            <form
+              method="post"
+              action="/business/contract/new"
+              id="businessContractForm"
+              enctype="multipart/form-data"
+            >
+              <input
+                name="businessID"
+                type="hidden"
+                value="<%=business[0].businessID%>"
+              />
+              <div class="row">
+                <div class="col-md-12">
                   <input
-                    type="text"
-                    class="form-control contactName"
-                    id="contactName"
-                    name="contactName"
-                    placeholder="Nombre"
-                    value="<%=contactData.contactName%>"
-                    readonly
+                    type="file"
+                    id="businessContact"
+                    class="form-control"
+                    name="businessContract"
+                    accept="application/pdf"
+                    disabled
+                    required
                   />
-                  <label for="contactName">Nombre</label>
-                </div>
-                <div class="col-md-4 form-floating">
-                  <input
-                    type="number"
-                    class="form-control contactPhone"
-                    id="contactPhone"
-                    name="contactPhone"
-                    placeholder="Telefono"
-                    value="<%=contactData.contactPhone%>"
-                    onkeypress="limit(event,this.value,10)"
-                    readonly
-                  />
-                  <label for="contactPhone">Telefono</label>
-                </div>
-                <div class="col-md-4 form-floating">
-                  <input
-                    type="email"
-                    class="form-control contactEmail"
-                    id="contactEmail"
-                    name="contactEmail"
-                    placeholder="Correo"
-                    value="<%=contactData.contactEmail%>"
-                    readonly
-                  />
-                  <label for="contactPhone">Correo</label>
                 </div>
               </div>
+            </form>
+
+            <% var y=0; businessContract.forEach(function(businessContractData){
+            %>
+            <div id="contract<%=businessContractData.contractID%>">
+              <div class="editButtons">
+                <button
+                  type="button"
+                  class="hiddenButton button deleteButtonContract"
+                  onclick="deleteBusinessFunction('deleteContract','<%=business[0].businessID%>','<%=businessContractData.contractID%>')"
+                >
+                  <i class="material-icons">clear</i>
+                  <span class="text">Eliminar</span>
+                </button>
+              </div>
+
+              <a
+                href="<%=businessContractData.contractURL%>"
+                class="list-group-item list-group-item-action"
+                target="_blank"
+              >
+                <%=businessContractData.shortName%>
+              </a>
             </div>
-            <% p++; }) %>
+            <% y++; }) %>
+          </div>
+          <!-------------------------------------- D140 Content ------------------------->
+          <div
+            class="tab-pane fade"
+            id="d140-content"
+            role="tabpanel"
+            aria-labelledby="d140-content"
+          >
+            <div class="editButtons">
+              <button
+                type="submit"
+                class="button hiddenButton"
+                id="saveBusinessD140"
+                form="businessD140Form"
+              >
+                <i class="material-icons">sd_card</i>
+                <span class="text">Guardar D-140</span>
+              </button>
+            </div>
+            <form
+              method="post"
+              action="/business/d140/new"
+              id="businessD140Form"
+              enctype="multipart/form-data"
+            >
+              <input
+                name="businessID"
+                type="hidden"
+                value="<%=business[0].businessID%>"
+              />
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="file"
+                    id="businessD140"
+                    class="form-control"
+                    name="businessD140"
+                    accept="application/pdf"
+                    disabled
+                    required
+                  />
+                </div>
+              </div>
+            </form>
+
+            <% var y=0; businessD140.forEach(function(businessD140Data){ %>
+            <div class="d140<%=businessD140Data.d140ID%>">
+              <div class="editButtons">
+                <button
+                  type="button"
+                  class="hiddenButton button deleteButtonD140"
+                  onclick="deleteBusinessFunction('deleteD140','<%=business[0].businessID%>','<%=businessD140Data.d140ID%>')"
+                >
+                  <i class="material-icons">clear</i>
+                  <span class="text">Eliminar</span>
+                </button>
+              </div>
+
+              <a
+                href="<%=businessD140Data.d140URL%>"
+                class="list-group-item list-group-item-action"
+                target="_blank"
+              >
+                <%=businessD140Data.shortName%>
+              </a>
+            </div>
+            <% y++; }) %>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-    <!------------------------------------------------------------- Messages Modal -------------------------------------------------->
+
+    <!------------------------------------- Messages Modal --------------------------------------->
     <div
       class="modal fade"
       id="businessModal"
@@ -1151,7 +1438,7 @@
                         id="businessOwnerID"
                         name="businessOwnerID"
                         placeholder="Cédula"
-                        onkeypress="limit(event,this.value,12)"
+                        onkeypress="limit(event,this.value,10)"
                         required
                       />
                       <label for="businessOwnerID">Cédula*</label>
@@ -1165,12 +1452,10 @@
                         class="form-control"
                         id="ownerIDExpDate"
                         name="ownerIDExpDate"
-                        placeholder="Fecha de expiración de la Cédula"
+                        placeholder="Exp cédula*"
                         required
                       />
-                      <label for="ownerIDExpDate"
-                        >Expiración de la Cédula*</label
-                      >
+                      <label for="ownerIDExpDate">Exp cédula*</label>
                     </div>
                   </div>
                   <div class="row" id="ownerSecRow">
@@ -1183,10 +1468,10 @@
                         class="form-control"
                         id="ownerBirDate"
                         name="ownerBirDate"
-                        placeholder="Fecha de Nacimiento"
+                        placeholder="Nacimiento*"
                         required
                       />
-                      <label for="ownerBirDate">Fecha de Nacimiento*</label>
+                      <label for="ownerBirDate">Nacimiento*</label>
                     </div>
                     <div class="col-md-4 form-floating" id="ownerAddressInput">
                       <input
@@ -1317,7 +1602,7 @@
                         id="contactPhone"
                         name="contactPhone"
                         placeholder="Numero Telefonico"
-                        onkeypress="limit(event,this.value,15)"
+                        onkeypress="limit(event,this.value,10)"
                       />
                     </div>
                     <div class="col-md-4">
@@ -1441,4 +1726,64 @@
     <!----------------------------------------------------------------- Closing Form ModalS ---------------------------------------------->
   </body>
   <script type="text/javascript" src="/assets/businessFunctions.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rasterizehtml/1.3.0/rasterizeHTML.allinone.js"></script>
+  <script>
+    $("#exportAccountDataPDF").click(function () {
+      const doc = new jsPDF("l", "cm", "a4");
+      var imgData =
+        "data:image/png;base64,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";
+      doc.addImage(imgData, "PNG", 26, 1, 2, 2);
+      var text = $("#atvUser").val();
+      doc.setFontSize(14);
+      doc.text(21.5, 4, "Direccion: San Jose, Lindora");
+      doc.text(22, 5, "Telefono: +506 6055 6705");
+      doc.setLineWidth(0.2);
+      text = $("#businessName").val();
+      doc.text(1, 6, "Datos Contables: " + text);
+      doc.line(0, 6.2, 40, 6.2);
+      doc.setFontSize(12);
+      text = $("#atvUser").val();
+      doc.text(1, 7, "Usuario ATV: " + text);
+      text = $("#atvPassword").val();
+      doc.text(15, 7, "Contraseña ATV: " + text);
+      text = $("#billEmail").val();
+      doc.text(1, 8, "Correo de facturas: " + text);
+      text = $("#billEmailPassword").val();
+      doc.text(15, 8, "Contraseña del correo de facturas: " + text);
+      text = $("#billSystemUser").val();
+      doc.text(1, 9, "Usuario de facturación: " + text);
+      text = $("#billSystemPassword").val();
+      doc.text(15, 9, "Contraseña de facturación: " + text);
+      text = $("#billSystem").val();
+      doc.text(1, 10, "Sistema de facturacion: " + text);
+      text = $("#traviUser").val();
+      doc.text(1, 11, "Usuario Travi: " + text);
+      text = $("#traviPassword").val();
+      doc.text(15, 11, "Contraseña Travi: " + text);
+      text = $("#traviEmail").val();
+      doc.text(1, 12, "Correo Travi: " + text);
+      text = $("#ccssUser").val();
+      doc.text(1, 13, "Usuario CCSS: " + text);
+      text = $("#ccssPassword").val();
+      doc.text(15, 13, "Contraseña CCSS: " + text);
+      text = $("#ccssEmail").val();
+      doc.text(1, 14, "Correo CCSS: " + text);
+      text = $("#insUser").val();
+      doc.text(1, 15, "Usuario INS: " + text);
+      text = $("#insPassword").val();
+      doc.text(15, 15, "Contraseña INS: " + text);
+      text = $("#insEmail").val();
+      doc.text(1, 16, "Correo INS: " + text);
+      text = $("#businessRegimen").val();
+      if (text == 1) {
+        doc.text(1, 17, "Régimen: Tradicional");
+      } else {
+        doc.text(1, 17, "Régimen: Simplificado");
+      }
+      doc.line(0, 18, 40, 18);
+      text = $("#businessName").val();
+      doc.save("Datos contables:" + text);
+    });
+  </script>
 </html>

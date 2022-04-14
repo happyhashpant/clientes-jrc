@@ -79,25 +79,26 @@ function removeContact(id) {
 }
 
 function loadUser(user) {
-  window.location.replace("/loadUser?userID=" + user);
+  window.location.replace("/user/" + user);
 }
 function loadUser2(user) {
-  window.location.replace("/loadUser?userID=" + user);
+  window.location.replace("/user/" + user);
 }
 
 // --------------------------------------------------------------------------------------
 
 function loadBusiness(business) {
-  window.location.replace("/loadBusiness?businessID=" + business);
+  window.location.replace("/business/" + business);
 }
 function loadBusiness2(business) {
-  window.location.replace("/loadBusiness?businessID=" + business);
+  window.location.replace("/business/" + business);
 }
 
 // --------------------------------------Edit business functionality
 
 function editGeneralDataDiv() {
   $("#businessName").attr("readonly", false);
+  $("#businessStatus").prop("disabled", false);
   $("#editGeneralData").css("display", "none");
   $("#saveGeneralData").css("display", "inline-flex");
 }
@@ -122,13 +123,18 @@ function editAccountsData() {
   $("#billEmail").attr("readonly", false);
   $("#billEmailPassword").attr("readonly", false);
   $("#traviUser").attr("readonly", false);
+  $("#traviEmail").attr("readonly", false);
   $("#traviPassword").attr("readonly", false);
   $("#ccssUser").attr("readonly", false);
+  $("#ccssEmail").attr("readonly", false);
   $("#ccssPassword").attr("readonly", false);
   $("#insUser").attr("readonly", false);
+  $("#insEmail").attr("readonly", false);
   $("#insPassword").attr("readonly", false);
   $("#userCharge").prop("disabled", false);
+  $("#businessRegimen").prop("disabled", false);
   $("#editAccountData").css("display", "none");
+  $("#exportAccountDataPDF").css("display", "inline-flex");
   $("#saveAccountData").css("display", "inline-flex");
 }
 
@@ -188,10 +194,17 @@ function editBusinessLogo() {
 }
 
 function editBusinessContract() {
-  $("#businessContact").prop("disabled", false);
+  $("#businessContract").prop("disabled", false);
   $("#editBusinessContract").css("display", "none");
   $("#saveBusinessContract").css("display", "inline-flex");
   $(".deleteButtonContract").css("display", "inline-flex");
+}
+
+function editBusinessD140() {
+  $("#businessD140").prop("disabled", false);
+  $("#editBusinessD140").css("display", "none");
+  $("#saveBusinessD140").css("display", "inline-flex");
+  $(".deleteButtonD140").css("display", "inline-flex");
 }
 
 function deleteBusinessFunction(action, businessID, actionID, contactAction) {
@@ -199,7 +212,7 @@ function deleteBusinessFunction(action, businessID, actionID, contactAction) {
     case "deleteOwner": {
       $.ajax({
         type: "POST",
-        url: "/deleteOwner",
+        url: "/business/owner",
         data: {
           businessID: businessID,
           actionID: actionID,
@@ -217,7 +230,7 @@ function deleteBusinessFunction(action, businessID, actionID, contactAction) {
     case "deleteActivity": {
       $.ajax({
         type: "POST",
-        url: "/deleteActivity",
+        url: "/business/activity",
         data: {
           businessID: businessID,
           actionID: actionID,
@@ -234,7 +247,7 @@ function deleteBusinessFunction(action, businessID, actionID, contactAction) {
     case "deletePicture": {
       $.ajax({
         type: "POST",
-        url: "/deletePicture",
+        url: "/business/picture",
         data: {
           businessID: businessID,
           actionID: actionID,
@@ -250,7 +263,7 @@ function deleteBusinessFunction(action, businessID, actionID, contactAction) {
     case "deleteContract": {
       $.ajax({
         type: "POST",
-        url: "/deleteContract",
+        url: "/business/contract",
         data: {
           businessID: businessID,
           actionID: actionID,
@@ -266,7 +279,7 @@ function deleteBusinessFunction(action, businessID, actionID, contactAction) {
     case "deleteContact": {
       $.ajax({
         type: "POST",
-        url: "/deleteContact",
+        url: "/business/contact",
         data: {
           businessID: businessID,
           actionID: actionID,
@@ -276,6 +289,22 @@ function deleteBusinessFunction(action, businessID, actionID, contactAction) {
           $(".contact" + actionID).remove();
           $("#businessModal").modal("show");
           $("#businessModalMessage").text("Has eliminado un contacto");
+        },
+      });
+      break;
+    }
+    case "deleteD140": {
+      $.ajax({
+        type: "POST",
+        url: "/business/d140",
+        data: {
+          businessID: businessID,
+          actionID: actionID,
+        },
+        success: function (data, status) {
+          $(".d140" + actionID).remove();
+          $("#businessModal").modal("show");
+          $("#businessModalMessage").text("Has eliminado una D140");
         },
       });
       break;

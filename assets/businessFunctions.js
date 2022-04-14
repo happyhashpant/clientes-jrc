@@ -1,7 +1,9 @@
 window.addEventListener("load", (event) => {
   $("#navBar").load("/navbar");
 });
-
+var ownerArray = [];
+var activities = [];
+var contactArray = [];
 (function () {
   "use strict";
   //------------------------------------------------------------ owner form handling
@@ -19,7 +21,7 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveAllBusinessOwner",
+            url: "/business/ownerData",
             data: {
               formData: formData,
             },
@@ -63,65 +65,79 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveNewOwner",
-            data: {
-              formData: formData,
+            url: "/business/owner/validate",
+            data: { formData: formData },
+            success: () => {
+              $.ajax({
+                type: "POST",
+                url: "/business/owner/new",
+                data: {
+                  formData: formData,
+                },
+                sendData: {
+                  formData: formData,
+                },
+                success: function (data, status) {
+                  $("#ownerDIV")
+                    .clone()
+                    .attr("id", "newOwners")
+                    .appendTo("#addOwner");
+
+                  //Clone ownerNameInput
+                  $("#newOwners #divDeleteButtonOwner #deleteButtonOwner").attr(
+                    "onclick",
+                    `deleteBusinessFunction( 'deleteOwner',${this.sendData.formData[0].value},${this.sendData.formData[2].value})`
+                  );
+                  $("#newOwners #divDeleteButtonOwner #deleteButtonOwner").attr(
+                    "class",
+                    "button"
+                  );
+                  $(
+                    "#newOwners #ownerRow #ownerNameInput #businessOwnerName"
+                  ).val(this.sendData.formData[1].value);
+
+                  //Clone ownerIDInput
+                  $("#newOwners #ownerRow #ownerIDInput #businessOwnerID").val(
+                    this.sendData.formData[2].value
+                  );
+                  $("#newOwners #ownerRow #ownerIDInput #businessOwnerID").attr(
+                    "readonly",
+                    true
+                  );
+
+                  //Clone ownerIDExpDateInput
+                  $(
+                    "#newOwners #ownerRow #ownerIDExpDateInput #ownerIDExpDate"
+                  ).val(this.sendData.formData[3].value);
+
+                  //Clone ownerBirDateToolInput
+                  $(
+                    "#newOwners #ownerSecRow #ownerBirDateToolInput #ownerBirDate"
+                  ).val(this.sendData.formData[4].value);
+
+                  //Clone ownerAddressInput
+                  $(
+                    "#newOwners #ownerSecRow #ownerAddressInput #ownerAddress"
+                  ).val(this.sendData.formData[5].value);
+                  $("#newOwners").attr(
+                    "class",
+                    `ownerDIV ${this.sendData.formData[2].value}`
+                  );
+                  $("#newOwners").attr("id", "ownerDIV");
+                  $("#newOwnerForm")[0].reset();
+                  $("#ownerFormModal").modal("hide");
+                  $("#businessModal").modal("show");
+                  $("#businessModalMessage").text(
+                    "Has agregado unx representante legal"
+                  );
+                },
+              });
             },
-            sendData: {
-              formData: formData,
-            },
-            success: function (data, status) {
-              $("#ownerDIV")
-                .clone()
-                .attr("id", "newOwners")
-                .appendTo("#addOwner");
-
-              //Clone ownerNameInput
-              $("#newOwners #divDeleteButtonOwner #deleteButtonOwner").attr(
-                "onclick",
-                `deleteBusinessFunction( 'deleteOwner',${this.sendData.formData[0].value},${this.sendData.formData[2].value})`
-              );
-              $("#newOwners #divDeleteButtonOwner #deleteButtonOwner").attr(
-                "class",
-                "button"
-              );
-              $("#newOwners #ownerRow #ownerNameInput #businessOwnerName").val(
-                this.sendData.formData[1].value
-              );
-
-              //Clone ownerIDInput
-              $("#newOwners #ownerRow #ownerIDInput #businessOwnerID").val(
-                this.sendData.formData[2].value
-              );
-              $("#newOwners #ownerRow #ownerIDInput #businessOwnerID").attr(
-                "readonly",
-                true
-              );
-
-              //Clone ownerIDExpDateInput
-              $(
-                "#newOwners #ownerRow #ownerIDExpDateInput #ownerIDExpDate"
-              ).val(this.sendData.formData[3].value);
-
-              //Clone ownerBirDateToolInput
-              $(
-                "#newOwners #ownerSecRow #ownerBirDateToolInput #ownerBirDate"
-              ).val(this.sendData.formData[4].value);
-
-              //Clone ownerAddressInput
-              $("#newOwners #ownerSecRow #ownerAddressInput #ownerAddress").val(
-                this.sendData.formData[5].value
-              );
-              $("#newOwners").attr(
-                "class",
-                `ownerDIV ${this.sendData.formData[2].value}`
-              );
-              $("#newOwners").attr("id", "ownerDIV");
-              $("#newOwnerForm")[0].reset();
+            error: () => {
               $("#ownerFormModal").modal("hide");
               $("#businessModal").modal("show");
               $("#businessModalMessage").text(
-                "Has agregado unx representante legal"
+                "Ya hay un representante con esa cedula"
               );
             },
           });
@@ -148,12 +164,13 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveGeneralData",
+            url: "/business/generalData",
             data: {
               formData: formData,
             },
             success: function (data, status) {
               $("#businessName").attr("readonly", true);
+              $("#businessStatus").prop("disabled", true);
               $("#editGeneralData").css("display", "inline-flex");
               $("#saveGeneralData").css("display", "none");
               $("#businessModal").modal("show");
@@ -183,7 +200,7 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveAccountsData",
+            url: "/business/accountData",
             data: {
               formData: formData,
             },
@@ -196,13 +213,18 @@ window.addEventListener("load", (event) => {
               $("#billEmail").attr("readonly", true);
               $("#billEmailPassword").attr("readonly", true);
               $("#traviUser").attr("readonly", true);
+              $("#traviEmail").attr("readonly", true);
               $("#traviPassword").attr("readonly", true);
               $("#ccssUser").attr("readonly", true);
+              $("#ccssEmail").attr("readonly", true);
               $("#ccssPassword").attr("readonly", true);
               $("#insUser").attr("readonly", true);
+              $("#insEmail").attr("readonly", true);
               $("#insPassword").attr("readonly", true);
               $("#userCharge").prop("disabled", true);
+              $("#businessRegimen").prop("disabled", true);
               $("#editAccountData").css("display", "inline-flex");
+              $("#exportAccountDataPDF").css("display", "none");
               $("#saveAccountData").css("display", "none");
               $("#businessModal").modal("show");
               $("#businessModalMessage").text("Datos Contables Guardados");
@@ -231,7 +253,7 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveNewActivityData",
+            url: "/business/activity/new",
             data: {
               formData: formData,
             },
@@ -264,7 +286,7 @@ window.addEventListener("load", (event) => {
             error: () => {
               $("#activityFormModal").modal("hide");
               $("#businessModal").modal("show");
-              $("#businessModalMessage").text("Esta actividad no existe");
+              $("#businessModalMessage").text("Actividad no existe");
             },
           });
         }
@@ -290,7 +312,7 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveContactData",
+            url: "/business/contact/new",
             data: {
               formData: formData,
             },
@@ -347,7 +369,7 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveAllContactData",
+            url: "/business/contactData",
             data: {
               formData: formData,
             },
@@ -385,7 +407,7 @@ window.addEventListener("load", (event) => {
           formData = JSON.parse(formData);
           $.ajax({
             type: "POST",
-            url: "/saveTivData",
+            url: "/business/TIV",
             data: {
               formData: formData,
             },

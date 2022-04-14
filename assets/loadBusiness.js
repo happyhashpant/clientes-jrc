@@ -128,6 +128,22 @@ exports.loadBusinessContract = function loadBusinessContract(businessID) {
   });
 };
 
+exports.loadBusinessD140 = function loadBusinessD140(businessID) {
+  var credentials = require("./connection");
+  var mysql = require("mysql2");
+  var connect = mysql.createConnection(credentials);
+  var query = `SELECT * FROM businessd140 WHERE businessID=${businessID} AND status=1`;
+  return new Promise((resolve, reject) => {
+    connect.query(query, (err, result, fields) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(result);
+    });
+    connect.end();
+  });
+};
+
 exports.retrieveOwnerValidation = function (value) {
   var credentials = require("./connection");
   var mysql = require("mysql2");

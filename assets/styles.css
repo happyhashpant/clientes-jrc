@@ -1,16 +1,13 @@
 h1 {
-  margin: 10px;
-  padding-top: 50px;
+  margin-left: 20px;
   text-align: center;
   font-weight: bold;
 }
 h2 {
-  border-bottom: black;
-  border-bottom-style: groove;
-  font-size: 20px;
-  max-width: 80rem;
+  border-bottom: #006622;
+  font-size: 15px;
+  margin-left: 10px;
   left: -5%;
-  margin: 40px auto 10px auto;
 }
 
 html {
@@ -18,7 +15,7 @@ html {
 }
 
 body {
-  background: #fbf6fd;
+  background: #ffffff;
   background-repeat: no-repeat;
   height: 100%;
   color: black;
@@ -26,16 +23,17 @@ body {
   font-family: "Open Sans Condensed", sans-serif;
 }
 input {
-  margin-bottom: 5px;
-  margin-right: 5px;
+  margin-bottom: 10px;
 }
 
 .contentBackground {
-  background-color: #f4f5ff;
+  background-color: #fff;
   border-radius: 10px;
-  padding: 1.5rem 0px 1.5rem 0px;
-  max-width: 80rem;
-  margin: 0 auto;
+}
+
+.tabsBackground {
+  background-color: #ffffff;
+  border-radius: 10px;
   border-style: solid;
 }
 
@@ -49,7 +47,19 @@ input {
 
 .tiv {
   text-align: center;
-  border-style: solid;
+  margin-bottom: 10px;
+}
+.tiv th {
+  border-style: none;
+  background-color: transparent;
+}
+
+.tiv tr {
+  border-style: none;
+}
+
+.tiv th input {
+  padding: 1px;
 }
 
 select {
@@ -66,6 +76,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 th > input {
   text-align: center;
+  margin-bottom: 0px;
 }
 th > input:read-only {
   background-color: #cacaca;
@@ -87,6 +98,7 @@ th > input:read-only {
 }
 
 label {
+  font-size: small;
   font-weight: bold;
   margin: 5px 0px 0px 10px;
   color: rgb(41, 41, 41);
@@ -94,16 +106,8 @@ label {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 600px) {
-  .bill,
-  .ownerName,
-  .ownerID {
-    margin-top: 60px;
-  }
-  .billEmail {
-    margin-top: 0;
-  }
   input {
-    width: 50px;
+    width: 70px;
   }
 }
 
@@ -123,8 +127,6 @@ img {
 .editButtons {
   margin: 5px;
   border-radius: 10px;
-  max-width: 80rem;
-  margin: 0 auto;
 }
 
 .editAddActivity {
@@ -185,14 +187,15 @@ img {
   -webkit-font-smoothing: antialiased;
 }
 .button {
-  background-color: rgb(71, 71, 71);
+  background-color: #4090f5;
   color: white;
   text-decoration: none;
-  border-radius: 60px;
+  border-radius: 10px;
   border-color: transparent;
   height: 32px;
   padding: 1px;
   display: inline-flex;
+  margin-left: 10px;
   align-items: center;
   overflow: hidden;
   width: auto;
@@ -232,4 +235,98 @@ img {
 .dataTables_filter input {
   width: 100%;
   margin: 5px;
+}
+tbody > tr:hover {
+  background-color: #4090f5;
+}
+
+.tabsBackground > .row {
+  --bs-gutter-x: 0;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contentTable {
+  margin: 10px;
+}
+.right-tab {
+  border-top-right-radius: 5px;
+}
+.left-tab {
+  border-top-left-radius: 5px;
+}
+
+@media (min-width: 1900px) {
+  .business-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .btn-group,
+  .btn-group-vertical {
+    display: inline-flex;
+  }
+
+  .btn-group-animation {
+    content: "";    
+  }
+  
+  .tab-content {
+    max-height: 75%;
+  }
+  .business-grid-col-span-2 {
+    grid-column: span 2;
+  }
+
+  .business-grid-item:nth-child(1) {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
+  }
+  .business-grid-item:nth-child(2) {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    max-width: 800px;
+    width: 800px;
+  }
+  .business-grid-item:nth-child(3) {
+    grid-column-start: 5;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    width: 800px;
+    max-width: 800px;
+  }
+
+  .business-grid-item-add {
+    width: 800px;
+    max-width: 800px;
+    grid-column-start: 5;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
+  }
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #003311;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(0, 0, 0);
 }

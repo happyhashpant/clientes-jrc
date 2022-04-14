@@ -14,453 +14,704 @@
   <body>
     <div id="navBar"></div>
     <h1>Agregar Sociedad</h1>
-    <div class="addBusinessDIV">
-      <form
-        id="businessForm"
-        action="/addBusiness"
-        class="needs-validation"
-        method="post"
-        novalidate
-      >
-        <!-------------------------------------- datos generales ------------------------->
-        <h2>Datos Generales</h2>
-        <div class="contentBackground">
-          <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                name="businessName"
-                id="businessName"
-                type="text"
-                class="form-control"
-                placeholder="Nombre"
-                required
-              />
-              <label for="businessName">Nombre*</label>
+
+    <form
+      id="businessForm"
+      action="/business"
+      class="needs-validation"
+      method="post"
+      novalidate
+    >
+      <div class="addBusinessDIV business-grid">
+        <!-------------------------------------- Account Data Tab ------------------------->
+        <div class="contentBackground business-grid-item">
+          <div class="contentBackground">
+            <div class="row">
+              <div class="col-md-4 form-floating">
+                <input
+                  name="businessName"
+                  id="businessName"
+                  type="text"
+                  class="form-control"
+                  placeholder="Nombre de la sociedad"
+                  required
+                />
+                <label for="businessName">Nombre*</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="number"
+                  id="businessID"
+                  class="form-control"
+                  name="businessID"
+                  placeholder="Cédula Jurídica"
+                  onblur="validateBusinessID(this.value)"
+                  onkeypress="limit(event,this.value,10)"
+                  required
+                />
+                <label for="inputBusinessID">Cédula*</label>
+                <div class="invalid-feedback">
+                  Ya existe esta cédula jurídica.
+                </div>
+              </div>
             </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="number"
-                id="businessID"
-                class="form-control"
-                name="businessID"
-                placeholder="Cédula"
-                onblur="validateBusinessID(this.value)"
-                onkeypress="limit(event,this.value,12)"
-                required
-              />
-              <label for="inputBusinessID">Cédula*</label>
-              <div class="invalid-feedback">
-                Ya existe esta cédula.
+            <div class="table-responsive">
+              <table class="table table-light table-striped table-bordered tiv">
+                <tr>
+                  <th scope="col">A</th>
+                  <th scope="col">B</th>
+                  <th scope="col">C</th>
+                  <th scope="col">D</th>
+                  <th scope="col">E</th>
+                  <th scope="col">F</th>
+                  <th scope="col">G</th>
+                  <th scope="col">H</th>
+                  <th scope="col">I</th>
+                  <th scope="col">J</th>
+                  <th scope="col">K</th>
+                  <th scope="col">L</th>
+                  <th scope="col">M</th>
+                  <th scope="col">N</th>
+                  <th scope="col">O</th>
+                </tr>
+
+                <tr>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="a"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="b"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="c"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="d"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="e"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="f"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="g"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="h"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="i"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="j"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="k"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="l"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="m"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="n"
+                      required
+                    />
+                  </th>
+                  <th>
+                    <input
+                      oninput="this.value = this.value.toUpperCase()"
+                      onkeypress="limit(event,this.value,2)"
+                      size="1"
+                      type="text"
+                      name="o"
+                      required
+                    />
+                  </th>
+                </tr>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="atvUser"
+                  placeholder="Usuario ATV"
+                  required
+                />
+                <label for="atvUser">Usuario ATV*</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="atvPassword"
+                  name="atvPassword"
+                  placeholder="Contraseña ATV"
+                  required
+                />
+                <label for="atvPassword">Contraseña ATV*</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-floating">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="billEmail"
+                  id="billEmail"
+                  placeholder="Correo de Facturas"
+                  required
+                />
+                <label for="billEmail">Correo de Facturas*</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="billEmailPassword"
+                  id="billEmailPassword"
+                  placeholder="Contraseña del Correo para recepción de Facturas"
+                  required
+                />
+                <label for="billEmailPassword"
+                  >Contraseña del Correo de Facturas*</label
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="billSystem"
+                  id="billSystem"
+                  placeholder="Sistema de Facturación"
+                />
+                <label for="billSystem">Sistema de Facturación</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="billSystemUser"
+                  id="billSystemUser"
+                  placeholder="Usuario del Sistema de Facturación"
+                />
+                <label for="billSystemUser">Usuario de Facturación</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="billSystemPassword"
+                  id="billSystemPassword"
+                  placeholder="Contraseña del Sistema de Facturación"
+                />
+                <label for="billSystemPassword"
+                  >Contraseña de Facturación</label
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="traviUser"
+                  id="traviUser"
+                  placeholder="Usuario Travi"
+                />
+                <label for="traviUser">Usuario Travi</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="traviEmail"
+                  id="traviEmail"
+                  placeholder="Email Travi"
+                />
+                <label for="traviEmail">Email Travi</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="traviPassword"
+                  id="traviPassword"
+                  placeholder="Contraseña Travi"
+                />
+                <label for="traviPassword">Contraseña Travi</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="ccssUser"
+                  id="ccssUser"
+                  placeholder="Usuario CCSS"
+                />
+                <label for="ccssUser">Usuario CCSS</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="ccssEmail"
+                  id="ccssEmail"
+                  placeholder="Email CCSS"
+                />
+                <label for="ccssEmail">Email CCSS</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="ccssPassword"
+                  id="ccssPassword"
+                  placeholder="Contraseña CCSS"
+                />
+                <label for="ccssPassword">Contraseña CCSS</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="insUser"
+                  id="insUser"
+                  placeholder="Usuario INS"
+                />
+                <label for="">Usuario INS</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="insEmail"
+                  id="insEmail"
+                  placeholder="Email INS"
+                />
+                <label for="">Email INS</label>
+              </div>
+              <div class="col-md-4 form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="insPassword"
+                  id="insPassword"
+                  placeholder="Contraseña INS"
+                />
+                <label for="insPassword">Contraseña INS</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 form-floating">
+                <select
+                  name="userCharge"
+                  id="userCharge"
+                  class="form-select"
+                  list="datalistOptions"
+                  autocomplete="off"
+                  required
+                >
+                  <% var i=0; user.forEach(function(data){ %>
+                  <option value="<%=data.id%>"><%=data.userName%></option>
+                  <% i++; }) %>
+                </select>
+                <label for="userCharge">Agente*</label>
+              </div>
+              <div class="col-md-2 form-floating">
+                <select
+                  name="businessRegimen"
+                  id="businessRegimen"
+                  class="form-select"
+                  list="datalistOptions"
+                  autocomplete="off"
+                  required
+                >
+                  <option value="1">Tradicional</option>
+                  <option value="0">Simplificado</option>
+                </select>
+                <label for="businessRegimen">Regimen*</label>
               </div>
             </div>
           </div>
         </div>
-        <!-------------------------------------- owmer Data ------------------------->
-        <!------------- owmer Data Button ------------------------->
-        <h2>Representante Legal</h2>
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="addOwnerButton"
-            data-bs-toggle="modal"
-            data-bs-target="#ownerFormModal"
-          >
-            <i class="material-icons">add</i>
-            <span class="text">Agregar representante</span>
-          </button>
-        </div>
-        <div class="contentBackground">
-          <div id="addOwner"></div>
-        </div>
+        <!-------------------------------------- Owner/Contact/Activity Tab ------------------------->
+        <div class="tabsBackground business-grid-item-add">
+          <div class="row">
+            <ul
+              class="nav nav-tabs justify-content-center"
+              id="businessInformationTab"
+              role="tablist"
+            >
+              <li class="nav-item col" role="presentation">
+                <!-------------------------------------- owmer Data ------------------------->
+                <button
+                  class="nav-link left-tab active"
+                  id="owner-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#owner-content"
+                  type="button"
+                  role="tab"
+                  aria-controls="owner-content"
+                  aria-selected="true"
+                >
+                  Representantes Legales
+                </button>
+              </li>
+              <li class="nav-item col" role="presentation">
+                <!-------------------------------------- Contact ------------------------->
+                <button
+                  class="nav-link"
+                  id="contact-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#contact-content"
+                  type="button"
+                  role="tab"
+                  aria-controls="contact-content"
+                  aria-selected="false"
+                >
+                  Contactos
+                </button>
+              </li>
+              <li class="nav-item col" role="presentation">
+                <!-------------------------------------- Activity ------------------------->
+                <button
+                  class="nav-link right-tab"
+                  id="activity-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#activity-content"
+                  type="button"
+                  role="tab"
+                  aria-controls="activity-content"
+                  aria-selected="false"
+                >
+                  Actividad Economica
+                </button>
+              </li>
+            </ul>
+          </div>
 
-        <h2>Datos contables</h2>
+          <div class="tab-content" id="business-tab-content">
+            <!-------------------------------------- Owner Tab Content  ------------------------->
+            <div
+              class="tab-pane fade show active"
+              id="owner-content"
+              role="tabpanel"
+              aria-labelledby="owner-content"
+            >
+              <div class="editButtons">
+                <button
+                  type="button"
+                  class="button"
+                  id="addOwnerButton"
+                  data-bs-toggle="modal"
+                  data-bs-target="#ownerFormModal"
+                >
+                  <i class="material-icons">add</i>
+                  <span class="text">Agregar representante</span>
+                </button>
+              </div>
+              <div id="addOwner"></div>
+            </div>
+            <!-------------------------------------- Contact Tab Content ------------------------->
+            <div
+              class="tab-pane fade"
+              id="contact-content"
+              role="tabpanel"
+              aria-labelledby="contact-content"
+            >
+              <div class="editButtons">
+                <button
+                  type="button"
+                  class="button"
+                  id="addContactButton"
+                  data-bs-toggle="modal"
+                  data-bs-target="#contactFormModal"
+                >
+                  <i class="material-icons">add</i>
+                  <span class="text">Agregar contacto</span>
+                </button>
+              </div>
 
-        <div class="contentBackground">
-          <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="atvUser"
-                placeholder="Usuario ATV"
-                required
-              />
-              <label for="atvUser">Usuario ATV*</label>
+              <div id="addContact"></div>
             </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                id="atvPassword"
-                name="atvPassword"
-                placeholder="Contraseña ATV"
-                required
-              />
-              <label for="atvPassword">Contraseña ATV*</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="billSystem"
-                id="billSystem"
-                placeholder="Sistema de Facturación"
-              />
-              <label for="billSystem">Sistema de Facturación</label>
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="billSystemUser"
-                id="billSystemUser"
-                placeholder="Usuario del Sistema de Facturación"
-              />
-              <label for="billSystemUser"
-                >Usuario del Sistema de Facturación</label
-              >
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="billSystemPassword"
-                id="billSystemPassword"
-                placeholder="Contraseña del Sistema de Facturación"
-              />
-              <label for="billSystemPassword"
-                >Contraseña del Sistema de Facturación</label
-              >
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                type="email"
-                class="form-control"
-                name="billEmail"
-                id="billEmail"
-                placeholder="Correo de Facturas"
-                required
-              />
-              <label for="billEmail">Correo de Facturas*</label>
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="billEmailPassword"
-                id="billEmailPassword"
-                placeholder="Contraseña del Correo para recepción de Facturas"
-                required
-              />
-              <label for="billEmailPassword"
-                >Contraseña del Correo de Facturas*</label
-              >
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="traviUser"
-                id="traviUser"
-                placeholder="Usuario Travi"
-              />
-              <label for="traviUser">Usuario Travi</label>
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="traviPassword"
-                id="traviPassword"
-                placeholder="Contraseña Travi"
-              />
-              <label for="traviPassword">Contraseña Travi</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="ccssUser"
-                id="ccssUser"
-                placeholder="Usuario CCSS"
-              />
-              <label for="">Usuario CCSS</label>
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="ccssPassword"
-                id="ccssPassword"
-                placeholder="Contraseña CCSS"
-              />
-              <label for="ccssPassword">Contraseña CCSS</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="insUser"
-                id="insUser"
-                placeholder="Usuario INS"
-              />
-              <label for="">Usuario INS</label>
-            </div>
-            <div class="col-md-4 form-floating">
-              <input
-                type="text"
-                class="form-control"
-                name="insPassword"
-                id="insPassword"
-                placeholder="Contraseña INS"
-              />
-              <label for="insPassword">Contraseña INS</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 form-floating">
-              <select
-                name="userCharge"
-                id="userCharge"
-                class="form-select"
-                list="datalistOptions"
-                autocomplete="off"
-                required
-              >
-                <% var i=0; user.forEach(function(data){ %>
-                <option value="<%=data.id%>"><%=data.userName%></option>
-                <% i++; }) %>
-              </select>
-              <label for="userCharge">Agente encargado*</label>
+            <!-------------------------------------- Activity Tab Content ------------------------->
+            <div
+              class="tab-pane fade"
+              id="activity-content"
+              role="tabpanel"
+              aria-labelledby="activity-content"
+            >
+              <div class="editButtons">
+                <button
+                  type="button"
+                  class="button"
+                  id="addActivityButton"
+                  data-bs-toggle="modal"
+                  data-bs-target="#activityFormModal"
+                >
+                  <i class="material-icons">add</i>
+                  <span class="text">Agregar Actividad</span>
+                </button>
+              </div>
+              <div id="addActivity"></div>
             </div>
           </div>
         </div>
-        <h2>Actividad Económica</h2>
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="addActivityButton"
-            data-bs-toggle="modal"
-            data-bs-target="#activityFormModal"
-          >
-            <i class="material-icons">add</i>
-            <span class="text">Agregar Actividad</span>
-          </button>
+        <!--------------------- Tabs for Picture/Cotizacion/d-140 -->
+        <!-- <div class="tabsBackground business-grid-item">
+          <div class="row">
+            <ul class="nav nav-tabs" id="filesTab" role="tablist">
+            
+              <li class="nav-item col" role="presentation">
+                <button
+                  class="nav-link active left-tab"
+                  id="picture-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#picture-content"
+                  type="button"
+                  role="tab"
+                  aria-controls="picture-content"
+                  aria-selected="true"
+                >
+                  Logo (png/jpeg)
+                </button>
+              </li>
+             
+              <li class="nav-item col" role="presentation">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#contract-content"
+                  type="button"
+                  role="tab"
+                  aria-controls="contract-content"
+                  aria-selected="false"
+                >
+                  Cotización (PDF)
+                </button>
+              </li>
+             
+              <li class="nav-item col" role="presentation">
+                <button
+                  class="nav-link right-tab"
+                  id="d140-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#d140-content"
+                  type="button"
+                  role="tab"
+                  aria-controls="d140-content"
+                  aria-selected="false"
+                >
+                  D-140
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content" id="myTabContent">
+            
+            <div
+              class="tab-pane fade show active"
+              id="picture-content"
+              role="tabpanel"
+              aria-labelledby="picture-content"
+            >
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="file"
+                    id="businessPicture"
+                    class="form-control"
+                    name="businessPicture"
+                    accept="image/jpeg, image/png"
+                  />
+                </div>
+              </div>
+            </div>
+          
+            <div
+              class="tab-pane fade"
+              id="contract-content"
+              role="tabpanel"
+              aria-labelledby="contract-content"
+            >
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="file"
+                    id="businessContact"
+                    class="form-control"
+                    name="businessContract"
+                    accept="application/pdf"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="d140-content"
+              role="tabpanel"
+              aria-labelledby="d140-content"
+            >
+              <div class="row">
+                <div class="col-md-12">
+                  <input
+                    type="file"
+                    id="businessD140"
+                    class="form-control"
+                    name="businessContract"
+                    accept="application/pdf"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <button id="submit" type="submit" class="btn btn-dark col-md-12">
+        Agregar Sociedad
+      </button>
+    </form>
+    <!------------------------------------- Messages Modal --------------------------------------->
+    <div
+      class="modal fade"
+      id="businessModal"
+      tabindex="-1"
+      aria-labelledby="businessModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="businessModalTitle">Mensaje:</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="businessModalMessage"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Entiendo
+            </button>
+          </div>
         </div>
-        <div class="contentBackground">
-          <div id="addActivity"></div>
-        </div>
-
-        <h2>TIV*</h2>
-        <div class="table-responsive">
-          <table class="table table-dark table-striped table-bordered tiv">
-            <tr>
-              <th scope="col">A</th>
-              <th scope="col">B</th>
-              <th scope="col">C</th>
-              <th scope="col">D</th>
-              <th scope="col">E</th>
-              <th scope="col">F</th>
-              <th scope="col">G</th>
-              <th scope="col">H</th>
-              <th scope="col">I</th>
-              <th scope="col">J</th>
-              <th scope="col">K</th>
-              <th scope="col">L</th>
-              <th scope="col">M</th>
-              <th scope="col">N</th>
-              <th scope="col">O</th>
-            </tr>
-
-            <tr>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="a"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="b"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="c"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="d"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="e"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="f"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="g"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="h"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="i"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="j"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="k"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="l"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="m"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="n"
-                  required
-                />
-              </th>
-              <th>
-                <input
-                  oninput="this.value = this.value.toUpperCase()"
-                  onkeypress="limit(event,this.value,2)"
-                  size="1"
-                  type="text"
-                  name="o"
-                  required
-                />
-              </th>
-            </tr>
-          </table>
-        </div>
-
-        <h2>Contactos</h2>
-        <div class="editButtons">
-          <button
-            type="button"
-            class="button"
-            id="addContactButton"
-            data-bs-toggle="modal"
-            data-bs-target="#contactFormModal"
-          >
-            <i class="material-icons">add</i>
-            <span class="text">Agregar contacto</span>
-          </button>
-        </div>
-        <div class="contentBackground">
-          <div id="addContact"></div>
-        </div>
-        <button id="submit" type="submit" class="btn btn-dark col-md-12">
-          Agregar Sociedad
-        </button>
-      </form>
+      </div>
     </div>
-
+    <!----------------------------------------------------------------- Closing Messages Modal ---------------------------------------------->
     <!------------------------------------------ Modals ---------------------------------->
     <!----------------------- Owner Modal ---------------------------------->
     <div
@@ -610,22 +861,25 @@
                     id="deleteActivityButton"
                     type="button"
                     class="hiddenButton button"
-                    onclick="removeOwnerDIV()"
+                    onclick="removeActivityDIV()"
                   >
                     <i class="material-icons">clear</i>
                     <span class="text">Eliminar</span>
                   </button>
                 </div>
-                <select
+                <input
+                  list="activitiesList"
                   name="businessActivity"
-                  id="activity"
+                  id="businessActivity"
                   class="form-select"
                   required
-                >
-                  <% var j=0; activity.forEach(function(datas){ %>
-                  <option value="<%=datas.id%>"><%=datas.activityName%></option>
+                />
+                <datalist id="activitiesList">
+                  <% const activities = activity; var j=0;
+                  activity.forEach(function(datas){ %>
+                  <option value="<%=datas.id%> <%=datas.activityName%>"></option>
                   <% j++; }) %>
-                </select>
+                </datalist>
               </div>
             </form>
           </div>

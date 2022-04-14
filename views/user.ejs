@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <script src="/assets/jquery-3.6.0.min.js"></script>
-    <script src="/assets/bootstrap.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
     <script defer src="/assets/functions.js"></script>
-    <link rel="stylesheet" href="/assets/bootstrap.css" />
+    <link rel="stylesheet" href="/assets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="icon" href="/assets/logo.png" />
     <link
@@ -40,9 +41,8 @@
             <% var i=1; objects.forEach(function(data){%>
             <tr
               class="clickable"
-              onclick="loadUser('<%=data.id%>')"
-              onauxclick="loadUser2('<%=data.id%>')"
-              ;
+              onclick=""
+              ondblclick="loadUser('<%=data.id%>')"
             >
               <td><%=data.userName%></td>
               <td><%=data.userPhone%></td>
