@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/new", checkRole(), (req, res) => {
+router.get("/new", checkRole, (req, res) => {
   res.render("addUser");
 });
 
