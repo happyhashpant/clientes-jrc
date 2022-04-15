@@ -3,7 +3,7 @@ const session = require("express-session");
 const todoController = require("./controllers/todoController");
 const cookie = require("cookie-parser");
 const app = express();
-const { checkSignIn, checkRole } = require("./assets/asyncFunction");
+const { checkSignIn} = require("./assets/asyncFunction");
 const bodyParser = require("body-parser");
 
 app.set("view engine", "ejs");
@@ -25,7 +25,6 @@ const publicRouter = require("./routes/public");
 app.use("/", publicRouter);
 
 app.use(checkSignIn);
-app.use(checkRole);
 
 const userRouter = require("./routes/user");
 

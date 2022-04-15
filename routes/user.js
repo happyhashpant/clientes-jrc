@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const { checkSignIn, checkRole } = require(path.join(
+const { checkRole } = require(path.join(
   __dirname,
   "../assets/asyncFunction.js"
 ));
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/new", (req, res) => {
+router.get("/new", checkRole(), (req, res) => {
   res.render("addUser");
 });
 
