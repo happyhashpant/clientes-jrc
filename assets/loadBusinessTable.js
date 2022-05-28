@@ -3,6 +3,8 @@ exports.loadBusinessTable = function (user, role) {
     var credentials = require("./connection");
     var mysql = require("mysql2");
     var connect = mysql.createConnection(credentials);
+    console.log(user);
+    console.log(role);
     if (role == 1) {
       var query = `SELECT * FROM business;`;
     } else {

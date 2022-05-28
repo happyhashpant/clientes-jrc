@@ -79,7 +79,6 @@ function checkSignIn(req, res, next) {
     res.user = 1;
     next();
   } else {
-    var err = new Error("Not logged in!");
     res.render("index");
   }
 }
@@ -88,7 +87,6 @@ function checkRole(req, res, next) {
   if (req.session.role == 1) {
     next();
   } else {
-    var err = new Error("Not logged in!");
     res.render("401");
   }
 }
@@ -188,7 +186,7 @@ async function addNewBusiness(req) {
   await insertBusiness.addBusiness(formData);
   setTimeout(async function () {
     await insertBusiness.addBusinessOwner(ownerArray, formData.businessID);
-    await insertBusiness.addBusinessContact(contactArray, formData.businessID);    
+    await insertBusiness.addBusinessContact(contactArray, formData.businessID);
     await insertBusiness.addBusinessActivity(
       activityArray,
       formData.businessID
@@ -231,6 +229,7 @@ async function login(req, res) {
       .then((res) => {
         if (res) {
           req.session.user = password[0].id;
+          console.log(password);
           req.session.role = password[0].userPermission;
         } else {
           res.redirect("/login");
