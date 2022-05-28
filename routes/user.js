@@ -10,6 +10,7 @@ const loadUserTable = require(path.join(
   "../assets/loadUserTable.js"
 ));
 const loadUser = require(path.join(__dirname, "../assets/loadUser.js"));
+const insertUser = require(path.join(__dirname, "../assets/insertNewUser.js"))
 
 // get methods
 router.get("/", (req, res) => {
